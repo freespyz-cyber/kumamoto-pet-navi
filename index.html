@@ -42,6 +42,17 @@
     .chips { display:flex; gap:10px; flex-wrap:wrap; margin:22px 0 30px; }
     .chip { padding:8px 15px; border:1px solid var(--line); border-radius:3px; color:var(--green); background:#fff; font-weight:800; font-size:13px; }
     .chip.active { background:var(--navy); color:#fff; border-color:var(--navy); }
+    .region-tools,.intent-nav { display:flex; gap:10px; flex-wrap:wrap; }
+    .region-tools { margin:22px 0 10px; align-items:center; }
+    .region-label { color:var(--muted); font-size:12px; font-weight:800; margin-right:4px; }
+    .region-pill,.intent-link { border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--green); font-weight:800; font-size:13px; padding:9px 14px; }
+    .region-pill.active,.intent-link.primary { background:var(--forest); border-color:var(--forest); color:#fff; }
+    .region-pill.soon { color:#8d928c; background:#f5f3ee; }
+    .intent-nav { margin:0 0 28px; }
+    .intent-link { text-decoration:none; }
+    .status { display:inline-block; margin-top:10px; padding:5px 9px; border-radius:999px; font-size:11px; font-weight:900; }
+    .status.confirmed { background:#dfece2; color:#245746; }
+    .status.check { background:#f6e8cf; color:#80612a; }
     .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
     .card { border:1px solid var(--line); border-radius:4px; overflow:hidden; background:#fff; transition:transform .2s, box-shadow .2s; }
     .card:hover { transform:translateY(-3px); box-shadow:0 12px 24px #52685418; }
@@ -68,18 +79,20 @@
     .hero h1 em{color:var(--clay);font-style:normal}
     .section{max-width:1180px;padding-left:28px;padding-right:28px}
     .section h2{letter-spacing:-.04em;font-size:clamp(26px,4vw,38px)}
-    .cards{gap:20px}.card{border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(38,48,43,.045);transition:transform .2s ease,box-shadow .2s ease}
+    .cards{gap:20px}.card{border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(38,48,43,.045);transition:transform .2s ease,box-shadow .2s ease}.cards .card:nth-child(4n+1) .card-img{background:linear-gradient(145deg,#dcebe0,#b9d3c3)}.cards .card:nth-child(4n+2) .card-img{background:linear-gradient(145deg,#f4dfc8,#e8b98f)}.cards .card:nth-child(4n+3) .card-img{background:linear-gradient(145deg,#f1d9d4,#d9a9a0)}.cards .card:nth-child(4n) .card-img{background:linear-gradient(145deg,#d9e3ec,#a9c3d6)}
     .card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(38,48,43,.1)}
-    .card-img{border-radius:10px;background:linear-gradient(145deg,#dfe9df,#f0d8bb);min-height:120px}
+    .card-img{border-radius:10px;background:linear-gradient(145deg,#dfe9df,#f0d8bb);min-height:120px;background-size:cover;background-position:center;position:relative;overflow:hidden}.card-img:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(20,35,29,.28));pointer-events:none}.card-img span{position:relative;z-index:1}
     .tag{letter-spacing:.08em;font-size:10px}
     .note,.feature-box{border-radius:12px}
     footer{letter-spacing:.04em}
     .hero{max-width:1180px;margin:0 auto;padding:110px 28px 120px;position:relative;overflow:hidden;background:radial-gradient(circle at 78% 38%,#dbe9dc 0 18%,transparent 18.5%),linear-gradient(135deg,#fffdf9 0%,#f0e6d8 100%);border-radius:0 0 34px 34px}
     .hero:after{content:'KUMAMOTO';position:absolute;right:-20px;bottom:-36px;color:rgba(35,77,67,.06);font:900 clamp(80px,16vw,190px)/1 Georgia,serif;letter-spacing:-.08em;pointer-events:none}
-    .hero>div:first-child{position:relative;z-index:1;max-width:650px}.hero-art{position:absolute!important;right:11%;top:22%;z-index:1;font-size:clamp(130px,20vw,260px);filter:drop-shadow(0 18px 12px rgba(35,77,67,.15));transform:rotate(-5deg)}
+    .hero-art-label{position:absolute;left:24px;top:24px;color:#fff;font-size:11px;letter-spacing:.18em;font-weight:900;writing-mode:vertical-rl;opacity:.9;text-shadow:0 1px 4px #234d43}
+    .hero>div:first-child{position:relative;z-index:1;max-width:650px}.hero-art{position:absolute!important;right:5%;top:14%;z-index:1;width:43%;height:72%;min-height:320px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(35,77,67,.16));border-radius:28px 28px 8px 28px;font-size:clamp(100px,14vw,190px);filter:drop-shadow(0 18px 12px rgba(35,77,67,.15));transform:rotate(2deg);overflow:hidden}.hero-photo{display:block;width:100%;height:100%;object-fit:cover;object-position:center center}
     .search{display:flex;max-width:620px;background:#fff;border:1px solid #d8d4ca;border-radius:999px;padding:6px;box-shadow:0 10px 26px rgba(35,77,67,.1);position:relative;z-index:2}.search input{border:0;background:transparent;padding:13px 18px;flex:1;min-width:0;font-size:14px;outline:0}.search button{border:0;border-radius:999px;background:var(--forest);color:#fff;padding:0 25px;font-weight:900;cursor:pointer}.regional-cafe-link{position:absolute;left:28px;top:100%;color:var(--forest);font-size:11px;font-weight:800;text-decoration:none;white-space:nowrap}
     @media(max-width:750px){.hero{padding:70px 20px 90px;border-radius:0 0 24px 24px}.hero-art{right:-12px;top:30%;font-size:120px;opacity:.35}.search{max-width:100%}.regional-cafe-link{display:none}}
-    @media(max-width:760px){header .nav{display:block;padding:14px 18px}.brand{display:block;margin-bottom:12px}nav{display:flex!important;gap:7px;overflow-x:auto;white-space:nowrap;padding-bottom:5px;scrollbar-width:none}nav::-webkit-scrollbar{display:none}nav a{background:#f0f3ee;border-radius:999px;padding:6px 10px;font-size:11px}.nav-cta{position:absolute;right:18px;top:13px!important;padding:7px 10px!important;font-size:11px!important}.nav .brand span{display:block}}
+    @media(max-width:760px){header .nav{display:block;padding:14px 18px}body{overflow-x:hidden}.brand{display:block;margin-bottom:12px}nav{display:flex!important;gap:7px;overflow-x:auto;white-space:nowrap;padding-bottom:5px;scrollbar-width:none}nav::-webkit-scrollbar{display:none}nav a{background:#f0f3ee;border-radius:999px;padding:6px 10px;font-size:11px}.nav-cta{position:absolute;right:18px;top:13px!important;padding:7px 10px!important;font-size:11px!important}.nav .brand span{display:block}.hero h1{font-size:clamp(38px,11vw,54px);letter-spacing:-.07em}.hero .lead{font-size:15px;line-height:1.8}.hero-art{pointer-events:none;width:58%;height:46%;min-height:180px;right:-12px;top:34%;border-radius:20px 20px 6px 20px}.search{padding:5px}.search input{padding:12px 13px;font-size:14px}.search button{min-height:44px;padding:0 17px}.region-tools{gap:7px}.region-pill,.intent-link{font-size:12px;padding:8px 11px}.intent-nav{gap:7px;margin-bottom:22px}.cards .card-img{min-height:150px}.card-body{padding:16px}.card h3{font-size:17px;line-height:1.45}}
+    @media(max-width:420px){.topbar{font-size:10px;letter-spacing:.08em}.nav-cta{font-size:10px!important}.hero{padding-left:16px;padding-right:16px}.hero-art{right:-34px;top:38%;font-size:100px}.search input{width:0}.search button{padding:0 15px}.region-label{width:100%}}
   </style>
 </head>
 <body>
@@ -87,46 +100,50 @@
   <header>
     <div class="nav">
       <a class="brand" href="#top">熊本ペットナビ<span>KUMAMOTO PET NAVI</span></a>
-      <nav><a href="guide.html">ペット生活ガイド</a><a href="welcome-pet.html">迎える</a><a href="cat-life.html">猫</a><a href="small-pets.html">小動物</a><a href="pet-friendly-places.html">場所を探す</a><a href="areas.html">エリア別</a><a href="pet-friendly-housing.html">住まい</a><a href="pet-transport.html">移動</a><a href="vets.html">病院</a><a href="pet-insurance.html">保険</a><a href="pet-sitter.html">シッター</a><a href="pet-food.html">食事</a><a href="care.html">ケア</a><a href="pet-events.html">イベント・譲渡会</a><a href="community.html">仲間</a></nav>
+      <nav><a href="guide.html">ペット生活ガイド</a><a href="welcome-pet.html">迎える</a><a href="cat-life.html">猫</a><a href="small-pets.html">小動物</a><a href="pet-friendly-places.html">場所を探す</a><a href="areas.html">エリア別</a><a href="pet-stays.html">一緒に泊まる</a><a href="pet-hotels.html">預ける</a><a href="pet-friendly-housing.html">住まい</a><a href="pet-transport.html">移動</a><a href="vets.html">病院</a><a href="pet-insurance-selector.html">保険</a><a href="pet-sitter.html">シッター</a><a href="pet-food.html">食事</a><a href="care.html">ケア</a><a href="pet-events.html">イベント・譲渡会</a><a href="community.html">仲間</a></nav>
       <a class="nav-cta" href="submit.html">情報を教える</a>
       <a class="regional-cafe-link" href="pet-cafes-regional.html">熊本市外のペット同伴カフェを見る →</a>
+      <a href="sitemap.html" style="display:inline-block;margin-top:10px;color:#234d43;font-size:13px;font-weight:900">全ページ一覧（サイトマップ） →</a>
     </div>
   </header>
   <div id="top" class="hero">
     <div>
-      <div class="eyebrow">PET LIFE IN KUMAMOTO</div>
-      <h1>ペットと入れる<br><em>場所</em>を探そう。</h1>
-      <p class="lead">「ペット可」だけでは分からない、店内OK・テラスのみ・オムツ必須などのリアルな条件まで。熊本でペットと過ごす場所を見つけるナビです。</p>
+      <div class="eyebrow">PET LIFE IN KYUSHU</div>
+      <h1>ペットと行ける<br><em>場所</em>を探そう。</h1>
+      <p class="lead">「ペット可」だけでは分からない、店内OK・テラスのみ・オムツ必須などのリアルな条件まで。まずは熊本から、九州でペットと過ごす場所を見つけるナビです。</p>
       <form class="search" onsubmit="return searchDemo(event)"><input id="q" placeholder="例：阿蘇 犬連れランチ／熊本市 ドッグラン"><button>検索</button></form>
+      <div class="region-tools" aria-label="地域を選ぶ"><span class="region-label">エリア</span><a class="region-pill active" href="index.html">熊本県</a><span class="region-pill soon">福岡県 準備中</span><span class="region-pill soon">九州全体 準備中</span></div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;font-size:12px;font-weight:800;color:#234d43;"><span style="background:#dfe9e1;padding:6px 10px;border-radius:999px;">✓ 公式情報を確認</span><span style="background:#f3e7d4;padding:6px 10px;border-radius:999px;">✓ 条件まで掲載</span><span style="background:#f0deda;padding:6px 10px;border-radius:999px;">✓ 情報提供受付中</span></div>
     </div>
-    <div class="hero-art" aria-label="ペットの肉球モチーフ">🐾</div>
+    <div class="hero-art" aria-label="人とロングコートチワワが熊本の公園を歩くイメージ"><img class="hero-photo" src="assets/hero-walk.png?chihuahua=1" alt="熊本の公園を歩く人とロングコートチワワ"><span class="hero-art-label">ASO · AMAKUSA · KUMAMOTO</span></div>
   </div>
   <div style="max-width:1160px;margin:0 auto;padding:0 24px 20px;display:flex;flex-wrap:wrap;gap:10px;"><span style="background:#fffdf9;border:1px solid #dddcd5;padding:8px 12px;font-size:12px;font-weight:800;color:#234d43;">新着掲載 10件</span><span style="background:#fffdf9;border:1px solid #dddcd5;padding:8px 12px;font-size:12px;font-weight:800;color:#234d43;">公式情報を確認</span><span style="background:#fffdf9;border:1px solid #dddcd5;padding:8px 12px;font-size:12px;font-weight:800;color:#234d43;">掲載情報を募集中</span></div>
   <main>
-    <div style="max-width:1160px;margin:auto;padding:18px 24px 0"><a href="emergency-help.html" style="display:block;background:#f2ddd4;border-left:4px solid #bd6d57;padding:13px 16px;color:#5b3027;font-size:13px;font-weight:800">ペットの急な困りごと？ 夜間病院・移動・防災・迷子対策を見る →</a></div>
+    <div style="max-width:1160px;margin:auto;padding:18px 24px 0"><a href="today-with-pet.html" style="display:block;background:#bd6d57;color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:10px;font-size:20px;font-weight:900;box-shadow:0 8px 20px rgba(35,77,67,.12)">今日、ペットとどこへ行く？ <span style="font-size:14px;font-weight:700;margin-left:8px">食事・遊び・散歩・雨の日・キャンプから選べます →</span></a><a href="pet-insurance-selector.html" style="display:block;background:#f4eee4;color:#234d43;border-left:4px solid #c9a45b;padding:13px 16px;margin-bottom:10px;font-size:13px;font-weight:800">もしもの備え｜ペット保険を目的別に比較する →</a><a href="emergency-help.html" style="display:block;background:#f2ddd4;border-left:4px solid #bd6d57;padding:13px 16px;color:#5b3027;font-size:13px;font-weight:800">ペットの急な困りごと？ 夜間病院・移動・防災・迷子対策を見る →</a></div>
     <section id="find" class="section">
-      <div class="section-head"><div><h2>今日、どこへ行く？</h2><p>目的から探せます。</p></div><a class="more" href="#find">すべて見る →</a></div>
-      <div class="chips"><a class="chip active" href="pet-friendly-places.html">すべて</a><a class="chip" href="pet-friendly-places.html">遊ぶ</a><a class="chip" href="pet-friendly-places.html">食べる</a><a class="chip" href="pet-friendly-places.html">泊まる</a><a class="chip" href="pet-friendly-places.html">観光</a><a class="chip" href="areas.html">エリア別</a></div>
+      <div class="section-head"><div><h2>今日、どこへ行く？</h2><p>目的から探せます。</p></div><a class="more" href="pet-friendly-places.html">すべて見る →</a></div>
+      <div class="chips"><a class="chip active" href="pet-friendly-places.html">すべて</a><a class="chip" href="dog-run-candidates.html">遊ぶ</a><a class="chip" href="pet-cafes.html">食べる</a><a class="chip" href="pet-stays.html">泊まる</a><a class="chip" href="pet-tourism.html">観光</a><a class="chip" href="areas.html">エリア別</a></div>
+      <nav class="intent-nav" aria-label="目的から探す"><a class="intent-link primary" href="pet-cafes.html">🍽 食べる</a><a class="intent-link" href="dog-run-candidates.html">🐕 遊ぶ</a><a class="intent-link" href="pet-stays.html">🛏 泊まる</a><a class="intent-link" href="parks.html">🌿 散歩・公園</a><a class="intent-link" href="pet-friendly-places.html">☔ 雨の日</a><a class="intent-link" href="pet-travel-plans.html">🏕 キャンプ・お出かけ</a></nav>
       <div class="cards">
-        <a class="card" href="pet-friendly-places.html"><div class="card-img">🌿</div><div class="card-body"><div class="tag">特集｜熊本県内</div><h3>ペットと入れる場所</h3><p>店内OK？テラスだけ？行く前に知りたい条件をまとめました。</p></div></a>
-        <a class="card" href="#stories"><div class="card-img">🏕️</div><div class="card-body"><div class="tag">泊まる｜阿蘇</div><h3>犬と楽しむ阿蘇旅</h3><p>自然の中で遊べる宿・キャンプ・観光スポットを特集。</p></div></a>
-        <a class="card" href="#stories"><div class="card-img">🍽️</div><div class="card-body"><div class="tag">食べる｜熊本県内</div><h3>意外と入れるお店</h3><p>店内OK？テラスだけ？行く前に知りたい条件を紹介。</p></div></a>
-        <a class="card" href="trusted-pet-shops.html"><div class="card-img">✓</div><div class="card-body"><div class="tag">確認済み</div><h3>信頼できるペット関連先</h3><p>自治体公式・登録確認など、出典が分かる情報をまとめています。</p></div></a>
-        <a class="card" href="pet-cafes-regional.html"><div class="card-img">☕</div><div class="card-body"><div class="tag">食べる｜阿蘇・天草など</div><h3>市外のペット同伴カフェ</h3><p>熊本市外にもある、ペットと立ち寄れる食事スポットを紹介。</p></div></a>
-        <a class="card" href="pet-travel-plans.html"><div class="card-img">🗺️</div><div class="card-body"><div class="tag">お出かけ特集</div><h3>ペットと行く熊本モデルコース</h3><p>食事・遊び・宿泊を組み合わせて、旅の予定を立てられます。</p></div></a>
+        <a class="card" href="pet-friendly-places.html"><div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=900&q=82')"><span>🌿</span></div><div class="card-body"><div class="tag">特集｜熊本県内</div><h3>ペットと入れる場所</h3><p>店内OK？テラスだけ？行く前に知りたい条件をまとめました。</p><span class="status confirmed">✓ 公式情報を確認</span></div></a>
+        <a class="card" href="pet-stays.html"><div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=82')"><span>🏕️</span></div><div class="card-body"><div class="tag">泊まる｜熊本県内</div><h3>ペットと泊まれる宿</h3><p>ホテル・旅館・リゾートを、ペット同伴条件と一緒に確認できます。</p><span class="status check">△ 予約前に条件確認</span></div></a>
+        <a class="card" href="pet-hotels.html"><div class="card-img" style="background:#dfe9e1;color:#234d43"><span>🛏️</span></div><div class="card-body"><div class="tag">預ける｜一時預かり・お泊まり</div><h3>ペットを預ける</h3><p>旅行や外出、留守中に預けられる施設を探せます。</p></div></a>
+        <a class="card" href="pet-cafes.html"><div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=82')"><span>🍽️</span></div><div class="card-body"><div class="tag">食べる｜熊本県内</div><h3>ペットと入れるお店</h3><p>店内OK？テラスだけ？行く前に知りたい条件を紹介。</p></div></a>
+        <a class="card" href="information-trust.html"><div class="card-img"><span>✓</span></div><div class="card-body"><div class="tag">掲載情報の確認基準</div><h3>情報の出典と確認状況</h3><p>公式情報・自治体情報・要確認の違いを分かりやすく説明します。</p></div></a>
+        <a class="card" href="pet-cafes-regional.html"><div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=900&q=82')"><span>☕</span></div><div class="card-body"><div class="tag">食べる｜阿蘇・天草など</div><h3>市外のペット同伴カフェ</h3><p>熊本市外にもある、ペットと立ち寄れる食事スポットを紹介。</p></div></a>
+        <a class="card" href="pet-travel-plans.html"><div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=82')"><span>🗺️</span></div><div class="card-body"><div class="tag">お出かけ特集</div><h3>ペットと行く熊本モデルコース</h3><p>食事・遊び・宿泊を組み合わせて、旅の予定を立てられます。</p></div></a>
         <a class="card" href="pet-outing-checklist.html"><div class="card-img">✓</div><div class="card-body"><div class="tag">お出かけ準備</div><h3>持ち物チェックリスト</h3><p>水・リード・トイレ用品など、出発前に確認できます。</p></div></a>
-        <a class="card" href="pet-insurance-checklist.html"><div class="card-img">🛡️</div><div class="card-body"><div class="tag">もしもの備え</div><h3>ペット保険チェック</h3><p>通院・入院・手術など、加入前に確認したい条件を整理。</p></div></a>
-        <a class="card" href="pet-shop-checklist.html"><div class="card-img">🐾</div><div class="card-body"><div class="tag">迎える前に</div><h3>ショップ・譲渡先チェック</h3><p>登録情報、健康状態、契約条件を確認できます。</p></div></a>
+        <a class="card" href="pet-insurance-selector.html" style="border:1px solid #e5e1d9;"><div class="card-img" style="background:#e9eee8;color:#234d43">🛡️</div><div class="card-body"><div class="tag">もしもの備え｜目的別比較</div><h3>あなたに合うペット保険</h3><p>通院・入院・手術など、加入前に確認したい条件を整理。</p></div></a>
+        <a class="card" href="pet-supplies.html"><div class="card-img">🛒</div><div class="card-body"><div class="tag">買う｜熊本県内</div><h3>用品・フードを買う場所</h3><p>ホームセンターやペットショップの公式情報を確認できます。</p></div></a>
       </div>
       <div class="note">掲載情報は変更されることがあります。お出かけ前に公式情報・店舗への確認をおすすめします。</div><a href="new-listings.html" style="display:block;background:#234d43;color:#fff;padding:15px 18px;text-align:center;font-weight:900;margin-top:16px;">新着掲載10件を見る →</a>
       <div style="margin-top:18px;background:#edf2ec;border-radius:4px;padding:18px 20px;"><strong style="color:#234d43;">掲載情報の見方</strong><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:13px;"><span style="background:#fffdf9;padding:6px 10px;">店内OK</span><span style="background:#fffdf9;padding:6px 10px;">テラスのみ</span><span style="background:#fffdf9;padding:6px 10px;">要予約</span><span style="background:#fffdf9;padding:6px 10px;">オムツ条件あり</span><span style="background:#fffdf9;padding:6px 10px;">訪問前に要確認</span></div></div>
     </section>
     <section id="stories" class="section" style="background:#fffaf0;">
       <div class="section-head"><div><h2>行ってみないと分からないこと</h2><p>飼い主さんのリアルな体験を集めます。</p></div><a class="more" href="submit.html">体験を投稿 →</a></div>
-      <div class="feature"><div class="feature-box"><h3>「ペット可」の、その先へ。</h3><p>オムツは必要？大型犬は大丈夫？駐車場から遠い？公式情報だけでは分からないポイントを、みんなで共有。</p><a href="#submit">気づいたことを教える →</a></div><div class="feature-box"><h3>熊本のペットSNSニュース</h3><p>InstagramやXで見つけたイベント、お店の最新情報、かわいい仲間たち。公開情報をリンク付きで紹介します。</p><a href="#community">SNS・イベントを見る →</a></div></div>
+      <div class="feature"><div class="feature-box"><h3>「ペット可」の、その先へ。</h3><p>オムツは必要？大型犬は大丈夫？駐車場から遠い？公式情報だけでは分からないポイントを、みんなで共有。</p><a href="#submit">気づいたことを教える →</a></div><div class="feature-box"><h3>公式SNS・最新情報</h3><p>施設や自治体の公式アカウントから、譲渡情報・営業日・イベントなどの最新情報を確認できます。</p><a href="sns.html">公式SNSを見る →</a></div></div>
     </section>
-    <section id="community" class="section"><div class="section-head"><div><h2>ペット仲間と出会う</h2><p>一緒に散歩したり、イベントに参加したり。</p></div><a class="more" href="pet-events.html">イベント・譲渡会を見る →</a></div><div class="cards"><a class="card" href="#submit"><div class="card-img">🐾</div><div class="card-body"><div class="tag">仲間募集</div><h3>一緒にお散歩しませんか？</h3><p>地域・犬種・時間帯から、ゆるくつながる企画。</p></div></a><a class="card" href="pet-events.html"><div class="card-img">🎪</div><div class="card-body"><div class="tag">イベント・譲渡会</div><h3>熊本のペットイベント</h3><p>公式のお知らせを中心に、マルシェや譲渡会を確認。</p></div></a><a class="card" href="#submit"><div class="card-img">📷</div><div class="card-body"><div class="tag">みんなの投稿</div><h3>うちの子と行ってきた</h3><p>写真と一緒に、次に行く人へのメモを残せます。</p></div></a></div></section>
+    <section id="community" class="section"><div class="section-head"><div><h2>ペット仲間と出会う</h2><p>一緒に散歩したり、イベントに参加したり。</p></div><a class="more" href="pet-events.html">イベント・譲渡会を見る →</a></div><div class="cards"><a class="card" href="submit.html"><div class="card-img">🐾</div><div class="card-body"><div class="tag">仲間募集／準備中</div><h3>一緒に散歩しませんか？</h3><p>募集機能は、安全な連絡方法や削除・通報の仕組みを整えてから開始します。</p></div></a><a class="card" href="pet-events.html"><div class="card-img">🎪</div><div class="card-body"><div class="tag">イベント・譲渡会</div><h3>熊本のペットイベント</h3><p>公式のお知らせを中心に、マルシェや譲渡会を確認。</p></div></a><a class="card" href="pet-stories.html"><div class="card-img">📷</div><div class="card-body"><div class="tag">写真・体験談</div><h3>うちの子と行ってきた</h3><p>飼い主さんの目線で、行く前に知りたいことを紹介します。</p></div></a></div></section>
     <section id="submit" class="section" style="padding-top:20px;"><div class="feature-box" style="text-align:center; min-height:auto;"><h3>熊本のペット情報を教えてください</h3><p>おすすめのお店、行って分かった条件、イベント情報を募集中です。</p><a href="submit.html">掲載・投稿について →</a></div></section>
   </main>
   <footer><strong>熊本ペットナビ</strong>熊本で、ペットと暮らす。知りたい・探したいが見つかる。<br><a href="new-listings.html" style="color:inherit;margin:0 8px;">新着掲載</a><a href="sitemap.html" style="color:inherit;margin:0 8px;">サイトマップ</a><a href="about.html" style="color:inherit;margin:0 8px;">運営方針</a><a href="submit.html" style="color:inherit;margin:0 8px;">掲載・情報提供</a><a href="trusted-pet-shops.html" style="color:inherit;margin:0 8px;">確認済み情報</a></footer>
