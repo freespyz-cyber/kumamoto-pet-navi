@@ -1,0 +1,7 @@
+{
+  "name": "kumamoto-pet-navi",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs"
+  }
+}
