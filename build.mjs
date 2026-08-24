@@ -1,4 +1,4 @@
-import { cp, mkdir, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const root = process.cwd();
@@ -18,9 +18,14 @@ const files = (await import("node:fs/promises")).readdir(root);
   }
   await cp(join(root, "package.json"), join(dist, "package.json"));
 
-  await writeFile(join(dist, "server", "index.js"), `export default { async fetch(request, env) {
+  const homepage = JSON.stringify(await readFile(join(root, "index.html"), "utf8"));
+  await writeFile(join(dist, "server", "index.js"), `const homepage = ${homepage};
+export default { async fetch(request, env) {
     const url = new URL(request.url);
     const pathname = url.pathname === "/" || url.pathname === "" ? "/index.html" : url.pathname;
+    if (pathname === "/index.html") {
+      return new Response(homepage, { headers: { "content-type": "text/html; charset=utf-8" } });
+    }
     const direct = await env.ASSETS.fetch(new Request(new URL(pathname, request.url), request));
     if (direct.status !== 404) return direct;
     return env.ASSETS.fetch(new Request(new URL("/dist" + pathname, request.url), request));
