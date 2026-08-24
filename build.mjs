@@ -20,8 +20,8 @@ const files = (await import("node:fs/promises")).readdir(root);
 
   await writeFile(join(dist, "server", "index.js"), `export default { async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === "/") {
-      return env.ASSETS.fetch(new Request(new URL("/index.html", request.url)));
+    if (url.pathname === "/" || url.pathname === "") {
+      return Response.redirect(new URL("/index.html", request.url), 302);
     }
     return env.ASSETS.fetch(request);
   } };\n`);
