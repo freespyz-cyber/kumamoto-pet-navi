@@ -138,6 +138,47 @@
   }
   .hero-photo{object-position:center center;}
 }
+
+/* Mobile hero: keep the image below the copy and never overlap the search area. */
+@media (max-width:760px){
+  .hero{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:24px!important;
+    padding:42px 18px 40px!important;
+  }
+  .hero>div:first-child{
+    width:100%!important;
+    max-width:none!important;
+    position:relative!important;
+    z-index:2!important;
+  }
+  .hero-art{
+    grid-column:1!important;
+    position:relative!important;
+    inset:auto!important;
+    display:block!important;
+    width:100%!important;
+    height:260px!important;
+    min-height:0!important;
+    margin:0!important;
+    opacity:1!important;
+    transform:none!important;
+    overflow:hidden!important;
+    z-index:1!important;
+  }
+  .hero-photo{
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center 52%!important;
+  }
+}
+@media (max-width:420px){
+  .hero-art{height:220px!important;}
+}
 </style>
 </head>
 <body>
