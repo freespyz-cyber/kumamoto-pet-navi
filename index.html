@@ -180,6 +180,97 @@
   .hero-art{height:220px!important;}
 }
 </style>
+<style>
+/* Final hero override: stable desktop/mobile layout. */
+.hero{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(340px,.88fr)!important;
+  gap:clamp(28px,5vw,72px)!important;
+  align-items:center!important;
+  position:relative!important;
+  overflow:hidden!important;
+}
+.hero:after,
+.hero-art:before,
+.hero-art:after{
+  content:none!important;
+  display:none!important;
+}
+.hero>div:first-child{
+  grid-column:1!important;
+  max-width:650px!important;
+  position:relative!important;
+  z-index:2!important;
+}
+.hero-art{
+  grid-column:2!important;
+  position:relative!important;
+  inset:auto!important;
+  left:auto!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:auto!important;
+  display:block!important;
+  width:100%!important;
+  height:clamp(320px,42vw,520px)!important;
+  min-height:320px!important;
+  margin:0!important;
+  opacity:1!important;
+  transform:rotate(2deg)!important;
+  overflow:hidden!important;
+  z-index:1!important;
+}
+.hero-photo{
+  position:relative!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  opacity:1!important;
+  object-fit:cover!important;
+  object-position:center 52%!important;
+}
+.hero-art-label{
+  z-index:2!important;
+  font-size:12px!important;
+  line-height:1.2!important;
+}
+@media(max-width:760px){
+  .hero{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:24px!important;
+    padding:42px 18px 40px!important;
+  }
+  .hero>div:first-child{
+    grid-column:1!important;
+    width:100%!important;
+    max-width:none!important;
+  }
+  .hero-art{
+    grid-column:1!important;
+    position:relative!important;
+    inset:auto!important;
+    width:100%!important;
+    height:240px!important;
+    min-height:240px!important;
+    margin:0!important;
+    transform:none!important;
+  }
+  .hero-photo{object-position:center 52%!important;}
+  .hero-art-label{
+    top:14px!important;
+    right:auto!important;
+    bottom:auto!important;
+    left:14px!important;
+    writing-mode:horizontal-tb!important;
+    transform:none!important;
+    font-size:11px!important;
+  }
+}
+@media(max-width:420px){
+  .hero-art{height:220px!important;min-height:220px!important;}
+}
+</style>
 </head>
 <body>
   <div class="topbar">熊本のペット暮らしを、もっと楽しく、もっと身近に。</div>
