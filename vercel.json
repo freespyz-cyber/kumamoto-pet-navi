@@ -1,5 +1,1 @@
-{
-  "functions": {
-    "api/submissions.js": { "maxDuration": 10 }
-  }
-}
+{"outputDirectory":".","functions":{"api/submissions.js":{"maxDuration":10}}}
