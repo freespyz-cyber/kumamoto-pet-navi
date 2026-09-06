@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ja">
+<head><script async src="https://www.googletagmanager.com/gtag/js?id=G-2BFDPBF4EE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-2BFDPBF4EE");</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="熊本のペット同伴施設、動物病院、イベント、写真などの情報を熊本ペットナビへ送信できます。">
+  <meta name="robots" content="noindex,follow">
+  <title>情報・写真を教える｜熊本ペットナビ</title>
+  <style>
+    :root{--green:#234d43;--green-dark:#173b33;--paper:#f5f2eb;--panel:#fffdf9;--ink:#1f2926;--muted:#68776f;--line:#d8ddd7;--coral:#d96f56;--gold:#d9b35f}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;line-height:1.75}
+    a{color:var(--green)}
+    .wrap{max-width:780px;margin:auto;padding:48px 20px 72px}
+    .brand{display:inline-block;color:var(--green);font-size:20px;font-weight:900;line-height:1.2;text-decoration:none}
+    .brand small{display:block;color:var(--ink);font-size:10px;letter-spacing:.16em}
+    h1{margin:36px 0 14px;font-family:Georgia,"Yu Mincho",serif;font-size:clamp(34px,7vw,58px);line-height:1.18}
+    .lead{max-width:650px;margin:0;color:var(--muted)}
+    .panel{margin-top:30px;padding:clamp(22px,5vw,36px);background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:0 16px 40px rgba(35,77,67,.06)}
+    h2{margin:0 0 6px;font-size:24px}
+    .required-note{margin:0 0 22px;color:var(--muted);font-size:13px}
+    label{display:block;margin-top:20px;font-size:14px;font-weight:800}
+    .required{color:#a53d2f}
+    input,textarea,select{width:100%;margin-top:7px;padding:13px 14px;border:1px solid #c8d0ca;border-radius:9px;background:#fff;color:var(--ink);font:inherit}
+    input:focus,textarea:focus,select:focus{outline:3px solid rgba(35,77,67,.16);border-color:var(--green)}
+    textarea{min-height:130px;resize:vertical}
+    input[type="file"]{padding:10px}
+    .help{display:block;margin-top:6px;color:var(--muted);font-size:12px;font-weight:400}
+    .check{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-weight:500}
+    .check input{width:19px;height:19px;min-width:19px;margin:4px 0 0;accent-color:var(--green)}
+    .check a{font-weight:800;text-decoration:underline;text-underline-offset:3px}
+    .consents{margin-top:24px;padding-top:4px;border-top:1px solid var(--line)}
+    .btn{width:100%;margin-top:26px;padding:14px 20px;border:0;border-radius:999px;background:var(--green);color:#fff;font-size:16px;font-weight:900;cursor:pointer;transition:.15s ease}
+    .btn:hover{background:var(--green-dark);transform:translateY(-1px)}
+    .btn:disabled{opacity:.58;cursor:wait;transform:none}
+    .note{margin-top:20px;padding:14px 17px;border-left:4px solid var(--gold);border-radius:4px;background:#fff9e8;color:#66572e;font-size:13px}
+    .note[data-state="success"]{border-color:#4d8a6e;background:#edf8f1;color:#24553f}
+    .note[data-state="error"]{border-color:var(--coral);background:#fff0ec;color:#853827}
+    .back{display:inline-block;margin-top:28px;font-weight:800;text-decoration-thickness:1px;text-underline-offset:4px}
+    .honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+    @media (max-width:560px){.wrap{padding-top:30px}.panel{border-radius:14px}h1 br{display:none}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="brand" href="/">熊本ペットナビ<small>KUMAMOTO PET NAVI</small></a>
+    <h1>熊本のペット情報を<br>教えてください。</h1>
+    <p class="lead">おすすめの場所、行って分かった条件、イベント情報、ペットとの写真などを募集中です。送信内容は運営者が確認してから掲載を判断します。</p>
+
+    <section class="panel" aria-labelledby="form-title">
+      <h2 id="form-title">掲載候補を教える</h2>
+      <p class="required-note"><span class="required">＊</span>は必須項目です。</p>
+      <form id="submitForm" enctype="multipart/form-data">
+        <div class="honeypot" aria-hidden="true">
+          <label>ウェブサイト<input name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <label for="category">投稿の種類 <span class="required">＊</span></label>
+        <select id="category" name="category" required>
+          <option value="ペットと行ける場所">ペットと行ける場所</option>
+          <option value="動物病院">動物病院</option>
+          <option value="ペットホテル・シッター">ペットホテル・シッター</option>
+          <option value="ドッグラン・遊び場">ドッグラン・遊び場</option>
+          <option value="ペットショップ・用品店">ペットショップ・用品店</option>
+          <option value="ペット可物件・移動サービス">ペット可物件・移動サービス</option>
+          <option value="写真・体験談">写真・体験談</option>
+          <option value="施設情報の修正">施設情報の修正</option>
+        </select>
+
+        <label for="area">エリア <span class="required">＊</span></label>
+        <select id="area" name="area" required>
+          <option value="熊本市">熊本市</option>
+          <option value="阿蘇">阿蘇</option>
+          <option value="天草">天草</option>
+          <option value="県北">県北</option>
+          <option value="県南">県南</option>
+          <option value="熊本県内・その他">熊本県内・その他</option>
+        </select>
+
+        <label for="place">施設名・場所 <span class="required">＊</span></label>
+        <input id="place" name="place" required maxlength="120" placeholder="例：○○カフェ、阿蘇の○○公園">
+
+        <label for="details">知っていること</label>
+        <textarea id="details" name="details" maxlength="3000" placeholder="店内OK、テラスのみ、オムツ必須、訪問した時期など"></textarea>
+
+        <label for="photo">写真（任意）</label>
+        <input id="photo" type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.heic,.heif">
+        <small class="help">JPEG・PNG・WebP・HEIC、最大5MB。施設の許可がある写真、またはご自身で撮影した写真をお願いします。</small>
+
+        <label for="url">公式サイト・SNS（任意）</label>
+        <input id="url" type="url" name="url" maxlength="500" inputmode="url" placeholder="https:// または Instagram URL">
+
+        <label for="contact">連絡先（任意）</label>
+        <input id="contact" name="contact" maxlength="320" placeholder="メールアドレスまたはSNSアカウント">
+        <small class="help">内容確認が必要な場合だけ使用します。サイトには公開しません。</small>
+
+        <div class="consents">
+          <label class="check" for="dataConsent">
+            <input id="dataConsent" type="checkbox" name="dataConsent" value="yes" required>
+            <span>入力内容を運営者が確認し、<a href="/privacy.html" target="_blank" rel="noopener">プライバシー方針</a>に沿って掲載判断に使用することを了承します。 <span class="required">＊</span></span>
+          </label>
+          <label class="check" for="photoConsent">
+            <input id="photoConsent" type="checkbox" name="photoConsent" value="yes">
+            <span>写真を送る場合、掲載前に確認があり、掲載後の削除依頼にも対応することを了承します。</span>
+          </label>
+        </div>
+
+        <button class="btn" id="submitButton" type="submit">情報を送信する</button>
+      </form>
+      <div id="status" class="note" role="status" aria-live="polite">送信内容と写真は運営者だけが確認できます。写真は最大5MBまで送信できます。</div>
+    </section>
+    <a class="back" href="/">← 熊本ペットナビのトップへ</a>
+  </main>
+
+  <script>
+    const form = document.getElementById("submitForm");
+    const photo = document.getElementById("photo");
+    const photoConsent = document.getElementById("photoConsent");
+    const button = document.getElementById("submitButton");
+    const status = document.getElementById("status");
+    const maxPhotoBytes = 5 * 1024 * 1024;
+
+    function showStatus(message, state) {
+      status.textContent = message;
+      status.dataset.state = state || "";
+    }
+
+    photo.addEventListener("change", () => {
+      const file = photo.files && photo.files[0];
+      photoConsent.required = Boolean(file);
+      if (!file) return;
+      if (file.size > maxPhotoBytes) {
+        photo.value = "";
+        photoConsent.required = false;
+        showStatus("写真が5MBを超えています。小さい写真を選んでください。", "error");
+      }
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const file = photo.files && photo.files[0];
+      if (file && file.size > maxPhotoBytes) {
+        showStatus("写真は5MB以内にしてください。", "error");
+        photo.focus();
+        return;
+      }
+      if (file && !photoConsent.checked) {
+        showStatus("写真を送る場合は、写真掲載についての確認欄にチェックしてください。", "error");
+        photoConsent.focus();
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "送信しています…";
+      showStatus("安全に送信しています。画面を閉じずにお待ちください。", "");
+
+      try {
+        const values = Object.fromEntries(new FormData(form).entries());
+        delete values.photo;
+        const response = await fetch("/api/submissions", {
+          method: "POST",
+          headers: { Accept: "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error || "送信できませんでした。時間をおいて再度お試しください。");
+        }
+        form.reset();
+        photoConsent.required = false;
+        showStatus(data.message || "情報を受け付けました。ありがとうございます。", "success");
+      } catch (error) {
+        showStatus(error.message || "通信エラーが発生しました。時間をおいて再度お試しください。", "error");
+      } finally {
+        button.disabled = false;
+        button.textContent = "情報を送信する";
+      }
+    });
+  </script>
+</body>
+</html>
