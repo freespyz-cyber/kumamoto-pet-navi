@@ -156,7 +156,17 @@
 
       try {
         const values = Object.fromEntries(new FormData(form).entries());
-        delete values.photo;
+        if (file) {
+          const buffer = await file.arrayBuffer();
+          let binary = "";
+          const bytes = new Uint8Array(buffer);
+          for (let index = 0; index < bytes.length; index += 0x8000) {
+            binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000));
+          }
+          values.photo = { name: file.name, type: file.type, data: btoa(binary) };
+        } else {
+          delete values.photo;
+        }
         const response = await fetch("/api/submissions", {
           method: "POST",
           headers: { Accept: "application/json", "Content-Type": "application/json" },
