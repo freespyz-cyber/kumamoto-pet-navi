@@ -25,4 +25,12 @@
 ['宿泊','花心','南小国町',33.08,131.07,'https://hanagocoro.jp/'],
 ['宿泊','人吉神城の宿','錦町',32.17,130.78,'https://reserve.489ban.net/client/shinjyounoyado/0/detail/1236181'],
 ['宿泊','不知火ホテル','八代市日奈久',32.432,130.568,'https://shiranuhi-hotel.com/pet.html']
+,
+['カフェ','DOG GARDEN 南を翔る風','南阿蘇村',32.82,131.04,'https://www.kunosato.jp/sightseeing/'],
+['カフェ','kura倉cafe','人吉市',32.21,130.75,'https://kurakuracafe.com/'],
+['カフェ','ヒバリカフェ','阿蘇市',32.98,131.08,'https://hibari-cafe.com/'],
+['カフェ','グレーテルの森','南阿蘇村',32.82,131.04,'https://www.gretel5.com/reserve.html'],
+['カフェ','Three TAILs','熊本市',32.82,130.74,'https://three-tails111.com/cafe/'],
+['カフェ','フラワーカフェMyu','熊本市',32.80,130.72,'https://www.myu-cafe.com/'],
+['カフェ','ママトコキッチン','菊池市',32.93,130.80,'https://mamatoco.co.jp/eat']
 ];const colors={カフェ:'#bd6d57',ドッグラン:'#3f7fa3',宿泊:'#a67845',預ける:'#7c63a5',病院:'#b65353'};let markers=[];function render(type='all'){markers.forEach(m=>map.removeLayer(m));markers=places.filter(p=>type==='all'||p[0]===type).map(p=>L.circleMarker([p[3],p[4]],{radius:9,color:'#fff',weight:2,fillColor:colors[p[0]],fillOpacity:.95}).addTo(map).bindPopup('<strong>'+p[1]+'</strong><br>'+p[2]+'<br><a href="'+p[5]+'" target="_blank" rel="noopener">詳細・公式情報を見る →</a>'))}render();document.querySelectorAll('button').forEach(b=>b.onclick=()=>{document.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.type)})</script></body></html>
