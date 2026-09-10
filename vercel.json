@@ -1,1 +1,2 @@
 {"buildCommand":"npm run build","outputDirectory":"dist","functions":{"api/submissions.js":{"maxDuration":10}}}
+ 
