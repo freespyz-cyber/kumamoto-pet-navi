@@ -1,1 +1,5 @@
-{"outputDirectory":".","functions":{"api/submissions.js":{"maxDuration":10}}}
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": null
+}
