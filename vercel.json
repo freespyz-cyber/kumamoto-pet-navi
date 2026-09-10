@@ -1,1 +1,1 @@
-{"functions":{"api/submissions.js":{"maxDuration":11}}}
+{"functions":{"api/submissions.js":{"maxDuration":11}},"rewrites":[{"source":"/assets/:path*","destination":"/:path*"}]}
