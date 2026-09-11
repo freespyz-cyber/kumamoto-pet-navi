@@ -1,4 +1,52 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>熊本ペット施設MAP｜カフェ・ドッグラン・宿泊</title><meta name="description" content="熊本県内のペット同伴カフェ、ドッグラン、宿泊施設、動物病院などを地図から探せます。"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:34px 18px}.brand,a{color:#234d43;font-weight:900;text-decoration:none}h1{font-size:clamp(30px,6vw,52px);line-height:1.2}.lead{color:#718078}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.filters button{border:1px solid #cbd8cf;background:#fffdf9;border-radius:99px;padding:9px 14px;font-weight:900;color:#234d43}.filters button.active{background:#234d43;color:#fff}.legend{font-size:13px;color:#718078;margin:12px 0}.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin:0 4px 0 12px}.cafe{background:#bd6d57}.run{background:#3f7fa3}.stay{background:#a67845}.vet{background:#b65353}.care{background:#7c63a5}#map{height:62vh;min-height:430px;border-radius:16px;border:1px solid #dddcd5;box-shadow:0 8px 22px #c8c1b533}.note{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin-top:18px;font-size:13px}</style></head><body><main class="wrap"><a class="brand" href="index.html">熊本ペットナビ</a><p>MAP / PET-FRIENDLY PLACES</p><h1>熊本のペット施設を<br>地図から探す。</h1><p class="lead">カフェ・ドッグラン・宿泊施設・動物病院など、現在掲載している場所をカテゴリ別に表示します。</p><div class="filters"><button class="active" data-type="all">すべて</button><button data-type="カフェ">カフェ・食事</button><button data-type="ドッグラン">ドッグラン</button><button data-type="宿泊">宿泊施設</button><button data-type="預ける">預ける</button><button data-type="病院">動物病院</button></div><div class="legend"><span class="dot cafe"></span>カフェ・食事<span class="dot run"></span>ドッグラン<span class="dot stay"></span>宿泊施設<span class="dot care"></span>預ける<span class="dot vet"></span>動物病院</div><div id="map" aria-label="熊本県のペット施設地図"></div><div class="note">ピンの位置は地域の目安です。営業時間・ペット同伴条件は、ピンの公式リンクから訪問前にご確認ください。</div><p><a href="pet-friendly-places.html">← 施設一覧へ</a>　<a href="index.html">トップへ戻る</a></p></main><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>const map=L.map('map').setView([32.8031,130.7079],9);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);const places=[
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>熊本ペット施設MAP｜カフェ・ドッグラン・宿泊</title>
+<meta name="description" content="熊本県内のペット同伴カフェ、ドッグラン、宿泊施設、動物病院などを地図から探せます。">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:34px 18px}.brand,a{color:#234d43;font-weight:900;text-decoration:none}h1{font-size:clamp(30px,6vw,52px);line-height:1.2}.lead{color:#718078}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.filters button{border:1px solid #cbd8cf;background:#fffdf9;border-radius:99px;padding:9px 14px;font-weight:900;color:#234d43}.filters button.active{background:#234d43;color:#fff}.legend{font-size:13px;color:#718078;margin:12px 0}.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin:0 4px 0 12px}.cafe{background:#bd6d57}.run{background:#3f7fa3}.stay{background:#a67845}.vet{background:#b65353}.care{background:#7c63a5}#map{height:62vh;min-height:430px;border-radius:16px;border:1px solid #dddcd5;box-shadow:0 8px 22px #c8c1b533}.trip-box{background:#fffdf9;border:1px solid #dddcd5;border-radius:16px;padding:20px;margin-top:20px}.trip-box button{border:0;border-radius:999px;padding:10px 14px;margin:8px 6px 0 0;font-weight:900;background:#234d43;color:#fff}.trip-box button:disabled{background:#cfd7d2;color:#718078}.trip-add{display:block;margin-top:10px!important}.note{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin-top:18px;font-size:13px}</style>
+</head>
+<body>
+<main class="wrap">
+<a class="brand" href="index.html">熊本ペットナビ</a>
+<p>MAP / PET-FRIENDLY PLACES</p>
+<h1>熊本のペット施設を<br>地図から探す。</h1>
+<p class="lead">カフェ・ドッグラン・宿泊施設・動物病院など、現在掲載している場所をカテゴリ別に表示します。</p>
+<div class="filters">
+<button class="active" data-type="all">すべて</button>
+<button data-type="カフェ">カフェ・食事</button>
+<button data-type="ドッグラン">ドッグラン</button>
+<button data-type="宿泊">宿泊施設</button>
+<button data-type="預ける">預ける</button>
+<button data-type="病院">動物病院</button>
+</div>
+<div class="legend">
+<span class="dot cafe">
+</span>カフェ・食事<span class="dot run">
+</span>ドッグラン<span class="dot stay">
+</span>宿泊施設<span class="dot care">
+</span>預ける<span class="dot vet">
+</span>動物病院</div>
+<div id="map" aria-label="熊本県のペット施設地図">
+</div>
+<section class="trip-box" aria-label="おでかけ予定を作る">
+<h2>自分の予定を作る</h2>
+<p>地図のピンを押して、行きたい場所を追加してください。</p>
+<div id="trip-list">まだ場所が選ばれていません。</div>
+<button id="use-location" type="button">現在地を出発地にする</button>
+<button id="clear-trip" type="button">選択をクリア</button>
+<button id="open-route" type="button" disabled>Googleマップで予定を見る</button>
+</section>
+<div class="note">ピンの位置は地域の目安です。営業時間・ペット同伴条件は、ピンの公式リンクから訪問前にご確認ください。</div>
+<p>
+<a href="pet-friendly-places.html">← 施設一覧へ</a>　<a href="index.html">トップへ戻る</a>
+</p>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+<script>const map=L.map('map').setView([32.8031,130.7079],9);L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}).addTo(map);const places=[
 ['カフェ','Manly 熊本店','熊本市中央区',32.8064,130.7165,'https://manly-kumamoto.com/access.html'],
 ['カフェ','ワンCAFFE','南小国町',33.0775,131.0705,'https://www.youmore-minamioguni.com/tourism/wancaffe/'],
 ['カフェ','HUI CAFE','上天草市',32.584,130.43,'https://kami-amakusa.jp/archives/eat/9674'],
@@ -36,5 +84,9 @@
 ,
 ['ドッグラン','熊本ドッグラン さんろく','山鹿市',33.02,130.69,'https://www.dongurimura.info/sanroku'],
 ['ドッグラン','火の国ドッグラン・オートキャンプ場','阿蘇市',32.95,131.10,'https://www.city.aso.kumamoto.jp/tourism/spot/accommodation-hot-springs/campsite-2/'],
-['ドッグラン','あそ望の郷くぎの','南阿蘇村',32.82,131.03,'https://www.aso-kugino.jp/asobou_dogrun.html']
-,['ドッグラン','道の駅 宮地岳かかしの里','天草市',32.446,130.247,'https://kakashinosato.jp/facility/']];const colors={カフェ:'#bd6d57',ドッグラン:'#3f7fa3',宿泊:'#a67845',預ける:'#7c63a5',病院:'#b65353'};let markers=[];function render(type='all'){markers.forEach(m=>map.removeLayer(m));markers=places.filter(p=>type==='all'||p[0]===type).map(p=>L.circleMarker([p[3],p[4]],{radius:9,color:'#fff',weight:2,fillColor:colors[p[0]],fillOpacity:.95}).addTo(map).bindPopup('<strong>'+p[1]+'</strong><br>'+p[2]+'<br><a href="'+p[5]+'" target="_blank" rel="noopener">詳細・公式情報を見る →</a>'))}render();document.querySelectorAll('button').forEach(b=>b.onclick=()=>{document.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.type)})</script></body></html>
+['ドッグラン','あそ望の郷くぎの','南阿蘇村',32.82,131.03,'https://www.aso-kugino.jp/asobou_dogrun.html'],
+['ドッグラン','道の駅 宮地岳かかしの里','天草市',32.446,130.247,'https://kakashinosato.jp/facility/']
+];const colors={カフェ:'#bd6d57',ドッグラン:'#3f7fa3',宿泊:'#a67845',預ける:'#7c63a5',病院:'#b65353'};let markers=[];function render(type='all'){markers.forEach(m=>map.removeLayer(m));markers=places.filter(p=>type==='all'||p[0]===type).map(p=>L.circleMarker([p[3],p[4]],{radius:9,color:'#fff',weight:2,fillColor:colors[p[0]],fillOpacity:.95}).addTo(map).bindPopup('<strong>'+p[1]+'</strong><br>'+p[2]+'<br><a href="'+p[5]+'" target="_blank" rel="noopener">詳細・公式情報を見る →</a>'))}render();document.querySelectorAll('button').forEach(b=>b.onclick=()=>{document.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.type)})</script>
+<script>const trip=[];let origin=null;const tl=document.getElementById('trip-list');const routeButton=document.getElementById('open-route');const locationButton=document.getElementById('use-location');function renderTrip(){tl.innerHTML=trip.length?trip.map((p,i)=>'<div>'+(i+1)+'．'+p[1]+'</div>').join(''):'まだ場所が選ばれていません。';if(origin)tl.innerHTML='<div>出発地：現在地</div>'+tl.innerHTML;routeButton.disabled=trip.length===0;routeButton.textContent=trip.length>1?'Googleマップでルートを見る':'Googleマップで場所を見る'}locationButton.onclick=()=>{if(!navigator.geolocation){alert('この端末では現在地を取得できません。');return}locationButton.disabled=true;locationButton.textContent='現在地を取得中…';navigator.geolocation.getCurrentPosition(pos=>{origin=[pos.coords.latitude,pos.coords.longitude];locationButton.textContent='現在地を出発地に設定済み';renderTrip()},()=>{locationButton.disabled=false;locationButton.textContent='現在地を出発地にする';alert('位置情報を取得できませんでした。ブラウザの位置情報を許可してください。')},{enableHighAccuracy:true,timeout:10000})};document.getElementById('clear-trip').onclick=()=>{trip.length=0;origin=null;locationButton.disabled=false;locationButton.textContent='現在地を出発地にする';renderTrip()};routeButton.onclick=()=>{if(!trip.length)return;const stops=trip.map(p=>p[3]+','+p[4]);const url=origin?'https://www.google.com/maps/dir/'+origin.join(',')+'/'+stops.join('/'):(trip.length===1?'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(trip[0][1]+' '+trip[0][2]):'https://www.google.com/maps/dir/'+stops.join('/'));window.open(url,'_blank','noopener')};document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.type)});map.on('popupopen',e=>{const p=places.find(x=>e.popup.getContent().includes(x[1]));if(!p)return;const box=e.popup.getElement().querySelector('.leaflet-popup-content');if(box.querySelector('.trip-add'))return;const b=document.createElement('button');b.className='trip-add';b.type='button';b.textContent=trip.includes(p)?'予定に追加済み':'この場所を予定に追加';b.onclick=()=>{if(!trip.includes(p)){trip.push(p);renderTrip();b.textContent='予定に追加済み'}};box.appendChild(b)});renderTrip()</script>
+</body>
+</html>
