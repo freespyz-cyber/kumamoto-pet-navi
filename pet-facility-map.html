@@ -7,26 +7,30 @@
 <meta name="description" content="熊本県内のペット同伴カフェ、ドッグラン、宿泊施設、動物病院などを地図から探せます。">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:34px 18px}.brand,a{color:#234d43;font-weight:900;text-decoration:none}h1{font-size:clamp(30px,6vw,52px);line-height:1.2}.lead{color:#718078}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.filters button{border:1px solid #cbd8cf;background:#fffdf9;border-radius:99px;padding:9px 14px;font-weight:900;color:#234d43}.filters button.active{background:#234d43;color:#fff}.legend{font-size:13px;color:#718078;margin:12px 0}.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin:0 4px 0 12px}.cafe{background:#bd6d57}.run{background:#3f7fa3}.stay{background:#a67845}.vet{background:#b65353}.care{background:#7c63a5}#map{height:62vh;min-height:430px;border-radius:16px;border:1px solid #dddcd5;box-shadow:0 8px 22px #c8c1b533}.trip-box{background:#fffdf9;border:1px solid #dddcd5;border-radius:16px;padding:20px;margin-top:20px}.trip-box button{border:0;border-radius:999px;padding:10px 14px;margin:8px 6px 0 0;font-weight:900;background:#234d43;color:#fff}.trip-box button:disabled{background:#cfd7d2;color:#718078}.trip-add{display:block;margin-top:10px!important}.note{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin-top:18px;font-size:13px}</style>
+<style>
+/* 見つける→絞る→地図で確認、の順に視線を整理 */
+.wrap{max-width:1180px;padding-top:28px}.wrap>p:first-of-type{margin:8px 0;color:#8a7766;font-size:12px;letter-spacing:.12em}.filters{background:#fffdf9;border:1px solid #e2ddd4;border-radius:14px;padding:14px;margin:18px 0 12px;box-shadow:0 5px 18px rgba(40,50,45,.04)}.filters button{padding:8px 13px}.legend{margin:0 0 16px;font-size:12px}.legend .dot{margin-left:8px}.trip-box{display:grid;grid-template-columns:1fr auto;gap:8px 14px;align-items:center}.trip-box h2,.trip-box p{grid-column:1/-1}.trip-box button{margin:0}.trip-box #trip-list{grid-column:1/-1;background:#f7f4ee;border-radius:10px;padding:10px 12px;min-height:24px}.note{font-size:12px}.brand{font-size:21px}@media(max-width:760px){.wrap{padding:22px 14px}.wrap h1{font-size:34px;margin:14px 0}.filters{margin-top:14px}.trip-box{display:block}.trip-box button{margin:7px 5px 0 0}.trip-box #trip-list{margin:12px 0}}
+</style>
 </head>
 <body>
 <main class="wrap">
 <a class="brand" href="index.html">熊本ペットナビ</a>
 <p>MAP / PET-FRIENDLY PLACES</p>
 <h1>熊本のペット施設を<br>地図から探す。</h1>
-<p class="lead">カフェ・ドッグラン・宿泊施設・動物病院など、現在掲載している場所をカテゴリ別に表示します。</p>
+<p class="lead">ペットと「行く・入る・泊まる・預ける」を分けて、目的から探せます。</p>
 <div class="filters">
 <button class="active" data-type="all">すべて</button>
-<button data-type="カフェ">カフェ・食事</button>
-<button data-type="ドッグラン">ドッグラン</button>
-<button data-type="宿泊">宿泊施設</button>
-<button data-type="預ける">預ける</button>
-<button data-type="病院">動物病院</button>
+<button data-type="カフェ">🍽 ペットと入れるお店</button>
+<button data-type="ドッグラン">🐕 ペットと行ける場所</button>
+<button data-type="宿泊">🛏 ペットと泊まる</button>
+<button data-type="預ける">👜 ペットを預ける</button>
+<button data-type="病院">🏥 動物病院</button>
 </div>
 <div class="legend">
 <span class="dot cafe">
-</span>カフェ・食事<span class="dot run">
-</span>ドッグラン<span class="dot stay">
-</span>宿泊施設<span class="dot care">
+</span>ペットと入れるお店<span class="dot run">
+</span>ペットと行ける場所<span class="dot stay">
+</span>ペットと泊まる<span class="dot care">
 </span>預ける<span class="dot vet">
 </span>動物病院</div>
 <div id="map" aria-label="熊本県のペット施設地図">
@@ -39,6 +43,7 @@
 <button id="clear-trip" type="button">選択をクリア</button>
 <button id="open-route" type="button" disabled>Googleマップで予定を見る</button>
 </section>
+<section class="all-facilities" aria-label="掲載施設一覧"><h2>掲載施設をすべて見る</h2><p>地図で重なっている施設も、こちらで一覧から確認できます。</p><div id="all-facilities-list"></div></section>
 <div class="note">ピンの位置は地域の目安です。営業時間・ペット同伴条件は、ピンの公式リンクから訪問前にご確認ください。</div>
 <p>
 <a href="pet-friendly-places.html">← 施設一覧へ</a>　<a href="index.html">トップへ戻る</a>
@@ -56,23 +61,62 @@
 ['ドッグラン','香りの森ドッグラン','熊本市東区',32.817,130.783,'https://www.city.kumamoto.jp/kiji00367506/index.html'],
 ['ドッグラン','くまもとドッグラン もりのみやこ','熊本市',32.79,130.74,'https://kumamoto-morinomiyako.jp/'],
 ['ドッグラン','HappyTail','熊本市北区',32.86,130.72,'https://happytail.jp/'],
-['ドッグラン','husse-kumamoto','熊本市南区',32.75,130.70,'https://husse-kumamoto.k22005.co.jp/dogrun.php'],
+['ドッグラン','husse Japan 熊本（現：husse-kumamoto）','上益城郡御船町木倉1115-2',32.714,130.801,'https://husse-kumamoto.k22005.co.jp/dogrun.php'],
+['ドッグラン','DOG RUN & CAFE Teo One','熊本市南区城南町赤見1302',32.716,130.744,'https://teo-one.halfmoon.jp/'],
+['ドッグラン','ドッグラン ミルキーズ','宇城市小川町江頭111-1',32.604,130.68,'https://milky.info/about/'],
+['ドッグラン','PEACEFUL HEART','南阿蘇村',32.86,131.04,'https://www.instagram.com/peaceful_heart4141/'],
+['ドッグラン','ドッグラン ノア','甲佐町府領1008番4',32.65,130.82,'https://www.instagram.com/dogrunnao/'],
+['ドッグラン','御宿 小笠原 専用ドッグラン','阿蘇市',32.975,131.085,'https://onyado-ogasawara.com/facility/dogrun/'],
 ['宿泊','狗の郷','菊池市',32.98,130.82,'https://kunosato.jp/'],
 ['宿泊','ブレインズ天草','上天草市',32.52,130.43,'https://www.brains-amakusa.com/'],
+['宿泊','UKIUKI SEA RESORT','上天草市',32.60,130.43,'ukiuki-sea-resort.html'],
+['宿泊','THE TRAILERHOUSE VILLAGE 天草 MARINA','上天草市',32.60,130.41,'trailerhouse-village-amakusa.html'],
+['宿泊','B&B 犬遊楽','相良村',32.23,130.77,'kenyuraku.html'],
+['宿泊','星降る高原 吉無田','御船町',32.65,130.90,'hoshifuru-kogen-yoshimuta.html'],
+['宿泊','ペンション ハウディ','南阿蘇村',32.84,131.08,'pension-howdy.html'],
+['宿泊','遊心〜ゆうしん〜','御船町',32.65,130.90,'yuushin.html'],
+['宿泊','清涼荘','小国町',33.12,131.07,'seiryouso.html'],
+['宿泊','葉隠館','小国町',33.17,131.03,'hagakukan.html'],
+['宿泊','貸別荘 黒川温泉D','南小国町',33.08,131.15,'kurokawa-onsen-d.html'],
+['宿泊','HUMMER VILLAGE（ハマービレッジ）','上天草市',32.58,130.43,'hummer-village.html'],
+['宿泊','南阿蘇 久木野の郷','南阿蘇村',32.82,131.04,'kuginonosato.html'],
+['宿泊','南阿蘇あぐりキャンプ場','南阿蘇村',32.84,131.03,'minamiaso-agri-camp.html'],
+['宿泊','ペンション ベルバード','阿蘇市',32.98,131.06,'pension-bellbird.html'],
+['宿泊','ペンション あその時計台','阿蘇市',32.99,131.06,'aso-no-tokeidai.html'],
+['宿泊','栄美屋旅館','天草市',32.46,130.19,'emiya-ryokan.html'],
 ['宿泊','別邸 わんこ日和','芦北町',32.28,130.50,'https://www.wancobi.com/'],
 ['預ける','ペットラウンジ ルシアン','熊本市西区',32.797,130.625,'https://www.petlounge-lechien.com/pet_hotel.php'],
 ['病院','竜之介動物病院','熊本市中央区',32.795,130.702,'https://ryunosuke.co.jp/'],
+['病院','健軍よしい動物病院','熊本市東区健軍3丁目1-51',32.787,130.744,'https://www.kengun-yoshii.com/'],
+['病院','坂本動物クリニック','熊本市南区御幸笛田1丁目6-92',32.758,130.706,'http://sakamotovc.com/'],
+['病院','ムサシ動物医療センター','熊本市北区楠5丁目17-27',32.856,130.735,'https://musashi-pet.jp/'],
+['病院','まつばせペットクリニック','宇城市松橋町松橋119-2',32.647,130.679,'https://matsubase-pc.com/'],
+['病院','動物病院デーリー','菊池市泗水町住吉2049-2',32.94,130.76,'https://animal-hospital.p-kit.com/'],
+['病院','げんき動物病院','熊本市西区池田1丁目32-27',32.82,130.704,'https://genki-animal.net/'],
+['病院','江津動物病院','熊本市東区江津1丁目4-8',32.779,130.736,'https://ezu-animalhospital.net/'],
+['病院','中央動物病院','熊本市北区龍田6丁目12-91',32.855,130.749,'https://kcvs.jp/'],
+['病院','烏城ペットクリニック','熊本市南区川尻6丁目8-7',32.744,130.691,'https://ujo-petclinic.jp/'],
 ['カフェ','BOUCHE’S Cafe','熊本市中央区',32.803,130.711,'https://bouchescafe.gorp.jp/'],
+['カフェ','Cafe lx 浜線店','熊本市南区',32.75,130.73,'cafelx-instagram.html'],
 ['カフェ','Cafe LuLu','熊本市中央区城東町',32.805,130.713,'https://www.instagram.com/dogcafe_o2.lulu_kumamoto/'],
 ['カフェ','le café NISHIHARA','西原村',32.835,130.927,'https://lecafenishihara.com/news/%E3%83%9A%E3%83%83%E3%83%88%E5%90%8C%E4%BC%B4%E3%81%AE%E3%81%8A%E5%AE%A2%E6%A7%98%E3%81%B8/'],
 ['カフェ','LIKE A TAVERN','熊本市中央区上林町',32.808,130.710,'https://www.instagram.com/like_a_tavern/'],
 ['宿泊','フォレスタ阿蘇車帰','阿蘇市',32.96,131.04,'https://foresta-aso.jp/5590-2/'],
-['宿泊','コスギリゾート With Dogs','阿蘇市',32.95,131.00,'https://www.kosugiresort.com/withdogs/'],
+['宿泊','コスギリゾート（With Dogs）','阿蘇市',32.98,131.08,'kosugi-resort-lodge.html'],
 ['宿泊','月亭 TSUKITEI','南阿蘇村',32.82,131.04,'https://tsukitei-aso.com/pet_room.html'],
 ['宿泊','ペンションあかね雲','南阿蘇村',32.84,131.06,'https://p-akanegumo.com/room.html'],
+['宿泊','南阿蘇 野ばらINN','南阿蘇村',32.86,131.04,'nobara-inn.html'],
+['宿泊','南阿蘇 BlueBeeGarden','南阿蘇村',32.86,131.04,'https://www.bluebeegarden.com/'],
+['宿泊','南阿蘇フィールドホテル','南阿蘇村',32.82,131.04,'field-hotel.html'],
+['宿泊','野の花の宿 阿蘇の四季','阿蘇市',32.90,131.12,'asonoshiki.html'],
+['宿泊','御宿 小笠原','阿蘇市',32.94,131.10,'onyado-ogasawara.html'],
+['宿泊','Glamping Village LEAF','益城町',32.79,130.86,'glamping-leaf.html'],
 ['宿泊','花心','南小国町',33.08,131.07,'https://hanagocoro.jp/'],
 ['宿泊','人吉神城の宿','錦町',32.17,130.78,'https://reserve.489ban.net/client/shinjyounoyado/0/detail/1236181'],
-['宿泊','不知火ホテル','八代市日奈久',32.432,130.568,'https://shiranuhi-hotel.com/pet.html']
+['宿泊','不知火ホテル','八代市日奈久',32.432,130.568,'https://shiranuhi-hotel.com/pet.html'],
+['宿泊','貸別荘ふなざし','南阿蘇村',32.84,131.02,'https://www.funazashi.com/room/'],
+['宿泊','SHIJIN南阿蘇','南阿蘇村',32.82,131.05,'https://shijin-minamiaso.jp/stay/'],
+['宿泊','ペットと泊まれる宿 ペンションむさし','南阿蘇村',32.82,131.04,'http://aso-petyado.com']
 ,
 ['カフェ','DOG GARDEN 南を翔る風','南阿蘇村',32.82,131.04,'https://www.kunosato.jp/sightseeing/'],
 ['カフェ','kura倉cafe','人吉市',32.21,130.75,'https://kurakuracafe.com/'],
@@ -80,13 +124,41 @@
 ['カフェ','グレーテルの森','南阿蘇村',32.82,131.04,'https://www.gretel5.com/reserve.html'],
 ['カフェ','Three TAILs','熊本市',32.82,130.74,'https://three-tails111.com/cafe/'],
 ['カフェ','フラワーカフェMyu','熊本市',32.80,130.72,'https://www.myu-cafe.com/'],
-['カフェ','ママトコキッチン','菊池市',32.93,130.80,'https://mamatoco.co.jp/eat']
+['カフェ','ママトコキッチン','菊池市',32.93,130.80,'https://mamatoco.co.jp/eat'],
+['カフェ','盆栽カフェ 樹心園','長洲町',32.93,130.45,'kigokoroen.html'],
+['カフェ','宝処三昧','小国町',33.12,131.07,'housyozanmai.html'],
+['カフェ','Little Garden','熊本市東区',32.80,130.78,'littlegarden.html'],
+['カフェ','ONE STATION HOTEL テラス','熊本市西区',32.79,130.69,'one-station-terrace.html'],
+['カフェ','阿蘇マロンの樹','西原村',32.83,130.92,'aso-marron.html'],
+['カフェ','ホタルの里 りんりん','阿蘇市',32.98,131.10,'rinrin-pizza.html'],
+['カフェ','STRONG BOSS SALOON','南阿蘇村',32.83,131.04,'strong-boss-saloon.html'],
+['カフェ','GONZINO','熊本市北区',32.90,130.73,'gonzino.html'],
+['カフェ','海の隠れ家','上天草市',32.52,130.42,'umi-no-kakurega.html'],
+['カフェ','Genko2 Resort','上天草市',32.58,130.43,'genko2-resort.html'],
+['カフェ','Garden & Cafe Sugar','八代市',32.50,130.60,'garden-cafe-sugar.html'],
+['カフェ','Bistro La Repos','熊本市中央区',32.80,130.71,'bistro-la-repos.html'],
+['カフェ','douce Nucca','阿蘇市',32.88,131.10,'douce-nucca.html'],
+['カフェ','お肉Dining あ','上天草市',32.50,130.42,'oniku-dining-a.html'],
+['カフェ','森の味処 なかむら','菊池市',32.98,130.95,'morino-ajidokoro-nakamura-sns.html'],
+['カフェ','MiTBonBon','あさぎり町',32.23,130.90,'mitbonbon.html'],
+['カフェ','勧業館食堂','熊本市中央区',32.80,130.71,'kangyoukan-shokudo.html'],
+['カフェ','森の時間','南小国町',33.08,131.07,'morino-jikan.html'],
+['カフェ','SUNSET CAFE CAMP','天草市',32.43,130.00,'sunset-cafe-camp.html'],
+['カフェ','丸太珈琲 大津店','大津町',32.88,130.87,'maruta-coffee.html'],
+['カフェ','cafe gallery coco de NADIR','熊本市中央区',32.79,130.71,'coco-de-nadir.html'],
+['カフェ','前川珈琲店 戸島店','熊本市東区',32.82,130.82,'maekawa-coffee-toshima.html'],
+['カフェ','Broad tree cafe','熊本市北区',32.85,130.75,'broad-tree-cafe.html'],
+['カフェ','caferest pocket','宇土市',32.69,130.66,'caferest-pocket.html'],
+['カフェ','夜カフェ甘夜 AmaYo','熊本市北区',32.93,130.75,'amayo-yorucafe.html'],
+['カフェ','ONE DROP Dining Studio','熊本市東区',32.80,130.78,'one-drop-dining.html'],
+['カフェ','753 Cafe & Pâtisserie','和水町',33.05,130.60,'753-cafe.html'],
+['カフェ','boketto','西原村',32.84,130.93,'boketto.html']
 ,
-['ドッグラン','熊本ドッグラン さんろく','山鹿市',33.02,130.69,'https://www.dongurimura.info/sanroku'],
+['ドッグラン','熊本ドッグラン さんろく×相棒の湯','山鹿市久原3905',33.02,130.69,'https://www.dongurimura.info/sanroku/'],
 ['ドッグラン','火の国ドッグラン・オートキャンプ場','阿蘇市',32.95,131.10,'https://www.city.aso.kumamoto.jp/tourism/spot/accommodation-hot-springs/campsite-2/'],
 ['ドッグラン','あそ望の郷くぎの','南阿蘇村',32.82,131.03,'https://www.aso-kugino.jp/asobou_dogrun.html'],
 ['ドッグラン','道の駅 宮地岳かかしの里','天草市',32.446,130.247,'https://kakashinosato.jp/facility/']
 ];const colors={カフェ:'#bd6d57',ドッグラン:'#3f7fa3',宿泊:'#a67845',預ける:'#7c63a5',病院:'#b65353'};let markers=[];function render(type='all'){markers.forEach(m=>map.removeLayer(m));markers=places.filter(p=>type==='all'||p[0]===type).map(p=>L.circleMarker([p[3],p[4]],{radius:9,color:'#fff',weight:2,fillColor:colors[p[0]],fillOpacity:.95}).addTo(map).bindPopup('<strong>'+p[1]+'</strong><br>'+p[2]+'<br><a href="'+p[5]+'" target="_blank" rel="noopener">詳細・公式情報を見る →</a>'))}render();document.querySelectorAll('button').forEach(b=>b.onclick=()=>{document.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.type)})</script>
 <script>const trip=[];let origin=null;const tl=document.getElementById('trip-list');const routeButton=document.getElementById('open-route');const locationButton=document.getElementById('use-location');function renderTrip(){tl.innerHTML=trip.length?trip.map((p,i)=>'<div>'+(i+1)+'．'+p[1]+'</div>').join(''):'まだ場所が選ばれていません。';if(origin)tl.innerHTML='<div>出発地：現在地</div>'+tl.innerHTML;routeButton.disabled=trip.length===0;routeButton.textContent=trip.length>1?'Googleマップでルートを見る':'Googleマップで場所を見る'}locationButton.onclick=()=>{if(!navigator.geolocation){alert('この端末では現在地を取得できません。');return}locationButton.disabled=true;locationButton.textContent='現在地を取得中…';navigator.geolocation.getCurrentPosition(pos=>{origin=[pos.coords.latitude,pos.coords.longitude];locationButton.textContent='現在地を出発地に設定済み';renderTrip()},()=>{locationButton.disabled=false;locationButton.textContent='現在地を出発地にする';alert('位置情報を取得できませんでした。ブラウザの位置情報を許可してください。')},{enableHighAccuracy:true,timeout:10000})};document.getElementById('clear-trip').onclick=()=>{trip.length=0;origin=null;locationButton.disabled=false;locationButton.textContent='現在地を出発地にする';renderTrip()};routeButton.onclick=()=>{if(!trip.length)return;const stops=trip.map(p=>p[3]+','+p[4]);const url=origin?'https://www.google.com/maps/dir/'+origin.join(',')+'/'+stops.join('/'):(trip.length===1?'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(trip[0][1]+' '+trip[0][2]):'https://www.google.com/maps/dir/'+stops.join('/'));window.open(url,'_blank','noopener')};document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.type)});map.on('popupopen',e=>{const p=places.find(x=>e.popup.getContent().includes(x[1]));if(!p)return;const box=e.popup.getElement().querySelector('.leaflet-popup-content');if(box.querySelector('.trip-add'))return;const b=document.createElement('button');b.className='trip-add';b.type='button';b.textContent=trip.includes(p)?'予定に追加済み':'この場所を予定に追加';b.onclick=()=>{if(!trip.includes(p)){trip.push(p);renderTrip();b.textContent='予定に追加済み'}};box.appendChild(b)});renderTrip()</script>
-</body>
+<script>document.getElementById("all-facilities-list").innerHTML=places.map((p,i)=>"<div>"+(i+1)+". "+p[0]+" / "+p[1]+" / "+p[2]+"</div>").join("")</script></body>
 </html>
