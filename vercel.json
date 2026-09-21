@@ -1,4 +1,7 @@
 {
   "framework": null,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/assets/:path*", "destination": "/:path*" }
+  ]
 }
