@@ -146,6 +146,7 @@ button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::befor
 ['病院','タナカ動物病院','熊本県合志市幾久富1866-350',32.880,130.778,'https://www.vet-tanaka.com/'],
 ['病院','こすみ動物病院','熊本市中央区京町2丁目6-68',32.814,130.708,'https://www.kosumi-ah.com/'],
 ['病院','とくお動物病院','熊本市北区徳王1丁目14-19',32.854,130.700,'https://tokuo-ah.com/'],
+['病院','鳥城ペットクリニック','熊本市南区川尻6丁目8-7',32.741,130.681,'https://ujo-petclinic.jp/'],
 ['病院','やまもと動物病院','熊本市東区東野3丁目2-2',32.789,130.777,'https://yamamoto-vet.com/'],
 ['カフェ','Cafe LuLu','熊本市中央区城東町',32.805,130.713,'https://www.instagram.com/dogcafe_o2.lulu_kumamoto/'],
 ['カフェ','le café NISHIHARA','西原村',32.835,130.927,'https://lecafenishihara.com/news/%E3%83%9A%E3%83%83%E3%83%88%E5%90%8C%E4%BC%B4%E3%81%AE%E3%81%8A%E5%AE%A2%E6%A7%98%E3%81%B8/'],
@@ -180,5 +181,19 @@ button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::befor
 <script>const originalFacilityTags=facilityTags;facilityTags=p=>{const n=p[1];if(n.includes('げんき動物病院'))return ['犬・猫対応','入院設備','夜間救急は電話確認'];if(n.includes('神西ペット'))return ['循環器科','眼科','腫瘍科','皮膚科'];if(n.includes('滝川ペット'))return ['眼科','歯科','アレルギー科','リハビリ','トリミング','ペットホテル','往診'];if(n.includes('カイハラ'))return ['犬・猫対応','入院対応','ICU','トリミング','ペットホテル'];if(n.includes('たまとぽち'))return ['犬・猫対応','トリミング','ペットホテル'];if(n.includes('うさぎの病院'))return ['うさぎ専門','二次診療'];if(n.includes('園田動物病院'))return ['犬・猫・小動物対応','土曜診療','駐車場あり'];if(n.includes('なかじま動物病院'))return ['犬・猫対応','エキゾチックアニマル','予約優先','駐車場あり'];if(n.includes('動物病院デーリー'))return ['犬・猫対応','一般診療','要確認'];if(n.includes('山口動物病院'))return ['犬・猫対応','土曜診療','要確認'];if(n.includes('さとう動物病院'))return ['犬・猫対応','一般診療','要確認'];return originalFacilityTags(p)};</script>
 <script>const facilityTagsBeforeYomogi=facilityTags;facilityTags=p=>p[1].includes('とくお動物病院')?['犬・猫対応','手術対応','予防医療','ワクチン','ノミ・ダニ予防']:p[1].includes('こすみ動物病院')?['犬・猫対応','土日診療','予防医療','トリミング','ペットホテル']:p[1].includes('タナカ動物病院')?['犬・猫対応','鍼灸・漢方','しつけ相談','予防医療']:p[1].includes('そのだ動物病院')?['犬・猫対応','レーザー治療','ワクチン','予防医療']:p[1].includes('光の森にしぐち動物病院')?['犬・猫・うさぎ対応','ハムスター対応','入院対応','一般診療','ワクチン','ノミ・ダニ予防','食事管理']:p[1].includes('ビッグベア動物病院')?['犬・猫対応','ペットホテル','予防医療']:p[1].includes('ほっぺ犬猫病院')?['犬・猫対応','トリミング','ペットホテル','予防医療']:p[1].includes('よもぎ動物病院')?['犬・猫対応','内視鏡','血液検査','駐車場あり','予防医療']:facilityTagsBeforeYomogi(p);</script>
 <script>searchInput.addEventListener('input',()=>setTimeout(()=>{if(markers.length===1)map.setView(markers[0].getLatLng(),13);else if(markers.length>1)map.fitBounds(L.featureGroup(markers).getBounds().pad(.2))},0));</script>
-<script>searchInput.addEventListener('input',()=>{if(searchInput.value.includes('レーザー'))setTimeout(()=>{markers.forEach(m=>map.removeLayer(m));const p=places.find(x=>x[1].includes('そのだ動物病院'));if(!p)return;const m=L.circleMarker([p[3],p[4]],{radius:9,color:'#fff',weight:2,fillColor:colors[p[0]],fillOpacity:.95}).addTo(map).bindPopup('<strong>'+p[1]+'</strong><br>'+p[2]+'<br><a href="'+p[5]+'" target="_blank" rel="noopener">詳細・公式情報を見る →</a>');markers=[m];map.setView(m.getLatLng(),13)},0)},true);</script>
+<script>searchInput.addEventListener('input',()=>{const q=searchInput.value;if(q.includes('レーザー')||q.toLowerCase().includes('mri'))setTimeout(()=>{const names=q.toLowerCase().includes('mri')?['鳥城ペットクリニック','大津どうぶつ医療センター']:['竜之介動物病院','げんき動物病院','タナカ動物病院','たかた動物病院','大津どうぶつ医療センター','そのだ動物病院'];markers.forEach(m=>map.removeLayer(m));const ps=places.filter(x=>names.some(name=>x[1].includes(name)));markers=ps.map(p=>L.circleMarker([p[3],p[4]],{radius:9,color:'#fff',weight:2,fillColor:colors[p[0]],fillOpacity:.95}).addTo(map).bindPopup('<strong>'+p[1]+'</strong><br>'+p[2]+'<br><a href="'+p[5]+'" target="_blank" rel="noopener">詳細・公式情報を見る →</a>'));if(markers.length)map.fitBounds(L.featureGroup(markers).getBounds().pad(.2))},0)},true);</script>
+<script>
+const verifiedTags=p=>{const n=p[1];
+if(n.includes('竜之介動物病院'))return['犬・猫対応','夜間診療','レーザー治療','リハビリ','食事・ダイエット相談','予防接種','ノミ・ダニ予防','ペットホテル','トリミング'];
+if(n.includes('げんき動物病院'))return['犬・猫対応','レーザー治療','入院対応','酸素室・人工呼吸器','心電図・超音波','予防医療'];
+if(n.includes('タナカ動物病院'))return['犬・猫対応','レーザー治療','CO2レーザー手術','鍼灸・漢方','入院対応','予防医療'];
+if(n.includes('たかた動物病院'))return['犬・猫対応','CO2レーザー手術','CT','内視鏡','心電図・血液検査','予防医療'];
+if(n.includes('大津どうぶつ医療センター'))return['犬・猫対応','MRI','CT','レーザー治療（椎間板）','高度画像診断'];
+if(n.includes('鳥城ペットクリニック'))return['犬・猫・うさぎ・フェレット・ハムスター対応','MRI','画像診断'];
+if(n.includes('熊本動物病院'))return['犬・猫対応','循環器・心臓病','心エコー','内視鏡','健康診断','予防接種','ノミ・ダニ予防','ペットホテル'];
+if(n.includes('健軍よしい動物病院'))return['犬・猫対応','循環器科','眼科','皮膚科','腫瘍科','歯科','予防接種','土日診療'];
+if(n.includes('ともだ動物病院'))return['犬・猫対応','循環器・心臓病','皮膚科','腎臓病','眼科検査','歯科','ワクチン','ノミ・ダニ予防','トリミング','ペットホテル'];
+return[]};
+map.on('popupopen',e=>{const el=e.popup.getElement(),p=places.find(x=>x[1]===el.querySelector('strong')?.textContent);if(!p||!verifiedTags(p).length||el.querySelector('.verified-facility-tags'))return;const box=document.createElement('div');box.className='verified-facility-tags';box.style='margin-top:8px;display:flex;gap:4px;flex-wrap:wrap';box.innerHTML=verifiedTags(p).map(t=>'<span style="background:#e5f3ee;color:#18594b;border-radius:999px;padding:3px 7px;font-size:11px">'+t+'</span>').join('');el.querySelector('strong').parentElement.insertBefore(box,el.querySelector('a'))});
+</script>
 </html>
