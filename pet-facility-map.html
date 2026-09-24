@@ -51,13 +51,25 @@ button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::befor
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 <script>const map=L.map('map').setView([32.8031,130.7079],9);L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'&copy; Esri'}).addTo(map);const places=[
-['カフェ','Manly 熊本店','熊本市中央区',32.8064,130.7165,'https://manly-kumamoto.com/access.html'],
+['カフェ','Manly 熊本店','熊本市中央区南坪井町5-29 The Salon BLD1F',32.8064,130.7165,'https://manly-kumamoto.com/'],
+['カフェ','ふぉれすと','熊本市南区砂原町289-1',32.763,130.680,'https://www.instagram.com/10106.forest/'],
+['カフェ','Little Garden（リトルガーデン）','熊本市東区長嶺南4-1-85',32.815,130.769,'https://www.restaurant-littlegarden.net/'],
+['カフェ','give me a little RYU（ちょっとちょうだい龍）','上益城郡山都町北中島1115-3',32.720,130.970,'https://www.instagram.com/give_me_a_little_ryu/'],
+['カフェ','森の時間','阿蘇郡南小国町大字赤馬場2344',33.070,131.070,'https://www.instagram.com/morino_jikan36/'],
+['カフェ','ONE FIVE DOG','熊本市中央区大江5-16-18',32.798,130.726,'https://www.instagram.com/onefivedog/'],
+['カフェ','CAFE lx（カフェルクス）浜線店','熊本市東区画図町下無田1149-1',32.763,130.740,'https://www.cafelx.jp/shop'],
+['カフェ','BOUCHE’S Cafe（ブーシーズ・カフェ）','熊本市中央区上通町5-10 桜井ビル2F',32.805,130.710,'https://bouchescafe.gorp.jp/'],
+['カフェ','Pizzeria Bar e Deli TANPOPO','熊本市東区広木町30-84',32.776,130.762,'https://tanpopo.favy.jp/'],
+['カフェ','SORAHIRO FIKA（ソラヒロ フィーカ）','熊本市北区武蔵ヶ丘1-6-6 Sorahiro Connect 1F',32.858,130.766,'https://sorahiro.jp/business/cafe/'],
+['カフェ','カフェ・キッチン ルナカルド（Teo One内）','熊本市南区城南町赤見1302',32.716,130.744,'https://teo-one.halfmoon.jp/cafe-kitchen/'],
+['カフェ','海の隠れ家（Rest＆Cafe）','宇城市三角町三角浦102',32.615,130.485,'https://uminokakurega.com/'],
 ['カフェ','リゾラテラス天草','上天草市',32.520,130.425,'https://www.lisolaterrace.com/'],
 ['カフェ','FRAPPE×FRAPPE','熊本市北区植木町',32.936,130.666,'https://frappefrappe.studio/'],
 ['カフェ','HUI CAFE','上天草市大矢野町中7388',32.584,130.430,'https://lit.link/huicafe'],
 ['カフェ','ヒバリカフェ','阿蘇市一の宮町中通640-1',32.941,131.116,'https://hibari-cafe.com/'],
 ['カフェ','CROSS TIME CROSS BE テラス','熊本市西区春日1-13-1',32.789,130.689,'https://onestationhotel-kumamoto.jp/5341'],
 ['カフェ','フラワーカフェMyu','熊本市中央区中央街6-29',32.801,130.710,'https://www.myu-cafe.com/'],
+['カフェ','阿蘇マロンの樹','阿蘇郡西原村宮山1734-1',32.8005,130.9284,'https://aso-marron.com/'],
 ['ドッグラン','くまもとドッグラン もりのみやこ','熊本市南区良町5-25-8',32.79,130.74,'https://www.dogrunmorinomiyako.jp/'],
 ['ドッグラン','HappyTail','熊本市北区',32.86,130.72,'https://happytail.jp/'],
 ['ドッグラン','husse Japan 熊本（現：husse-kumamoto）','上益城郡御船町木倉1115-2',32.714,130.801,'https://husse-kumamoto.k22005.co.jp/dogrun.php'],
@@ -68,8 +80,9 @@ button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::befor
 ['ドッグラン','御宿 小笠原 専用ドッグラン','阿蘇市',32.975,131.085,'https://onyado-ogasawara.com/facility/dogrun/'],
 ['ドッグラン','香りの森ドッグラン','熊本市東区',32.817,130.783,'https://www.city.kumamoto.jp/kiji00367506/index.html'],
 ['ドッグラン','熊本ドッグラン さんろく','山鹿市',33.02,130.69,'https://www.dongurimura.info/'],
+['ドッグラン','阿蘇マロンの樹 ドッグラン','阿蘇郡西原村宮山1734-1',32.8005,130.9284,'https://aso-marron.com/'],
 ['宿泊','狗の郷','菊池市',32.98,130.82,'https://kunosato.jp/'],
-['宿泊','ブレインズ天草','上天草市',32.52,130.43,'https://www.brains-amakusa.com/'],
+['宿泊','PET RESORT BRAINS AMAKUSA（ペットリゾート ブレインズ天草）','上天草市松島町合津6082-4',32.516,130.425,'https://www.brains-amakusa.com/'],
 ['宿泊','別邸 わんこ日和','芦北町',32.28,130.50,'https://www.wancobi.com/'],
 ['宿泊','B&B 犬遊楽','球磨郡相良村深水2059',32.23,130.77,'https://www.sgrbb.jp/kenyuraku/'],
 ['宿泊','コスギリゾート With Dogs','阿蘇市乙姫2052',32.98,131.08,'https://www.kosugiresort.com/withdogs/'],
@@ -79,11 +92,15 @@ button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::befor
 ['宿泊','ペンションあかね雲','阿蘇郡南阿蘇村',32.84,131.06,'https://p-akanegumo.com/'],
 ['宿泊','ペンション ハウディ','阿蘇郡南阿蘇村',32.84,131.08,'https://pension-howdy.com/'],
 ['宿泊','ペットと泊まれる宿 ペンションむさし','阿蘇郡南阿蘇村',32.82,131.04,'http://aso-petyado.com/'],
+['宿泊','阿蘇マロンの樹 RVパーク・オートキャンプ場','阿蘇郡西原村宮山1734-1',32.8005,130.9284,'https://aso-marron.com/autocamp.php'],
+['宿泊','海の隠れ家 キャンプ場・グランピング','宇城市三角町三角浦102',32.615,130.485,'https://uminokakurega.com/'],
 ['預ける','ペットラウンジ ルシアン','熊本市西区',32.797,130.625,'https://www.petlounge-lechien.com/pet_hotel.php'],
 ['預ける','ペットサロンタビー','熊本市東区',32.806,130.77,'https://www.petsalon-tabby.com/'],
 ['預ける','わんわんランドアグリ','熊本市南区',32.781,130.704,'http://aguli.jp/'],
 ['預ける','ぺんぎんシッター','熊本市・菊池郡・上益城郡・合志市',32.805,130.707,'https://penguinsitter.com/area/kumamoto/'],
 ['預ける','ワンラブ イオンタウン西熊本店','熊本市南区',32.773,130.69,'https://www.pet-onelove.com/hotel/page140.php'],
+['預ける','トリミングサロン husse（フッセ）熊本','熊本県内',32.714,130.801,'https://www.instagram.com/husse_kumamoto/'],
+['預ける','山ぼうしの樹（ペットシッター・ペットホテル）','上益城郡甲佐町糸田136',32.652,130.805,'https://www.haw-fukufuku.net/'],
 ['預ける','マイ・犬・シャンプースポット','熊本市',32.803,130.707,'https://www.mykenshampoospot.jp/'],
 ['預ける','リトルモモ','菊池郡大津町',32.91,130.86,'https://littelemomo.jimdofree.com/'],
 ['預ける','肥後和魂（ヒゴワコン）','宇土市花園町',32.70,130.65,'https://www.instagram.com/higowakon_mameshiba/'],
@@ -151,7 +168,8 @@ button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::befor
 ['病院','鳥城ペットクリニック','熊本市南区川尻6丁目8-7',32.741,130.681,'https://ujo-petclinic.jp/'],
 ['病院','やまもと動物病院','熊本市東区東野3丁目2-2',32.789,130.777,'https://yamamoto-vet.com/'],
 ['カフェ','Cafe LuLu','熊本市中央区城東町',32.805,130.713,'https://www.instagram.com/dogcafe_o2.lulu_kumamoto/'],
-['カフェ','le café NISHIHARA','西原村',32.835,130.927,'https://lecafenishihara.com/news/%E3%83%9A%E3%83%83%E3%83%88%E5%90%8C%E4%BC%B4%E3%81%AE%E3%81%8A%E5%AE%A2%E6%A7%98%E3%81%B8/'],
+['カフェ','le café NISHIHARA','阿蘇郡西原村河原2004',32.835,130.927,'https://lecafenishihara.com/news/%E3%83%9A%E3%83%83%E3%83%88%E5%90%8C%E4%BC%B4%E3%81%AE%E3%81%8A%E5%AE%A2%E6%A7%98%E3%81%B8/'],
+['カフェ','CAFE&DINER LOFT STAIRS','上益城郡甲佐町府領2182-56',32.650,130.820,'https://www.instagram.com/cafe_and_diner_loft_stairs/'],
 ['カフェ','LIKE A TAVERN','熊本市中央区上林町',32.808,130.710,'https://www.instagram.com/like_a_tavern/'],
 ['宿泊','フォレスタ阿蘇車帰','阿蘇市',32.96,131.04,'https://foresta-aso.jp/5590-2/'],
 ['宿泊','月亭 TSUKITEI','南阿蘇村',32.82,131.04,'https://tsukitei-aso.com/pet_room.html'],
@@ -166,12 +184,22 @@ button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::befor
 ,
 ['カフェ','DOG GARDEN 南を翔る風','南阿蘇村',32.82,131.04,'https://www.kunosato.jp/sightseeing/'],
 ['カフェ','kura倉cafe','人吉市',32.21,130.75,'https://kurakuracafe.com/'],
-['カフェ','グレーテルの森','南阿蘇村',32.82,131.04,'https://www.gretel5.com/reserve.html'],
-['カフェ','Three TAILs','熊本市',32.82,130.74,'https://three-tails111.com/cafe/'],
+['カフェ','グレーテルの森','阿蘇郡南阿蘇村河陰3485-14',32.820,131.040,'https://www.gretel5.com/'],
+['カフェ','Three TAILs（スリーテイルズ）','熊本市中央区出水4丁目34-3 1F',32.779,130.736,'https://three-tails111.com/'],
+['カフェ','brunch&cafe MILK','菊池郡菊陽町光の森',32.861,130.797,'https://www.instagram.com/milk_hikarinomori/'],
+['カフェ','クラッチカフェ（clutch cafe）','熊本市北区龍田',32.851,130.751,'https://www.instagram.com/clutchcafe715/'],
+['カフェ','KATARIBA 伍乃四〇（カタリバ ごのよんじゅう）','熊本市南区城南町藤山1715-2',32.705,130.738,'https://5no40.com/'],
+['カフェ','RESTAURANT Tiger Man（レストラン タイガーマン）','熊本市北区楡木4丁目5-14',32.873,130.743,'https://restauranttigerman.wixsite.com/mysite'],
+['カフェ','のほほんcafeボジョリ','南阿蘇村',32.820,131.040,'https://www.instagram.com/cafe_boisjoli/'],
+['カフェ','山ぼうしの樹（さびカフェ）','上益城郡甲佐町糸田136',32.652,130.805,'https://www.yamabousinoki.com/'],
+['カフェ','立田山薪窯パン屋 GONZINO（ゴンジーノ）','熊本市北区龍田陳内2丁目2-2',32.842,130.747,'https://www.mare52.com/'],
+['カフェ','Route208（ルート208）','荒尾市野原1061-12',32.994,130.468,'https://www.instagram.com/route.208/'],
+['カフェ','創作手打ちそば 宝処三昧','阿蘇郡南小国町北里429-2',33.095,131.070,'https://housyozanmai.com/'],
 ['カフェ','ママトコキッチン','菊池市',32.93,130.80,'https://mamatoco.co.jp/eat'],
-['カフェ','boketto','西原村',32.84,130.93,'boketto.html']
+['カフェ','boketto','阿蘇郡西原村布田834-27',32.828,130.910,'https://boketto.biz/']
 ,
 ['ドッグラン','熊本ドッグラン さんろく×相棒の湯','山鹿市久原3905',33.02,130.69,'https://www.dongurimura.info/sanroku/'],
+['ドッグラン','Route208（ルート208）','荒尾市野原1061-12',32.994,130.468,'https://www.instagram.com/route.208/'],
 ['ドッグラン','火の国ドッグラン・オートキャンプ場','阿蘇市',32.95,131.10,'https://www.city.aso.kumamoto.jp/tourism/spot/accommodation-hot-springs/campsite-2/'],
 ['ドッグラン','あそ望の郷くぎの','南阿蘇村',32.82,131.03,'https://www.aso-kugino.jp/asobou_dogrun.html'],
 ['ドッグラン','道の駅 宮地岳かかしの里','天草市',32.446,130.247,'https://kakashinosato.jp/facility/']
@@ -224,9 +252,16 @@ if(n.includes('鳥城ペットクリニック'))return['犬・猫・うさぎ・
 if(n.includes('熊本動物病院'))return['犬・猫対応','循環器・心臓病','心エコー','内視鏡','健康診断','予防接種','ノミ・ダニ予防','ペットホテル'];
 if(n.includes('健軍よしい動物病院'))return['犬・猫対応','循環器科','眼科','皮膚科','腫瘍科','歯科','予防接種','土日診療'];
 if(n.includes('ともだ動物病院'))return['犬・猫対応','循環器・心臓病','皮膚科','腎臓病','眼科検査','歯科','ワクチン','ノミ・ダニ予防','トリミング','ペットホテル'];
+if(n.includes('阿蘇マロンの樹'))return['ペット同伴テラス','ドッグラン','RVパーク','オートキャンプ場','犬用メニュー'];
+if(n.includes('le café NISHIHARA'))return['ペット同伴テラス','小型犬対応','ペットキャリー・カート必須','要事前連絡'];
+if(n.includes('LOFT STAIRS'))return['カフェ・ダイナー','トレーラー型席','ペット同伴要確認'];
+if(n.includes('Manly 熊本店'))return['ドッグカフェ','犬同伴可','店内同伴可','テラス席','犬用メニュー','ふわふわパンケーキ','ネット予約'];
 if(n.includes('園田動物病院'))return['犬・猫対応','一般診療','手術対応','犬入院室','猫入院室','伝染病入院室','家庭用ICU','健康診断'];
 if(n.includes('うさぎの病院'))return['うさぎ専門','定期ケア','健康診断','食事管理','予防医療','二次診療','日曜診療','駐車場あり'];
 return[]};
 map.on('popupopen',e=>{const el=e.popup.getElement(),p=places.find(x=>x[1]===el.querySelector('strong')?.textContent);if(!p||!verifiedTags(p).length||el.querySelector('.verified-facility-tags'))return;const existing=[...el.querySelectorAll('.facility-tag')].map(x=>x.textContent);const tags=verifiedTags(p).filter(t=>!existing.includes(t));if(!tags.length)return;const box=document.createElement('div');box.className='verified-facility-tags';box.style='margin-top:8px;display:flex;gap:4px;flex-wrap:wrap';box.innerHTML=tags.map(t=>'<span style="background:#e5f3ee;color:#18594b;border-radius:999px;padding:3px 7px;font-size:11px">'+t+'</span>').join('');el.querySelector('strong').parentElement.insertBefore(box,el.querySelector('a'))});
+const facilityTagsVerified=facilityTags;facilityTags=p=>p[1].includes('ふぉれすと')?['ペット同伴要確認','公式Instagramで営業情報確認']:p[1].includes('Little Garden')?['店内ペット同伴可','テラス席','グランピングテント','犬用フード','駐車場あり']:p[1].includes('give me a little RYU')?['アメリカンサンドウィッチ','ハンバーガー','駐車場あり','ペット同伴要確認']:p[1].includes('森の時間')?['森の中のカフェ','土日月営業','ペット同伴情報あり','営業日・時間は公式Instagram確認']:p[1].includes('ONE FIVE DOG')?['ドッグカフェ','揚げサンド','ホットドッグ','テイクアウト','12:00〜19:00']:p[1].includes('CAFE lx')?['スフレパンケーキ','テラス席','ペット同伴可','駐車場あり','11:00〜20:00']:p[1].includes('BOUCHE')?['フレンチ・カフェ','テラス席','ペット同伴可','ランチ・ディナー','スイーツ']:p[1].includes('TANPOPO')?['イタリアン','ピザ','テラス席','ペット同伴可','テラス席の一部のみ','テイクアウト']:p[1].includes('SORAHIRO FIKA')?['北欧風カフェ','ランチ','スイーツ','駐車場あり','ペット同伴要確認']:p[1].includes('Three TAILs')?['獣医師のいるドッグカフェ','店内ペット同伴可','ペットケア相談','筋膜リリース・マッサージ','フード・サプリ相談','駐車場3台','10:00〜18:00']:p[1].includes('MILK')?['ブランチ・カフェ','スイーツ','11:00〜21:00','火曜定休','ペット同伴要確認']:p[1].includes('クラッチカフェ')?['川沿いのカフェ','モーニング','ランチ・カフェ','テイクアウト','ペット同伴要確認']:p[1].includes('伍乃四〇')?['うどん・和食','縁側のある店','個室プラン','テイクアウト','ペット同伴要確認']:p[1].includes('Tiger Man')?['アメリカ料理','ハンバーガー','ステーキ','フライドチキン','ワイン・アルコール','ペット同伴要確認']:p[1].includes('ボジョリ')?['小さな森のカフェ','現金のみ','火・水・木・土・日営業','ペット同伴要確認']:p[1].includes('狗の郷')?['ペットと泊まれる宿','温泉','ドッグラン','ペット同伴可']:p[1].includes('boketto')?['オーガニックレストラン','森の中の施設','インテリアショップ','イベント・スペース利用','ペット同伴要確認']:p[1].includes('グレーテルの森')?['ペット同伴可','テラス席のみ','要予約','雨天時は利用不可']:p[1].includes('海の隠れ家')?['ペット同伴可の情報あり','ドッグラン','キャンプ・グランピング','バーベキュー','レンタルボート']:facilityTagsVerified(p);
 </script>
+<script>const facilityTagsCurrent=facilityTags;facilityTags=p=>p[1].includes('CROSS TIME CROSS BE')?['ホテルレストラン','テラス席','小型犬のみ（10kg以下）','予防接種要','7:00〜22:00','BBQスタイル']:p[1].includes('ルナカルド')?['ドッグラン内カフェ','ピザ','サンドイッチ','犬用おやつ販売','飼い主と一緒に利用可']:p[1].includes('DOG RUN & CAFE Teo One')?['ドッグラン','小型犬エリア','大型犬エリア','貸切エリア','天然芝','カフェ併設','駐車場13台','予防接種証明']:facilityTagsCurrent(p);</script>
+<script>const facilityTagsPetDining=facilityTags;facilityTags=p=>p[1].includes('GONZINO')?['薪窯パン・カフェ','ドッグガーデンテラス','犬同伴可','リード必須','ドッグランではありません']:p[1].includes('Route208')?['ドッグランCafe','犬同伴可','わんちゃんの食事','ランチ','BAR営業']:p[1].includes('宝処三昧')?['手打ちそば','ペット同伴可','個室利用可']:facilityTagsPetDining(p);</script>
 </html>
