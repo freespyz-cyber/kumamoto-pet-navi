@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>熊本ペット施設MAP｜カフェ・ドッグラン・宿泊</title>
-<meta name="description" content="熊本県内のペット同伴カフェ、ドッグラン、宿泊施設、動物病院などを地図から探せます。">
+<title>熊本ペットナビ｜ペットと一日楽しむお出かけMAP</title>
+<meta name="description" content="熊本県内の動物病院、ペット同伴カフェ、ドッグラン、宿泊施設などを地図で検索。行きたい場所を選んで、ペットと一日楽しめるお出かけコースをGoogleマップで計画できます。">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:34px 18px}.brand,a{color:#234d43;font-weight:900;text-decoration:none}h1{font-size:clamp(30px,6vw,52px);line-height:1.2}.lead{color:#718078}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.filters button{border:1px solid #cbd8cf;background:#fffdf9;border-radius:99px;padding:9px 14px;font-weight:900;color:#234d43}.filters button.active{background:#234d43;color:#fff}.legend{font-size:13px;color:#718078;margin:12px 0}.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin:0 4px 0 12px}.cafe{background:#e85d75}.run{background:#159a9c}.stay{background:#7357d9}.vet{background:#e5484d}.care{background:#c052b8}#map{height:62vh;min-height:430px;border-radius:16px;border:1px solid #dddcd5;box-shadow:0 8px 22px #c8c1b533}.trip-box{background:#fffdf9;border:1px solid #dddcd5;border-radius:16px;padding:20px;margin-top:20px}.trip-box button{border:0;border-radius:999px;padding:10px 14px;margin:8px 6px 0 0;font-weight:900;background:#234d43;color:#fff}.trip-box button:disabled{background:#cfd7d2;color:#718078}.trip-add{display:block;margin-top:10px!important}.note{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin-top:18px;font-size:13px}</style>
 <style>
@@ -20,8 +20,9 @@ button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::befor
 <a class="brand" href="index.html">熊本ペットナビ</a>
 <p>MAP / PET-FRIENDLY PLACES</p>
 <h1>行きたい場所を選んで、<br>ペットとのコースを作る。</h1>
-<p class="lead">熊本のカフェ・ドッグラン・宿泊先・動物病院を地図で発見。気になる場所を何件でもつないで、Googleマップで今日のお出かけルートを確認できます。</p>
-<div style="background:#234d43;color:#fff;border-radius:18px;padding:22px 24px;margin:22px 0 18px;box-shadow:0 10px 24px rgba(35,77,67,.18)"><strong style="display:block;font-size:clamp(22px,4vw,34px);line-height:1.25">選ぶ。つなぐ。出かける。</strong><span style="display:block;margin-top:8px;font-size:clamp(14px,2vw,18px);font-weight:800;color:#dcebe0">地図のピンを押して、行きたい場所を予定に追加。何件でも選んで、Googleマップでコースを見られます。</span></div>
+<p class="lead">熊本県内のペット同伴カフェ、ドッグラン、宿泊施設、動物病院などを地図で探せます。行きたい場所を選んで、ペットと一日楽しめるお出かけコースをGoogleマップで計画できます。</p>
+<div style="background:#234d43;color:#fff;border-radius:18px;padding:22px 24px;margin:22px 0 18px;box-shadow:0 10px 24px rgba(35,77,67,.18)"><strong style="display:block;font-size:clamp(22px,4vw,34px);line-height:1.25">地図で探して、ペットと一日楽しもう。</strong><span style="display:block;margin-top:8px;font-size:clamp(14px,2vw,18px);font-weight:800;color:#dcebe0">行きたい場所を選んで、カフェ・遊び場・宿泊先・動物病院をつないだお出かけコースを計画できます。</span></div>
+<section style="background:#fff9e8;border:1px solid #ead9ad;border-radius:16px;padding:18px 20px;margin:18px 0" aria-label="ペット旅行の計画案内"><h2 style="margin:0 0 8px;color:#234d43;font-size:clamp(21px,3vw,30px)">ペットと行く熊本旅行を、ここで計画しよう。</h2><p style="margin:0;color:#5c665f;line-height:1.8">ペットと泊まれる宿、同伴できるカフェ、ドッグラン、観光スポットを地図から選んで、旅行コースを作れます。</p></section>
 <div class="search-box"><input id="facility-search" type="search" placeholder="病院名・地域・症状・設備で検索（例：犬 心臓）" aria-label="病院名・地域・症状・設備で検索"><button id="clear-search" type="button">検索をクリア</button></div>
 <div class="filters">
 <button class="active" data-type="all">すべて</button>
@@ -226,6 +227,6 @@ if(n.includes('ともだ動物病院'))return['犬・猫対応','循環器・心
 if(n.includes('園田動物病院'))return['犬・猫対応','一般診療','手術対応','犬入院室','猫入院室','伝染病入院室','家庭用ICU','健康診断'];
 if(n.includes('うさぎの病院'))return['うさぎ専門','定期ケア','健康診断','食事管理','予防医療','二次診療','日曜診療','駐車場あり'];
 return[]};
-map.on('popupopen',e=>{const el=e.popup.getElement(),p=places.find(x=>x[1]===el.querySelector('strong')?.textContent);if(!p||!verifiedTags(p).length||el.querySelector('.verified-facility-tags'))return;const box=document.createElement('div');box.className='verified-facility-tags';box.style='margin-top:8px;display:flex;gap:4px;flex-wrap:wrap';box.innerHTML=verifiedTags(p).map(t=>'<span style="background:#e5f3ee;color:#18594b;border-radius:999px;padding:3px 7px;font-size:11px">'+t+'</span>').join('');el.querySelector('strong').parentElement.insertBefore(box,el.querySelector('a'))});
+map.on('popupopen',e=>{const el=e.popup.getElement(),p=places.find(x=>x[1]===el.querySelector('strong')?.textContent);if(!p||!verifiedTags(p).length||el.querySelector('.verified-facility-tags'))return;const existing=[...el.querySelectorAll('.facility-tag')].map(x=>x.textContent);const tags=verifiedTags(p).filter(t=>!existing.includes(t));if(!tags.length)return;const box=document.createElement('div');box.className='verified-facility-tags';box.style='margin-top:8px;display:flex;gap:4px;flex-wrap:wrap';box.innerHTML=tags.map(t=>'<span style="background:#e5f3ee;color:#18594b;border-radius:999px;padding:3px 7px;font-size:11px">'+t+'</span>').join('');el.querySelector('strong').parentElement.insertBefore(box,el.querySelector('a'))});
 </script>
 </html>
