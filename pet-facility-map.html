@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
-<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <style>body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:34px 18px}.brand,a{color:#234d43;font-weight:900;text-decoration:none}h1{font-size:clamp(30px,6vw,52px);line-height:1.2}.lead{color:#718078}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.filters button{border:1px solid #cbd8cf;background:#fffdf9;border-radius:99px;padding:9px 14px;font-weight:900;color:#234d43}.filters button.active{background:#234d43;color:#fff}.legend{font-size:13px;color:#718078;margin:12px 0}.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin:0 4px 0 12px}.cafe{background:#e85d75}.run{background:#159a9c}.stay{background:#7357d9}.vet{background:#e5484d}.care{background:#c052b8}#map{height:62vh;min-height:430px;border-radius:16px;border:1px solid #dddcd5;box-shadow:0 8px 22px #c8c1b533}.trip-box{background:#fffdf9;border:1px solid #dddcd5;border-radius:16px;padding:20px;margin-top:20px}.trip-box button{border:0;border-radius:999px;padding:10px 14px;margin:8px 6px 0 0;font-weight:900;background:#234d43;color:#fff}.trip-box button:disabled{background:#cfd7d2;color:#718078}.trip-add{display:block;margin-top:10px!important}.note{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin-top:18px;font-size:13px}</style>
 <style>
 /* 見つける→絞る→地図で確認、の順に視線を整理 */
@@ -53,6 +52,7 @@ button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::befor
 </main>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>const map=L.map('map').setView([32.8031,130.7079],9);L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'&copy; Esri'}).addTo(map);const places=[
 ['カフェ','Manly 熊本店','熊本市中央区南坪井町5-29 The Salon BLD1F',32.8064,130.7165,'https://manly-kumamoto.com/'],
 ['カフェ','ふぉれすと','熊本市南区砂原町289-1',32.763,130.680,'https://www.instagram.com/10106.forest/'],
