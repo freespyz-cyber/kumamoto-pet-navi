@@ -140,7 +140,16 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
     document.querySelectorAll('.fukuoka-food-list').forEach((section, index) => {
       if (index > 0) section.remove();
     });
+    const removeDuplicateHeading = (label) => {
+      const headings = [...document.querySelectorAll('h2')].filter(h => h.textContent.trim() === label);
+      headings.slice(1).forEach(h => {
+        const section = h.closest('section') || h.parentElement;
+        if (section) section.remove();
+      });
+    };
+    removeDuplicateHeading('福岡の動物病院');
+    removeDuplicateHeading('福岡のペット同伴飲食店');
   };
-  setTimeout(cleanDuplicateSections, 1400);
+  setTimeout(cleanDuplicateSections, 2200);
 })();
 </script>
