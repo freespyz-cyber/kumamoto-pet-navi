@@ -56,28 +56,6 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
 <script>
 (() => {
   const mapEl = document.getElementById('map');
-  if (!mapEl || typeof hospitals === 'undefined') return;
-  const section = document.createElement('section');
-  section.className = 'fukuoka-hospital-list';
-  section.innerHTML = '<h2>福岡の動物病院</h2><p>病院名・地域・詳細ページを確認できます。診療時間や休診日は来院前に公式情報をご確認ください。</p><div class="hospital-cards"></div>';
-  mapEl.parentNode.insertBefore(section, mapEl.nextSibling);
-  const style = document.createElement('style');
-  style.textContent = '.fukuoka-hospital-list{margin-top:22px;padding:20px;background:#fffdf9;border:1px solid #dddcd5;border-radius:16px}.fukuoka-hospital-list h2{margin:0 0 6px}.fukuoka-hospital-list p{color:#718078}.hospital-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.hospital-card{padding:14px;border:1px solid #e5e1d9;border-radius:12px;background:#fff}.hospital-card strong{display:block;color:#234d43}.hospital-card small{display:block;color:#718078;margin:4px 0 8px}.hospital-card a{display:inline-block}';
-  document.head.appendChild(style);
-  const FOOD_DETAILS = {
-    'cafe Lanai（カフェ ラナイ）': '海を目の前にしたリゾートカフェ｜テラス席で犬同伴OK｜パンケーキが人気｜11:30〜20:00｜駐車場あり',
-    'カフェドボッコ（cafe de BoCCo）': '海を目の前にしたカフェ｜テラス席で犬同伴OK｜パスタランチは夜も注文可能',
-    '草の家': '自然に囲まれた落ち着いたカフェ｜テラス席で犬同伴可｜太宰府エリア',
-    'café OFF COURSE（カフェオフコース）': '自然に囲まれたカフェ｜テラス席で犬同伴OK｜ドッグラン・トリミングルーム併設｜11:00〜22:00｜駐車場あり',
-    'カフェ プリリネ': '店内で犬同伴OK｜小さなドッグラン併設｜小型犬向き｜犬のしつけ教室あり',
-    'アッカントエッフェ': '糸島エリア｜自家菜園のある宿泊・レストラン｜イタリア料理とワイン｜テラス席で犬同伴可'
-  };
-  section.querySelector('.hospital-cards').innerHTML = hospitals.map(p => '<article class="hospital-card"><strong>' + p[0] + '</strong><small>' + p[1] + '　｜　動物病院</small><a href="' + p[4] + '">病院の詳細を見る →</a></article>').join('');
-})();
-</script>
-<script>
-(() => {
-  const mapEl = document.getElementById('map');
   if (!mapEl) return;
   const section = document.createElement('section');
   section.className = 'fukuoka-food-list';
