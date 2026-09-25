@@ -2,7 +2,7 @@
   const run = () => {
     if (typeof map === 'undefined' || typeof places === 'undefined' || typeof L === 'undefined') return;
     Object.values(map._layers || {}).forEach(layer => {
-      if (layer.getPopup && layer.getPopup()) map.removeLayer(layer);
+      if (layer instanceof L.CircleMarker || (layer.getPopup && layer.getPopup())) map.removeLayer(layer);
     });
     const esc = value => String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const add = (p, category, href) => {
@@ -16,8 +16,15 @@
       marker.bindPopup(html);
       marker.on('popupopen', event => { const button = event.popup.getElement()?.querySelector('.map-add-plan'); if (button) button.onclick = () => { button.textContent = '追加済み'; }; });
     };
-    places.forEach(p => add(p, p[4], p[5]));
-    (typeof hospitals !== 'undefined' ? hospitals : []).forEach(p => add(p, '病院', p[4]));
+    const seen = new Set();
+    const addOnce = (p, category, href) => {
+      const key = `${p[0]}|${p[2]}|${p[3]}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      add(p, category, href);
+    };
+    places.forEach(p => addOnce(p, p[4], p[5]));
+    (typeof hospitals !== 'undefined' ? hospitals : []).forEach(p => addOnce(p, '病院', p[4]));
   };
-  setTimeout(run, 500);
+  setTimeout(run, 1200);
 })();
