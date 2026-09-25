@@ -131,3 +131,16 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
 })();
 </script>
 <script src="map-common-enhancements.js"></script><script src="fukuoka-popup-template.js"></script>
+<script>
+(() => {
+  const cleanDuplicateSections = () => {
+    document.querySelectorAll('.fukuoka-hospital-list').forEach((section, index) => {
+      if (index > 0) section.remove();
+    });
+    document.querySelectorAll('.fukuoka-food-list').forEach((section, index) => {
+      if (index > 0) section.remove();
+    });
+  };
+  setTimeout(cleanDuplicateSections, 1400);
+})();
+</script>
