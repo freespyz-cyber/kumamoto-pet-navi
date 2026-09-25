@@ -107,7 +107,10 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
 <script>
 (() => {
   if (typeof map === 'undefined' || typeof places === 'undefined') return;
-  const shown = new Set(Object.values(map._layers || {}).map(layer => String(layer.getPopup?.()?.getContent?.() || '')));
+  const shown = new Set(Object.values(map._layers || {}).map(layer => {
+    const html = String(layer.getPopup?.()?.getContent?.() || '');
+    return (html.match(/<strong>(.*?)<\/strong>/) || [, ''])[1].trim();
+  }).filter(Boolean));
   places.filter(p => p[4] === '食事' && !shown.has(p[0])).forEach(p => {
     const m = L.circleMarker([p[2], p[3]], {radius: 9, color: '#fff', weight: 2, fillColor: '#e85d75', fillOpacity: .95}).addTo(map);
     m.bindPopup('<strong>' + p[0] + '</strong><br>' + p[1] + '<br>分類：食事<br>※ペット同伴条件は来店前に公式情報をご確認ください。');
@@ -120,7 +123,11 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
   const additions = [
     ['bills 福岡水上公園','福岡市中央区・水上公園',33.589,130.404,'食事'],["V’s FORT CAFE（ヴィーズフォートカフェ）",'福岡市・動崎古墳付近',33.674,130.314,'食事'],['スラッシュカフェ','福岡市エリア',33.59,130.40,'食事'],['Puka Puka Kitchen（プカプカキッチン）','福岡市西区・海沿い',33.613,130.149,'食事'],['RAMAI PULAU RESORT 今泉店','福岡市中央区・今泉',33.584,130.397,'食事'],['nap cafe（ナップカフェ）','福岡市西区・小田',33.62,130.18,'食事'],['Dog Cafe Tea pot（ドッグカフェ ティーポット）','北九州市小倉南区',33.84,130.88,'食事'],['DogRun&Cafe Eual＊La','北九州エリア',33.86,130.75,'食事'],['キャバリアハウス','筑後エリア',33.25,130.52,'食事'],["PET’s THE WORLD",'久留米市',33.32,130.52,'食事'],['くるみcafe','福岡県',33.59,130.40,'食事'],['cafe Lanai（カフェ ラナイ）','福津市・福間海岸沿い',33.77,130.47,'食事'],['カフェドボッコ（cafe de BoCCo）','福津市・福間海岸沿い',33.77,130.47,'食事'],['草の家','太宰府市エリア',33.51,130.52,'食事'],['café OFF COURSE（カフェオフコース）','宗像市',33.80,130.54,'食事'],['カフェ プリリネ','福岡県',33.59,130.40,'食事'],['アッカントエッフェ','糸島市',33.55,130.14,'食事'],['Current（カレント）','糸島市',33.55,130.14,'食事']
   ];
-  additions.forEach(p => { const m=L.circleMarker([p[2],p[3]],{radius:8,color:'#fff',weight:2,fillColor:'#e85d75',fillOpacity:.95}); m.bindPopup(`<strong>${p[0]}</strong><br>${p[1]}<br>分類：${p[4]}<br>※ペット同伴条件は来店前に公式情報をご確認ください。`); m.addTo(map); });
+  const existingNames = new Set(Object.values(map._layers || {}).map(layer => {
+    const html = String(layer.getPopup?.()?.getContent?.() || '');
+    return (html.match(/<strong>(.*?)<\/strong>/) || [, ''])[1].trim();
+  }).filter(Boolean));
+  additions.filter(p => !existingNames.has(p[0])).forEach(p => { const m=L.circleMarker([p[2],p[3]],{radius:8,color:'#fff',weight:2,fillColor:'#e85d75',fillOpacity:.95}); m.bindPopup(`<strong>${p[0]}</strong><br>${p[1]}<br>分類：${p[4]}<br>※ペット同伴条件は来店前に公式情報をご確認ください。`); m.addTo(map); existingNames.add(p[0]); });
 })();
 </script>
 <script src="map-common-enhancements.js"></script>
