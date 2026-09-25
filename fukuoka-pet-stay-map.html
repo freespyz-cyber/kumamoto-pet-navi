@@ -11,6 +11,35 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
 </script>
 <script>
 (() => {
+  const mapEl = document.getElementById('map');
+  if (!mapEl) return;
+  const section = document.createElement('section');
+  section.className = 'fukuoka-food-list';
+  section.innerHTML = '<h2>福岡のペット同伴飲食店</h2><p>掲載店の地域・カテゴリ・同伴条件を確認できます。来店前に公式情報をご確認ください。</p><div class="food-cards"></div>';
+  mapEl.parentNode.insertBefore(section, mapEl.nextSibling);
+  const style = document.createElement('style');
+  style.textContent = '.fukuoka-food-list{margin-top:22px;padding:20px;background:#fffdf9;border:1px solid #dddcd5;border-radius:16px}.fukuoka-food-list h2{margin:0 0 6px}.fukuoka-food-list p{color:#718078}.food-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.food-card{padding:14px;border:1px solid #e5e1d9;border-radius:12px;background:#fff}.food-card strong{display:block;color:#234d43}.food-card small{display:block;color:#718078;margin-top:4px}.food-card a{display:inline-block;margin-top:8px}';
+  document.head.appendChild(style);
+  const render = () => {
+    const cards = new Map();
+    Object.values(map._layers || {}).forEach(layer => {
+      const popup = layer.getPopup?.();
+      if (!popup) return;
+      const html = String(popup.getContent?.() || '');
+      if (!html.includes('分類：食事')) return;
+      const name = (html.match(/<strong>(.*?)<\/strong>/) || [,''])[1];
+      if (!name || cards.has(name)) return;
+      const area = (html.match(/<br>([^<]+)<br>分類：/) || [,'福岡県内'])[1];
+      const href = (html.match(/href="(https?:[^" ]+)"/) || [,''])[1];
+      cards.set(name, '<article class="food-card"><strong>' + name + '</strong><small>' + area + '　｜　ペットと食事</small><span>同伴条件は来店前に公式情報をご確認ください。</span>' + (href ? '<br><a href="' + href + '" target="_blank" rel="noopener">公式情報を見る →</a>' : '') + '</article>');
+    });
+    section.querySelector('.food-cards').innerHTML = [...cards.values()].join('');
+  };
+  setTimeout(render, 900);
+})();
+</script>
+<script>
+(() => {
   if (typeof map === 'undefined' || typeof places === 'undefined') return;
   const shown = new Set(Object.values(map._layers || {}).map(layer => String(layer.getPopup?.()?.getContent?.() || '')));
   places.filter(p => p[4] === '食事' && !shown.has(p[0])).forEach(p => {
