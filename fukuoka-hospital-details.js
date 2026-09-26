@@ -1,4 +1,4 @@
-/* 福岡病院：既存の詳細ページから、病院ごとの情報をポップアップへ反映する。 */
+/* 福岡病院：詳細ページの内容を先読みし、ピンを押した瞬間から固有情報を表示する。 */
 (() => {
   const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (ch) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -16,38 +16,50 @@
     ['エキゾチック対応', /うさぎ|ハムスター|フェレット|鳥類|小動物/]
   ];
 
-  const tagsFrom = (text) => rules.filter(([, pattern]) => pattern.test(text)).map(([label]) => label);
-  const summaryFrom = (text) => {
-    const sentence = text.replace(/\s+/g, ' ').match(/.{0,90}(診療|対応|案内|併設).{0,110}[。．]/);
-    return sentence ? sentence[0].trim() : '';
-  };
+  const tagsFrom = (text) => rules
+    .filter(([, pattern]) => pattern.test(text))
+    .map(([label]) => label);
 
-  const enrich = async (popup) => {
-    if (!popup || popup.dataset.fukuokaEnriched === '1') return;
-    const name = popup.querySelector('strong')?.textContent?.trim() || '';
-    const href = popup.querySelector('a[href*="fukuoka-vets-"]')?.getAttribute('href');
-    if (!name || !href) return;
-    popup.dataset.fukuokaEnriched = '1';
+  const enrichMarker = async (marker, href) => {
+    const popup = marker.getPopup?.();
+    if (!popup || popup.__fukuokaHospitalEnriched) return;
+    popup.__fukuokaHospitalEnriched = true;
     try {
       const response = await fetch(href, { credentials: 'same-origin' });
-      if (!response.ok) return;
-      const html = await response.text();
-      const documentHtml = new DOMParser().parseFromString(html, 'text/html');
+      if (!response.ok) throw new Error(String(response.status));
+      const source = await response.text();
+      const documentHtml = new DOMParser().parseFromString(source, 'text/html');
       const text = documentHtml.body.textContent || '';
+      const summary = documentHtml.querySelector('main.wrap > p')?.textContent?.trim() || '';
       const tags = [...new Set(tagsFrom(text))];
-      const summary = documentHtml.querySelector('main.wrap > p')?.textContent?.trim() || summaryFrom(text);
-      const tagHtml = tags.map((tag) => `<span class="map-tag">${escapeHtml(tag)}</span>`).join('');
-      popup.querySelectorAll('a[href*="fukuoka-vets-"]').forEach((link) => link.remove());
-      const extra = `${summary ? `<br><span class="map-detail">${escapeHtml(summary)}</span>` : ''}<br>${tagHtml}<br><a href="${escapeHtml(href)}">病院の詳細・公式情報を見る →</a>`;
-      popup.insertAdjacentHTML('beforeend', extra);
+      const tagHtml = tags
+        .map((tag) => `<span class="map-tag">${escapeHtml(tag)}</span>`)
+        .join('');
+      const original = String(popup.getContent?.() || '');
+      const buttonMarker = '<br><button class="map-add-plan">';
+      const cleaned = original
+        .replace(/<span class="map-tag">診療情報あり<\/span>\s*/g, '')
+        .replace(/<span class="map-tag">来院前確認<\/span>\s*/g, '')
+        .replace(/<br><a class="map-detail-link"[^>]*>.*?<\/a>/g, '');
+      const detail = `<br><span class="map-detail">${escapeHtml(summary)}</span><br>${tagHtml}<br><a class="map-detail-link" href="${escapeHtml(href)}">病院の詳細・公式情報を見る →</a>`;
+      popup.setContent(cleaned.replace(buttonMarker, `${detail}${buttonMarker}`));
     } catch (_) {
-      // 詳細ページが取得できない場合は、元のポップアップを維持する。
+      popup.__fukuokaHospitalEnriched = false;
     }
   };
 
-  const scan = () => document.querySelectorAll('.leaflet-popup-content').forEach((popup) => {
-    if (popup.textContent.includes('分類：病院')) enrich(popup);
-  });
-  new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
-  scan();
+  const preload = () => {
+    if (typeof map === 'undefined' || typeof hospitals === 'undefined') return;
+    const markers = [...(window.fukuokaMarkerLayers || [])];
+    hospitals.forEach((hospital) => {
+      const marker = markers.find((item) => {
+        const html = String(item.getPopup?.()?.getContent?.() || '');
+        return html.includes(`<strong>${hospital[0]}</strong>`) && html.includes('分類：病院');
+      });
+      if (marker) enrichMarker(marker, hospital[4]);
+    });
+  };
+
+  preload();
+  setTimeout(preload, 1600);
 })();
