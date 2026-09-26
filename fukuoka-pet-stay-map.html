@@ -75,11 +75,13 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
       if (!name || cards.has(name)) return;
       const area = (html.match(/<br>([^<]+)<br>分類：/) || [,'福岡県内'])[1];
       const href = (html.match(/href="(https?:[^" ]+)"/) || [,''])[1];
-      cards.set(name, '<article class="food-card"><strong>' + name + '</strong><small>' + area + '　｜　ペットと食事</small><span>' + (FOOD_DETAILS[name] || 'ペット同伴条件・営業状況は来店前に公式情報をご確認ください。') + '</span>' + (href ? '<br><a href="' + href + '" target="_blank" rel="noopener">公式情報を見る →</a>' : '') + '</article>');
+      const detail = (typeof FOOD_DETAILS !== 'undefined' && FOOD_DETAILS[name]) || 'ペット同伴条件・営業状況は来店前に公式情報をご確認ください。';
+      cards.set(name, '<article class="food-card"><strong>' + name + '</strong><small>' + area + '　｜　ペットと食事</small><span>' + detail + '</span>' + (href ? '<br><a href="' + href + '" target="_blank" rel="noopener">公式情報を見る →</a>' : '') + '</article>');
     });
     section.querySelector('.food-cards').innerHTML = [...cards.values()].join('');
   };
   setTimeout(render, 900);
+  setTimeout(render, 1800);
 })();
 </script>
 <script>
@@ -105,7 +107,18 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
     const html = String(layer.getPopup?.()?.getContent?.() || '');
     return (html.match(/<strong>(.*?)<\/strong>/) || [, ''])[1].trim();
   }).filter(Boolean));
-  additions.filter(p => !existingNames.has(p[0])).forEach(p => { const m=L.circleMarker([p[2],p[3]],{radius:8,color:'#fff',weight:2,fillColor:'#e85d75',fillOpacity:.95}); m.bindPopup(`<strong>${p[0]}</strong><br>${p[1]}<br>分類：${p[4]}<br>※ペット同伴条件は来店前に公式情報をご確認ください。`); m.addTo(map); existingNames.add(p[0]); });
+  const placeNames = new Set(places.map(p => p[0]));
+  additions.forEach(p => {
+    if (!placeNames.has(p[0])) {
+      places.push(p);
+      placeNames.add(p[0]);
+    }
+    if (existingNames.has(p[0])) return;
+    const m=L.circleMarker([p[2],p[3]],{radius:8,color:'#fff',weight:2,fillColor:'#e85d75',fillOpacity:.95});
+    m.bindPopup(`<strong>${p[0]}</strong><br>${p[1]}<br>分類：${p[4]}<br>※ペット同伴条件は来店前に公式情報をご確認ください。`);
+    m.addTo(map);
+    existingNames.add(p[0]);
+  });
 })();
 </script>
 <script src="map-common-enhancements.js"></script><script src="fukuoka-popup-template.js"></script><script src="fukuoka-food-details.js"></script><script src="fukuoka-hospital-details.js"></script>
