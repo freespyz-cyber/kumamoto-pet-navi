@@ -25,6 +25,14 @@
     };
     places.forEach(p => addOnce(p, p[4], p[5]));
     (typeof hospitals !== 'undefined' ? hospitals : []).forEach(p => addOnce(p, '病院', p[4]));
+    // The template rebuild replaces every marker. Reset the filter registry so
+    // removed markers can never be restored alongside the new set.
+    window.fukuokaMarkerLayers = new Set(
+      Object.values(map._layers || {}).filter(layer => layer.getPopup?.())
+    );
+    setTimeout(() => {
+      document.querySelector('.fukuoka-filters button.active')?.click();
+    }, 0);
   };
   setTimeout(run, 1200);
 })();
