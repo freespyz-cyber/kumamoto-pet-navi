@@ -48,6 +48,11 @@
     .region-pill,.intent-link { border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--green); font-weight:800; font-size:13px; padding:9px 14px; }
     .region-pill.active,.intent-link.primary { background:var(--forest); border-color:var(--forest); color:#fff; }
     .region-pill.soon { color:#8d928c; background:#f5f3ee; }
+    .region-pill.fukuoka { background:#fff4ed; border-color:#bd6d57; color:#8a3f2d; }
+    .fukuoka-entry { display:flex; align-items:center; justify-content:space-between; gap:18px; margin-top:18px; padding:17px 20px; border-radius:14px; background:#234d43; color:#fff; box-shadow:0 10px 24px rgba(35,77,67,.18); }
+    .fukuoka-entry strong { display:block; font-size:18px; line-height:1.4; }
+    .fukuoka-entry small { display:block; margin-top:3px; color:#dce9e3; font-size:12px; font-weight:700; }
+    .fukuoka-entry span { flex:0 0 auto; border-radius:999px; background:#fff; color:#234d43; padding:9px 14px; font-size:13px; font-weight:900; }
     .intent-nav { margin:0 0 28px; }
     .intent-link { text-decoration:none; }
     .status { display:inline-block; margin-top:10px; padding:5px 9px; border-radius:999px; font-size:11px; font-weight:900; }
@@ -65,7 +70,7 @@
     .feature-box h3 { margin:0 0 10px; font-size:22px; } .feature-box p { opacity:.82; font-size:14px; } .feature-box a { display:inline-block; margin-top:8px; font-weight:900; border-bottom:1px solid currentColor; }
     footer { background:#203c31; color:#dce9df; padding:36px 24px; text-align:center; font-size:13px; }
     footer strong { display:block; font-size:18px; margin-bottom:8px; }
-    @media (max-width:760px) { nav { display:none; } .nav { padding:15px 18px; } .hero { grid-template-columns:1fr; padding:42px 18px 34px; gap:28px; } .hero-art { min-height:210px; font-size:88px; } .section { padding:42px 18px; } .section-head { display:block; } .more { display:inline-block; margin-top:10px; } .cards { grid-template-columns:1fr; } .feature { grid-template-columns:1fr; } }
+    @media (max-width:760px) { nav { display:none; } .nav { padding:15px 18px; } .hero { grid-template-columns:1fr; padding:42px 18px 34px; gap:28px; } .hero-art { min-height:210px; font-size:88px; } .section { padding:42px 18px; } .section-head { display:block; } .more { display:inline-block; margin-top:10px; } .cards { grid-template-columns:1fr; } .feature { grid-template-columns:1fr; } .fukuoka-entry { align-items:flex-start; padding:16px; } .fukuoka-entry strong { font-size:16px; } .fukuoka-entry span { padding:8px 11px; font-size:12px; } }
   </style>
   <style>
     :root{--ink:#25332f;--muted:#718078;--forest:#234d43;--clay:#bd6d57;--paper:#fffdf9;--line:#e5e1d9}
@@ -373,7 +378,8 @@
       <h1>ペットと行ける<br><em>場所</em>を探そう。</h1>
       <p class="lead">「ペット可」だけでは分からない、店内OK・テラスのみ・オムツ必須などのリアルな条件まで。まずは熊本から、九州でペットと過ごす場所を見つけるナビです。</p>
       <form class="search" onsubmit="return searchDemo(event)"><input id="q" placeholder="例：阿蘇 犬連れランチ／熊本市 ドッグラン"><button>検索</button></form>
-      <div class="region-tools" aria-label="地域を選ぶ"><span class="region-label">エリア</span><a class="region-pill active" href="index.html">熊本県</a><span class="region-pill soon">福岡県 準備中</span><span class="region-pill soon">九州全体 準備中</span></div>
+      <div class="region-tools" aria-label="地域を選ぶ"><span class="region-label">エリア</span><a class="region-pill active" href="index.html">熊本県</a><a class="region-pill fukuoka" href="fukuoka-pet-stay-map.html">福岡県 MAP →</a><span class="region-pill soon">九州全体 準備中</span></div>
+      <a class="fukuoka-entry" href="fukuoka-pet-stay-map.html" aria-label="福岡のペット施設マップを開く"><span><strong>福岡のペット施設MAP</strong><small>食事・動物病院・宿泊などを地図から探せます</small></span><span>MAPを開く →</span></a>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;font-size:12px;font-weight:800;color:#234d43;"><span style="background:#dfe9e1;padding:6px 10px;border-radius:999px;">✓ 公式情報を確認</span><span style="background:#f3e7d4;padding:6px 10px;border-radius:999px;">✓ 条件まで掲載</span><span style="background:#f0deda;padding:6px 10px;border-radius:999px;">✓ 情報提供受付中</span></div>
     </div>
 <div class="hero-art" aria-label="人とロングコートチワワが熊本の公園を歩くイメージ"><img class="hero-photo" src="./hero-chihuahua.png" alt="熊本の公園を歩く人とロングコートチワワ"><span class="hero-art-label">ASO · AMAKUSA · KUMAMOTO</span></div>
