@@ -20,7 +20,8 @@
     popup.__foodEnriched = true;
     const tags = items.map((item) => `<span class="map-tag">${esc(item)}</span>`).join('');
     const buttonMarker = '<br><button class="map-add-plan">';
-    const enriched = `${html.replace(buttonMarker, `<br>${tags}<br><span class="map-detail">営業状況・同伴条件は来店前に公式情報をご確認ください。</span>${buttonMarker}`)}`;
+    const baseHtml = html.replace(/<span class="map-tag">ペット同伴条件を確認中<\/span>\s*/g, '');
+    const enriched = `${baseHtml.replace(buttonMarker, `<br>${tags}<br><span class="map-detail">営業状況・同伴条件は来店前に公式情報をご確認ください。</span>${buttonMarker}`)}`;
     popup.setContent(enriched);
   });
   enrich();

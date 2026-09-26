@@ -32,10 +32,12 @@
       const response = await fetch(href, { credentials: 'same-origin' });
       if (!response.ok) return;
       const html = await response.text();
-      const text = new DOMParser().parseFromString(html, 'text/html').body.textContent || '';
+      const documentHtml = new DOMParser().parseFromString(html, 'text/html');
+      const text = documentHtml.body.textContent || '';
       const tags = [...new Set(tagsFrom(text))];
-      const summary = summaryFrom(text);
+      const summary = documentHtml.querySelector('main.wrap > p')?.textContent?.trim() || summaryFrom(text);
       const tagHtml = tags.map((tag) => `<span class="map-tag">${escapeHtml(tag)}</span>`).join('');
+      popup.querySelectorAll('a[href*="fukuoka-vets-"]').forEach((link) => link.remove());
       const extra = `${summary ? `<br><span class="map-detail">${escapeHtml(summary)}</span>` : ''}<br>${tagHtml}<br><a href="${escapeHtml(href)}">病院の詳細・公式情報を見る →</a>`;
       popup.insertAdjacentHTML('beforeend', extra);
     } catch (_) {

@@ -55,6 +55,29 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
   }, 1400);
 })();
 </script>
+<script>
+(() => {
+  document.title = '福岡ペット施設MAP｜熊本ペットナビ';
+  const eyebrow = document.querySelector('main.wrap > p');
+  const heading = document.querySelector('main.wrap > h1');
+  const lead = document.querySelector('main.wrap > .lead');
+  const mapEl = document.getElementById('map');
+  if (eyebrow) eyebrow.textContent = 'MAP / FUKUOKA PET NAVI';
+  if (heading) heading.innerHTML = '福岡のペット施設を<br>地図から探す。';
+  if (lead) lead.textContent = 'ペットと食事・お出かけ・宿泊・動物病院など、福岡版へ掲載した施設をカテゴリ別に表示しています。';
+  if (mapEl) mapEl.setAttribute('aria-label', '福岡県のペット施設地図');
+  const style = document.createElement('style');
+  style.textContent = `
+    .leaflet-popup-content{min-width:260px;color:#24312d;line-height:1.55}
+    .leaflet-popup-content strong{display:block;color:#234d43;font-size:20px;line-height:1.35;margin-bottom:4px}
+    .map-area{font-size:14px;color:#4d5c57}.map-category{font-size:12px;color:#718078;font-weight:800}
+    .map-detail{display:block;margin-top:7px;font-size:13px;color:#4d5c57}
+    .map-detail-link{display:inline-block;margin-top:9px;color:#087da3!important;font-weight:900}
+    .map-add-plan{margin-top:10px;background:#f7f4ee}
+  `;
+  document.head.appendChild(style);
+})();
+</script>
 <style>
 .fukuoka-filters button[data-cat="食事"]::before{background:#e85d75!important}
 .fukuoka-filters button[data-cat="行く"]::before{background:#159a9c!important}
