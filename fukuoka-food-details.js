@@ -10,7 +10,7 @@
     'アッカントエッフェ': ['糸島エリア', '自家栽培野菜を使った料理', 'イタリア料理・ワイン', 'テラス席で犬同伴可']
   };
   const esc = (value) => String(value).replace(/[&<>"']/g, (ch) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]));
-  Object.values(map._layers || {}).forEach((marker) => {
+  const enrich = () => Object.values(map._layers || {}).forEach((marker) => {
     const popup = marker.getPopup?.();
     const html = String(popup?.getContent?.() || '');
     if (!popup || !html.includes('分類：食事')) return;
@@ -19,6 +19,10 @@
     if (!items || popup.__foodEnriched) return;
     popup.__foodEnriched = true;
     const tags = items.map((item) => `<span class="map-tag">${esc(item)}</span>`).join('');
-    popup.setContent(html.replace('※ペット同伴条件は来店前に公式情報をご確認ください。', `${tags}<br>※営業状況・同伴条件は来店前に公式情報をご確認ください。`));
+    const marker = '<br><button class="map-add-plan">';
+    const enriched = `${html.replace(marker, `<br>${tags}<br><span class="map-detail">営業状況・同伴条件は来店前に公式情報をご確認ください。</span>${marker}`)}`;
+    popup.setContent(enriched);
   });
+  enrich();
+  setTimeout(enrich, 1600);
 })();

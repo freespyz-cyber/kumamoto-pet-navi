@@ -108,7 +108,7 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
   additions.filter(p => !existingNames.has(p[0])).forEach(p => { const m=L.circleMarker([p[2],p[3]],{radius:8,color:'#fff',weight:2,fillColor:'#e85d75',fillOpacity:.95}); m.bindPopup(`<strong>${p[0]}</strong><br>${p[1]}<br>分類：${p[4]}<br>※ペット同伴条件は来店前に公式情報をご確認ください。`); m.addTo(map); existingNames.add(p[0]); });
 })();
 </script>
-<script src="map-common-enhancements.js"></script><script src="fukuoka-popup-template.js"></script>
+<script src="map-common-enhancements.js"></script><script src="fukuoka-popup-template.js"></script><script src="fukuoka-food-details.js"></script><script src="fukuoka-hospital-details.js"></script>
 <script>
 (() => {
   const cleanDuplicateSections = () => {
