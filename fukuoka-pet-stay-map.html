@@ -55,6 +55,41 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
   }, 1400);
 })();
 </script>
+<style>
+.fukuoka-filters button[data-cat="食事"]::before{background:#e85d75!important}
+.fukuoka-filters button[data-cat="行く"]::before{background:#159a9c!important}
+.fukuoka-filters button[data-cat="宿泊"]::before{background:#6f52d9!important}
+.fukuoka-filters button[data-cat="預ける"]::before{background:#b84fc4!important}
+.fukuoka-filters button[data-cat="病院"]::before{background:#e5484d!important}
+.fukuoka-filters button[data-cat="イベント"]::before{background:#d9a441!important}
+</style>
+<script>
+(() => {
+  const categoryColor = (html) => {
+    const text = String(html || '');
+    if (text.includes('分類：イベント')) return '#d9a441';
+    if (text.includes('分類：病院')) return '#e5484d';
+    if (text.includes('分類：食事')) return '#e85d75';
+    if (text.includes('分類：預ける') || text.includes('ペットホテル')) return '#b84fc4';
+    if (text.includes('ドッグラン') || text.includes('分類：公園')) return '#159a9c';
+    return '#6f52d9';
+  };
+  const applySharedPinColors = () => {
+    if (typeof map === 'undefined') return;
+    Object.values(map._layers || {}).forEach(layer => {
+      const popup = layer.getPopup?.();
+      if (!popup || !layer.setStyle) return;
+      layer.setStyle({fillColor:categoryColor(popup.getContent?.())});
+    });
+  };
+  document.querySelectorAll('.fukuoka-filters button').forEach(button => {
+    button.addEventListener('click', () => setTimeout(applySharedPinColors, 30));
+  });
+  applySharedPinColors();
+  setTimeout(applySharedPinColors, 400);
+  setTimeout(applySharedPinColors, 1000);
+})();
+</script>
 <script>
 (() => {
   document.title = '福岡ペット施設MAP｜熊本ペットナビ';
