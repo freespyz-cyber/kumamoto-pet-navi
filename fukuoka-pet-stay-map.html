@@ -121,6 +121,11 @@ hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',
 .fukuoka-filters button[data-cat="宿泊"]::before{background:#6f52d9!important}
 .fukuoka-filters button[data-cat="預ける"]::before{background:#b84fc4!important}
 .fukuoka-filters button[data-cat="病院"]::before{background:#e5484d!important}
+@media(max-width:700px){
+  .leaflet-popup-content-wrapper{max-height:58vh;overflow:hidden}
+  .leaflet-popup-content{min-width:0!important;width:min(74vw,300px)!important;max-height:calc(58vh - 24px);overflow-y:auto;-webkit-overflow-scrolling:touch;margin:14px 38px 14px 14px!important;padding-right:2px}
+  .leaflet-popup-close-button{top:6px!important;right:6px!important;width:32px!important;height:32px!important;line-height:29px!important;border-radius:50%;background:#fff!important;color:#3f4b47!important;font-size:25px!important;font-weight:400!important;z-index:1001;box-shadow:0 2px 10px rgba(0,0,0,.16)}
+}
 </style>
 <script>
 (() => {
