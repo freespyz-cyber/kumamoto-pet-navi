@@ -53,6 +53,10 @@
     .fukuoka-entry strong { display:block; font-size:18px; line-height:1.4; }
     .fukuoka-entry small { display:block; margin-top:3px; color:#dce9e3; font-size:12px; font-weight:700; }
     .fukuoka-entry span { flex:0 0 auto; border-radius:999px; background:#fff; color:#234d43; padding:9px 14px; font-size:13px; font-weight:900; }
+    .map-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+    .map-shortcut{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:2px solid var(--green);border-radius:14px;background:#fff;color:var(--green);box-shadow:0 8px 18px rgba(35,77,67,.08)}
+    .map-shortcut strong{display:block;font-size:17px;line-height:1.35}.map-shortcut small{display:block;margin-top:2px;color:var(--muted);font-size:11px;font-weight:700}.map-shortcut b{font-size:22px}.map-shortcut.fukuoka{background:#fff6f0;border-color:var(--coral);color:#8a3f2d}
+    .map-hub-link{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:11px 15px;border-radius:10px;background:var(--green);color:#fff;font-size:13px;font-weight:900}
     .intent-nav { margin:0 0 28px; }
     .intent-link { text-decoration:none; }
     .status { display:inline-block; margin-top:10px; padding:5px 9px; border-radius:999px; font-size:11px; font-weight:900; }
@@ -70,7 +74,7 @@
     .feature-box h3 { margin:0 0 10px; font-size:22px; } .feature-box p { opacity:.82; font-size:14px; } .feature-box a { display:inline-block; margin-top:8px; font-weight:900; border-bottom:1px solid currentColor; }
     footer { background:#203c31; color:#dce9df; padding:36px 24px; text-align:center; font-size:13px; }
     footer strong { display:block; font-size:18px; margin-bottom:8px; }
-    @media (max-width:760px) { nav { display:none; } .nav { padding:15px 18px; } .hero { grid-template-columns:1fr; padding:42px 18px 34px; gap:28px; } .hero-art { min-height:210px; font-size:88px; } .section { padding:42px 18px; } .section-head { display:block; } .more { display:inline-block; margin-top:10px; } .cards { grid-template-columns:1fr; } .feature { grid-template-columns:1fr; } .fukuoka-entry { align-items:flex-start; padding:16px; } .fukuoka-entry strong { font-size:16px; } .fukuoka-entry span { padding:8px 11px; font-size:12px; } }
+    @media (max-width:760px) { nav { display:none; } .nav { padding:15px 18px; } .hero { grid-template-columns:1fr; padding:42px 18px 34px; gap:28px; } .hero-art { min-height:210px; font-size:88px; } .section { padding:42px 18px; } .section-head { display:block; } .more { display:inline-block; margin-top:10px; } .cards { grid-template-columns:1fr; } .feature { grid-template-columns:1fr; } .map-shortcuts{grid-template-columns:1fr}.map-shortcut{padding:13px 15px}.map-shortcut strong{font-size:16px}.fukuoka-entry { align-items:flex-start; padding:16px; } .fukuoka-entry strong { font-size:16px; } .fukuoka-entry span { padding:8px 11px; font-size:12px; } }
   </style>
   <style>
     :root{--ink:#25332f;--muted:#718078;--forest:#234d43;--clay:#bd6d57;--paper:#fffdf9;--line:#e5e1d9}
@@ -359,6 +363,14 @@
  .hero-photo{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 52%!important}
 }
 @media(max-width:420px){.hero-art{height:220px!important;min-height:220px!important;max-height:220px!important}}
+.mobile-map-dock{display:none}
+@media(max-width:760px){
+ body{padding-bottom:76px}
+ header .nav nav{display:none!important}
+ .mobile-map-dock{position:fixed;display:grid;grid-template-columns:1fr 1fr 1fr;left:10px;right:10px;bottom:max(8px,env(safe-area-inset-bottom));z-index:10000;padding:6px;background:rgba(255,253,249,.96);border:1px solid #d7d9d3;border-radius:18px;box-shadow:0 10px 34px rgba(24,45,37,.25);backdrop-filter:blur(12px)}
+ .mobile-map-dock a{display:flex;min-width:0;min-height:52px;align-items:center;justify-content:center;text-align:center;padding:6px 3px;border-radius:12px;color:#234d43;font-size:11px;line-height:1.25;font-weight:900}
+ .mobile-map-dock a:nth-child(1){background:#e5efe8}.mobile-map-dock a:nth-child(2){background:#fff0e7;color:#8a3f2d}.mobile-map-dock a:nth-child(3){background:#234d43;color:#fff}
+}
 </style>
 </head>
 <body>
@@ -378,8 +390,11 @@
       <h1>ペットと行ける<br><em>場所</em>を探そう。</h1>
       <p class="lead">「ペット可」だけでは分からない、店内OK・テラスのみ・オムツ必須などのリアルな条件まで。まずは熊本から、九州でペットと過ごす場所を見つけるナビです。</p>
       <form class="search" onsubmit="return searchDemo(event)"><input id="q" placeholder="例：阿蘇 犬連れランチ／熊本市 ドッグラン"><button>検索</button></form>
-      <div class="region-tools" aria-label="地域を選ぶ"><span class="region-label">公開エリア</span><a class="region-pill active" href="pet-map-hub.html">熊本県 公開</a><a class="region-pill fukuoka" href="pet-map-hub.html">福岡県 公開</a><span class="region-pill soon">その他の県 準備中</span></div>
-      <a class="fukuoka-entry" href="pet-map-hub.html" aria-label="九州復興割ペット施設マップの地域選択を開く"><span><strong>九州復興割 ペット施設MAP</strong><small>熊本・福岡を公開中。まず県を選んでください</small></span><span>地域を選ぶ →</span></a>
+      <div class="map-shortcuts" aria-label="公開中の県MAPへ直接入る">
+        <a class="map-shortcut" href="pet-facility-map.html"><span><strong>熊本県のMAPを開く</strong><small>食事・宿泊・病院・イベント</small></span><b>→</b></a>
+        <a class="map-shortcut fukuoka" href="fukuoka-pet-stay-map.html"><span><strong>福岡県のMAPを開く</strong><small>食事・宿泊・病院・イベント</small></span><b>→</b></a>
+      </div>
+      <a class="map-hub-link" href="pet-map-hub.html"><span>九州復興割 ペット施設MAP</span><span>全県の公開状況を見る →</span></a>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;font-size:12px;font-weight:800;color:#234d43;"><span style="background:#dfe9e1;padding:6px 10px;border-radius:999px;">✓ 公式情報を確認</span><span style="background:#f3e7d4;padding:6px 10px;border-radius:999px;">✓ 条件まで掲載</span><span style="background:#f0deda;padding:6px 10px;border-radius:999px;">✓ 情報提供受付中</span></div>
     </div>
 <div class="hero-art" aria-label="人とロングコートチワワが熊本の公園を歩くイメージ"><img class="hero-photo" src="./hero-chihuahua.png" alt="熊本の公園を歩く人とロングコートチワワ"><span class="hero-art-label">ASO · AMAKUSA · KUMAMOTO</span></div>
@@ -414,6 +429,7 @@
     <section id="submit" class="section" style="padding-top:20px;"><div class="feature-box" style="text-align:center; min-height:auto;"><h3>熊本のペット情報を教えてください</h3><p>おすすめのお店、行って分かった条件、イベント情報を募集中です。</p><a href="submit.html">掲載・投稿について →</a></div></section>
   </main>
   <footer><strong>熊本ペットナビ</strong>熊本で、ペットと暮らす。知りたい・探したいが見つかる。<br><a href="new-listings.html" style="color:inherit;margin:0 8px;">新着掲載</a><a href="sitemap.html" style="color:inherit;margin:0 8px;">サイトマップ</a><a href="about.html" style="color:inherit;margin:0 8px;">運営方針</a><a href="submit.html" style="color:inherit;margin:0 8px;">掲載・情報提供</a><a href="trusted-pet-shops.html" style="color:inherit;margin:0 8px;">確認済み情報</a></footer>
+  <nav class="mobile-map-dock" aria-label="MAPへすぐ入る"><a href="pet-facility-map.html">熊本<br>MAP</a><a href="fukuoka-pet-stay-map.html">福岡<br>MAP</a><a href="pet-map-hub.html">九州復興<br>MAP</a></nav>
   <script>function searchDemo(e){e.preventDefault();const q=document.getElementById('q').value.trim();location.href='search.html'+(q?'?q='+encodeURIComponent(q):'');return false;}</script>
 </body>
 </html>
