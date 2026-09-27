@@ -12,7 +12,7 @@ for (const entry of entries) {
 }
 const files = (await import("node:fs/promises")).readdir(root);
   for (const entry of await files) {
-    if (entry.endsWith(".html") || entry.endsWith(".xml")) {
+    if (entry.endsWith(".html") || entry.endsWith(".xml") || entry.endsWith(".js")) {
       await cp(join(root, entry), join(dist, entry));
     }
   }

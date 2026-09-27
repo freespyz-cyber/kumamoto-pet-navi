@@ -3,14 +3,16 @@ const aliases={'ワンLOVE':'森カフェ ワン・LOVE','SORAカフェ':'SORAca
 const areaKeys={'九重':'kokonoe','竹田':'taketa','由布':'yufu','大分':'oita','豊後大野':'bungo','別府':'beppu','日出':'hiji','豊後高田':'takada','日田':'hita','宇佐':'usa','津久見':'tsukumi','臼杵':'usuki','佐伯':'saiki','杵築':'kitsuki'};
 const mapRegions=window.oitaRegions, mapStays=window.oitaStays, mapDogruns=window.oitaDogruns;
 const regions=mapRegions;
-const facilities=[...mapStays,...mapDogruns];
+mapRegions.nakatsu={name:'中津',lat:33.60,lng:131.19};
+const facilities=[...mapStays,...mapDogruns,...window.oitaHospitals];
 foodRows.forEach(([original,area],i)=>{const name=aliases[original]||original;const existing=facilities.find(p=>p.name===name);if(existing){if(!existing.categories.includes('food'))existing.categories.push('food');return;}facilities.push({id:200+i,name,region:Object.entries(areaKeys).find(([key])=>area.includes(key))?.[1]||'unknown',categories:['food'],url:'oita-pet-food.html',note:'既存の食事候補。ペット同伴条件・営業状況は来店前に確認してください。',hold:false});});
-const categoryNames={food:'食事',stay:'宿泊',run:'ドッグラン',boarding:'ペット預かり'};
+facilities.splice(0, facilities.length, ...facilities.filter(p=>FacilityLinks.has('oita',p.name)));
+const categoryNames={food:'食事',stay:'宿泊',run:'ドッグラン',boarding:'ペット預かり',hospital:'動物病院'};
 let category='all';
 
 const $=id=>document.getElementById(id);
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const query=p=>`大分県 ${p.name}`;
+const query=p=>`大分県 ${p.address||''} ${p.name}`;
 const google=p=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(query(p));
 let map,layer;const trip=[];
 for(const [key,r] of Object.entries(mapRegions))$('region').add(new Option(r.name,key));
@@ -19,9 +21,9 @@ function render(){
  const term=$('search').value.trim().toLowerCase(),region=$('region').value,status=$('status').value;
  const filtered=facilities.filter(p=>(category==='all'||p.categories.includes(category))&&(region==='all'||p.region===region)&&(status==='all'||(status==='hold'?p.hold:!p.hold))&&`${p.name} ${p.note} ${(mapRegions[p.region]||mapRegions.unknown).name}`.toLowerCase().includes(term));
  $('count').textContent=`${filtered.length}件 / 全${facilities.length}件（確認待ち${facilities.filter(p=>p.hold).length}件を含む）`;
- $('cards').innerHTML=filtered.map(p=>`<article class="card"><span class="badge ${p.hold?'hold':''}">${p.hold?'掲載保留':p.categories.map(c=>categoryNames[c]).join('・')+'候補'}</span><h3>${escape(p.name)}</h3><span class="muted">${regions[p.region].name}</span><p>${escape(p.note)}</p><div class="actions">${p.url?`<a href="${escape(p.url)}" target="_blank" rel="noopener noreferrer">公式案内 ↗</a>`:'<span>公式URL確認中</span>'}<a href="${google(p)}" target="_blank" rel="noopener noreferrer">Googleマップ ↗</a></div><p><button data-add="${p.id}" ${p.hold||trip.includes(p.id)?'disabled':''}>${p.hold?'条件確認まで追加不可':trip.includes(p.id)?'予定に追加済み':'予定に追加 ＋'}</button></p></article>`).join('')||'<p>該当する候補がありません。検索条件を変更してください。</p>';
+ $('cards').innerHTML=filtered.map(p=>`<article class="card"><span class="badge ${p.hold?'hold':''}">${p.hold?'掲載保留':p.categories.map(c=>categoryNames[c]).join('・')+'候補'}</span><h3>${escape(p.name)}</h3><span class="muted">${regions[p.region].name}</span><p>${escape(p.note)}</p><div class="actions">${FacilityLinks.html('oita',p.name)}<a href="${google(p)}" target="_blank" rel="noopener noreferrer">Googleマップ ↗</a></div><p><button data-add="${p.id}" ${p.hold||trip.includes(p.id)?'disabled':''}>${p.hold?'条件確認まで追加不可':trip.includes(p.id)?'予定に追加済み':'予定に追加 ＋'}</button></p></article>`).join('')||'<p>該当する候補がありません。検索条件を変更してください。</p>';
  layer?.clearLayers();
- for(const [key,r] of Object.entries(mapRegions)){const count=filtered.filter(p=>p.region===key).length;if(!count||!map||!Number.isFinite(r.lat))continue;L.circleMarker([r.lat,r.lng],{radius:18,color:'#fff',weight:2,fillColor:'#7357d9',fillOpacity:.9}).bindTooltip(`${r.name} ${count}件`,{permanent:true,direction:'top'}).bindPopup(`${r.name}：${count}件<br>地域の代表位置です。施設の位置ではありません。`).on('click',()=>{$('region').value=key;render();}).addTo(layer);}
+ for(const [key,r] of Object.entries(mapRegions)){const count=filtered.filter(p=>p.region===key).length;if(!count||!map||!Number.isFinite(r.lat))continue;L.circleMarker([r.lat,r.lng],{radius:18,color:'#fff',weight:2,fillColor:'#7357d9',fillOpacity:.9}).bindTooltip(`${r.name} ${count}件`,{permanent:true,direction:'top'}).bindPopup(`<strong>${escape(r.name)}：${count}件</strong><p>地域の代表位置です。施設の位置ではありません。</p>${filtered.filter(p=>p.region===key).map(p=>`<section><strong>${escape(p.name)}</strong>${FacilityLinks.html('oita',p.name)}</section>`).join('')}`,{maxHeight:360,maxWidth:360}).addTo(layer);}
 }
 function renderTrip(){ $('trip-list').innerHTML=trip.map(id=>{const p=facilities.find(p=>p.id===id);return `<li>${escape(p.name)}<button data-remove="${id}" aria-label="${escape(p.name)}を予定から外す">外す</button></li>`;}).join('')||'<li>まだ場所が選ばれていません。</li>';$('route').disabled=!trip.length;render(); }
 $('cards').addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;const id=Number(b.dataset.add);if(trip.includes(id)||facilities.find(p=>p.id===id)?.hold)return;if(trip.length>=9){$('trip-status').textContent='予定は9施設までです。不要な施設を外してください。';return;}trip.push(id);$('trip-status').textContent='予定に追加しました。';renderTrip();});
