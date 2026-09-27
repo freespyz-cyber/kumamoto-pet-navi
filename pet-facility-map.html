@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>熊本ペットナビ｜ペットと一日楽しむお出かけMAP</title>
+<meta name="description" content="熊本県内の動物病院、ペット同伴カフェ、ドッグラン、宿泊施設などを地図で検索。行きたい場所を選んで、ペットと一日楽しめるお出かけコースをGoogleマップで計画できます。">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:34px 18px}.brand,a{color:#234d43;font-weight:900;text-decoration:none}h1{font-size:clamp(30px,6vw,52px);line-height:1.2}.lead{color:#718078}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.filters button{border:1px solid #cbd8cf;background:#fffdf9;border-radius:99px;padding:9px 14px;font-weight:900;color:#234d43}.filters button.active{background:#234d43;color:#fff}.legend{font-size:13px;color:#718078;margin:12px 0}.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin:0 4px 0 12px}.cafe{background:#e85d75}.run{background:#159a9c}.stay{background:#7357d9}.vet{background:#e5484d}.care{background:#c052b8}#map{height:62vh;min-height:430px;border-radius:16px;border:1px solid #dddcd5;box-shadow:0 8px 22px #c8c1b533}.trip-box{background:#fffdf9;border:1px solid #dddcd5;border-radius:16px;padding:20px;margin-top:20px}.trip-box button{border:0;border-radius:999px;padding:10px 14px;margin:8px 6px 0 0;font-weight:900;background:#234d43;color:#fff}.trip-box button:disabled{background:#cfd7d2;color:#718078}.trip-add{display:block;margin-top:10px!important}.note{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin-top:18px;font-size:13px}</style>
+<style>
+/* 見つける→絞る→地図で確認、の順に視線を整理 */
+.wrap{max-width:1180px;padding-top:28px}.wrap>p:first-of-type{margin:8px 0;color:#8a7766;font-size:12px;letter-spacing:.12em}.filters{background:#fffdf9;border:1px solid #e2ddd4;border-radius:14px;padding:14px;margin:18px 0 12px;box-shadow:0 5px 18px rgba(40,50,45,.04)}.filters button{padding:8px 13px}.facility-tags{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}.facility-tag{display:inline-block;background:#eef5ef;color:#39735c;border-radius:999px;padding:4px 9px;font-size:14px;font-weight:800}.legend{margin:0 0 16px;font-size:12px}.legend .dot{margin-left:8px}.trip-box{display:grid;grid-template-columns:1fr auto;gap:8px 14px;align-items:center}.trip-box h2,.trip-box p{grid-column:1/-1}.trip-box button{margin:0}.trip-box #trip-list{grid-column:1/-1;background:#f7f4ee;border-radius:10px;padding:10px 12px;min-height:24px}.note{font-size:12px}.brand{font-size:21px}@media(max-width:760px){.wrap{padding:22px 14px}.wrap h1{font-size:34px;margin:14px 0}.filters{margin-top:14px}.trip-box{display:block}.trip-box button{margin:7px 5px 0 0}.trip-box #trip-list{margin:12px 0}}
+.leaflet-popup-content{font-size:15px;line-height:1.55}.leaflet-popup-content strong{display:block;font-size:21px;line-height:1.3;margin-bottom:4px;color:#234d43}.leaflet-popup-content a{display:inline-block;margin-top:5px;font-size:16px}
+.search-box{display:flex;gap:8px;margin:14px 0}.search-box input{flex:1;min-width:0;border:1px solid #cbd8cf;border-radius:10px;padding:11px 13px;font-size:16px;background:#fffdf9}.search-box button{border:1px solid #cbd8cf;border-radius:10px;padding:10px 13px;background:#fffdf9;color:#234d43;font-weight:800}
+button[data-type="カフェ"]::before,button[data-type="ドッグラン"]::before,button[data-type="宿泊"]::before,button[data-type="預ける"]::before,button[data-type="病院"]::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}button[data-type="カフェ"]::before{background:#e85d75}button[data-type="ドッグラン"]::before{background:#159a9c}button[data-type="宿泊"]::before{background:#7357d9}button[data-type="預ける"]::before{background:#c052b8}button[data-type="病院"]::before{background:#e5484d}
+</style>
+<style>
+html,body{max-width:100%;overflow-x:hidden}
+@media(max-width:760px){
+  .wrap{width:100%;padding:18px 12px 42px}
+  .wrap>p.lead{font-size:14px}
+  .search-box{width:100%;flex-wrap:wrap}
+  .search-box input{width:100%;flex-basis:100%}
+  .filters{width:100%;padding:10px;gap:6px}
+  .filters button{font-size:13px;padding:8px 10px}
+  #map{height:58vh;min-height:340px;width:100%}
+  .trip-box{width:100%;padding:15px}
+  .trip-box button{width:100%;margin:6px 0}
+  .leaflet-popup-content{max-width:220px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="brand" href="index.html">熊本ペットナビ</a>
+<p>MAP / PET-FRIENDLY PLACES</p>
+<h1>行きたい場所を選んで、<br>ペットとのコースを作る。</h1>
+<p class="lead">熊本県内のペット同伴カフェ、ドッグラン、宿泊施設、動物病院などを地図で探せます。行きたい場所を選んで、ペットと一日楽しめるお出かけコースをGoogleマップで計画できます。</p>
+<div style="background:#234d43;color:#fff;border-radius:18px;padding:22px 24px;margin:22px 0 18px;box-shadow:0 10px 24px rgba(35,77,67,.18)"><strong style="display:block;font-size:clamp(22px,4vw,34px);line-height:1.25">地図で探して、ペットと一日楽しもう。</strong><span style="display:block;margin-top:8px;font-size:clamp(14px,2vw,18px);font-weight:800;color:#dcebe0">行きたい場所を選んで、カフェ・遊び場・宿泊先・動物病院をつないだお出かけコースを計画できます。</span></div>
+<section style="background:#fff9e8;border:1px solid #ead9ad;border-radius:16px;padding:18px 20px;margin:18px 0" aria-label="ペット旅行の計画案内"><h2 style="margin:0 0 8px;color:#234d43;font-size:clamp(21px,3vw,30px)">ペットと行く熊本旅行を、ここで計画しよう。</h2><p style="margin:0;color:#5c665f;line-height:1.8">ペットと泊まれる宿、同伴できるカフェ、ドッグラン、観光スポットを地図から選んで、旅行コースを作れます。</p></section>
+<div class="search-box"><input id="facility-search" type="search" placeholder="病院名・地域・症状・設備で検索（例：犬 心臓）" aria-label="病院名・地域・症状・設備で検索"><button id="clear-search" type="button">検索をクリア</button></div>
+<div class="filters">
+<button class="active" data-type="all">すべて</button>
+<button data-type="カフェ">ペットと食事</button>
+<button data-type="ドッグラン">ペットと行ける場所</button>
+<button data-type="宿泊">ペットと泊まる</button>
+<button data-type="預ける">ペットを預ける</button>
+<button data-type="病院">動物病院</button>
+</div>
+<div id="map" aria-label="熊本県のペット施設地図">
+</div>
+<section class="trip-box" aria-label="おでかけ予定を作る">
+<h2>自分の予定を作る</h2>
+<p>地図のピンを押して、行きたい場所を何件でも追加。現在地を出発地にして、カフェ・遊び場・宿泊先などをつないだコースをGoogleマップで確認できます。</p>
+<div id="trip-list">まだ場所が選ばれていません。</div>
+<button id="use-location" type="button">現在地を出発地にする</button>
+<button id="clear-trip" type="button">選択をクリア</button>
+<button id="open-route" type="button" disabled>Googleマップで予定を見る</button>
+</section>
+<section class="all-facilities" aria-label="掲載施設一覧"><h2>掲載施設をすべて見る</h2><p>地図で重なっている施設も、こちらで一覧から確認できます。</p><div id="all-facilities-list"></div></section>
+<div class="note">ピンの位置は地域の目安です。営業時間・ペット同伴条件は、ピンの公式リンクから訪問前にご確認ください。</div>
+<p>
+<a href="pet-friendly-places.html">← 施設一覧へ</a>　<a href="pet-map-hub.html">地域選択へ戻る</a>　<a href="index.html">トップへ戻る</a>
+</p>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+<script>const map=L.map('map').setView([32.8031,130.7079],9);L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'&copy; Esri'}).addTo(map);const places=[
+['カフェ','Manly 熊本店','熊本市中央区南坪井町5-29 The Salon BLD1F',32.8064,130.7165,'https://manly-kumamoto.com/'],
+['カフェ','ふぉれすと','熊本市南区砂原町289-1',32.763,130.680,'https://www.instagram.com/10106.forest/'],
+['カフェ','Little Garden（リトルガーデン）','熊本市東区長嶺南4-1-85',32.815,130.769,'https://www.restaurant-littlegarden.net/'],
+['カフェ','give me a little RYU（ちょっとちょうだい龍）','上益城郡山都町北中島1115-3',32.720,130.970,'https://www.instagram.com/give_me_a_little_ryu/'],
+['カフェ','森の時間','阿蘇郡南小国町大字赤馬場2344',33.070,131.070,'https://www.instagram.com/morino_jikan36/'],
+['カフェ','ONE FIVE DOG','熊本市中央区大江5-16-18',32.798,130.726,'https://www.instagram.com/onefivedog/'],
+['カフェ','CAFE lx（カフェルクス）浜線店','熊本市東区画図町下無田1149-1',32.763,130.740,'https://www.cafelx.jp/shop'],
+['カフェ','BOUCHE’S Cafe（ブーシーズ・カフェ）','熊本市中央区上通町5-10 桜井ビル2F',32.805,130.710,'https://bouchescafe.gorp.jp/'],
+['カフェ','Pizzeria Bar e Deli TANPOPO','熊本市東区広木町30-84',32.776,130.762,'https://tanpopo.favy.jp/'],
+['カフェ','SORAHIRO FIKA（ソラヒロ フィーカ）','熊本市北区武蔵ヶ丘1-6-6 Sorahiro Connect 1F',32.858,130.766,'https://sorahiro.jp/business/cafe/'],
+['カフェ','カフェ・キッチン ルナカルド（Teo One内）','熊本市南区城南町赤見1302',32.716,130.744,'https://teo-one.halfmoon.jp/cafe-kitchen/'],
+['カフェ','海の隠れ家（Rest＆Cafe）','宇城市三角町三角浦102',32.615,130.485,'https://uminokakurega.com/'],
+['カフェ','リゾラテラス天草','上天草市',32.520,130.425,'https://www.lisolaterrace.com/'],
+['カフェ','FRAPPE×FRAPPE','熊本市北区植木町',32.936,130.666,'https://frappefrappe.studio/'],
+['カフェ','HUI CAFE','上天草市大矢野町中7388',32.584,130.430,'https://lit.link/huicafe'],
+['カフェ','ヒバリカフェ','阿蘇市一の宮町中通640-1',32.941,131.116,'https://hibari-cafe.com/'],
+['カフェ','CROSS TIME CROSS BE テラス','熊本市西区春日1-13-1',32.789,130.689,'https://onestationhotel-kumamoto.jp/5341'],
+['カフェ','フラワーカフェMyu','熊本市中央区中央街6-29',32.801,130.710,'https://www.myu-cafe.com/'],
+['カフェ','阿蘇マロンの樹','阿蘇郡西原村宮山1734-1',32.8005,130.9284,'https://aso-marron.com/'],
+['ドッグラン','くまもとドッグラン もりのみやこ','熊本市南区良町5-25-8',32.79,130.74,'https://www.dogrunmorinomiyako.jp/'],
+['ドッグラン','HappyTail','熊本市北区',32.86,130.72,'https://happytail.jp/'],
+['ドッグラン','husse Japan 熊本（現：husse-kumamoto）','上益城郡御船町木倉1115-2',32.714,130.801,'https://husse-kumamoto.k22005.co.jp/dogrun.php'],
+['ドッグラン','DOG RUN & CAFE Teo One','熊本市南区城南町赤見1302',32.716,130.744,'https://teo-one.halfmoon.jp/'],
+['ドッグラン','ドッグラン ミルキーズ','宇城市小川町江頭111-1',32.604,130.68,'https://milky.info/about/'],
+['ドッグラン','PEACEFUL HEART','南阿蘇村',32.86,131.04,'https://www.instagram.com/peaceful_heart4141/'],
+['ドッグラン','ドッグラン ノア','甲佐町府領1008番4',32.65,130.82,'https://www.instagram.com/dogrunnao/'],
+['ドッグラン','御宿 小笠原 専用ドッグラン','阿蘇市',32.975,131.085,'https://onyado-ogasawara.com/facility/dogrun/'],
+['ドッグラン','香りの森ドッグラン','熊本市東区',32.817,130.783,'https://www.city.kumamoto.jp/kiji00367506/index.html'],
+['ドッグラン','熊本ドッグラン さんろく','山鹿市',33.02,130.69,'https://www.dongurimura.info/'],
+['ドッグラン','阿蘇マロンの樹 ドッグラン','阿蘇郡西原村宮山1734-1',32.8005,130.9284,'https://aso-marron.com/'],
+['宿泊','狗の郷','菊池市',32.98,130.82,'https://kunosato.jp/'],
+['宿泊','PET RESORT BRAINS AMAKUSA（ペットリゾート ブレインズ天草）','上天草市松島町合津6082-4',32.516,130.425,'https://www.brains-amakusa.com/'],
+['宿泊','別邸 わんこ日和','芦北町',32.28,130.50,'https://www.wancobi.com/'],
+['宿泊','B&B 犬遊楽','球磨郡相良村深水2059',32.23,130.77,'https://www.sgrbb.jp/kenyuraku/'],
+['宿泊','コスギリゾート With Dogs','阿蘇市乙姫2052',32.98,131.08,'https://www.kosugiresort.com/withdogs/'],
+['宿泊','DOG Palace resort 阿蘇乙姫','阿蘇市乙姫2132-56',32.98,131.09,'https://www.kenz.sakura.ne.jp/'],
+['宿泊','ぼくのお宿 風の音','阿蘇市西湯浦1234-1',32.99,131.12,'https://bokunooyado.com/'],
+['宿泊','南阿蘇 野ばらINN','阿蘇郡南阿蘇村',32.84,131.04,'https://nobarainn.net/'],
+['宿泊','ペンションあかね雲','阿蘇郡南阿蘇村',32.84,131.06,'https://p-akanegumo.com/'],
+['宿泊','ペンション ハウディ','阿蘇郡南阿蘇村',32.84,131.08,'https://pension-howdy.com/'],
+['宿泊','ペットと泊まれる宿 ペンションむさし','阿蘇郡南阿蘇村',32.82,131.04,'http://aso-petyado.com/'],
+['宿泊','阿蘇マロンの樹 RVパーク・オートキャンプ場','阿蘇郡西原村宮山1734-1',32.8005,130.9284,'https://aso-marron.com/autocamp.php'],
+['宿泊','海の隠れ家 キャンプ場・グランピング','宇城市三角町三角浦102',32.615,130.485,'https://uminokakurega.com/'],
+['預ける','ペットラウンジ ルシアン','熊本市西区',32.797,130.625,'https://www.petlounge-lechien.com/pet_hotel.php'],
+['預ける','ペットサロンタビー','熊本市東区',32.806,130.77,'https://www.petsalon-tabby.com/'],
+['預ける','わんわんランドアグリ','熊本市南区',32.781,130.704,'http://aguli.jp/'],
+['預ける','ぺんぎんシッター','熊本市・菊池郡・上益城郡・合志市',32.805,130.707,'https://penguinsitter.com/area/kumamoto/'],
+['預ける','ワンラブ イオンタウン西熊本店','熊本市南区',32.773,130.69,'https://www.pet-onelove.com/hotel/page140.php'],
+['預ける','トリミングサロン husse（フッセ）熊本','熊本県内',32.714,130.801,'https://www.instagram.com/husse_kumamoto/'],
+['預ける','山ぼうしの樹（ペットシッター・ペットホテル）','上益城郡甲佐町糸田136',32.652,130.805,'https://www.haw-fukufuku.net/'],
+['預ける','マイ・犬・シャンプースポット','熊本市',32.803,130.707,'https://www.mykenshampoospot.jp/'],
+['預ける','リトルモモ','菊池郡大津町',32.91,130.86,'https://littelemomo.jimdofree.com/'],
+['預ける','肥後和魂（ヒゴワコン）','宇土市花園町',32.70,130.65,'https://www.instagram.com/higowakon_mameshiba/'],
+['預ける','ともだ動物病院 ペットホテル','熊本市中央区坪井',32.805,130.718,'https://tomoda-k.com/salon.html'],
+['預ける','ペットサロンエムズ','上益城郡益城町',32.79,130.82,'https://www.psms.co.jp/'],
+['預ける','竜之介動物病院 ペットホテル','熊本市中央区',32.79,130.704,'https://ryunosuke.co.jp/'],
+['預ける','佐藤動物病院 ペットホテル','熊本市中央区神水本町',32.789,130.739,'https://sato-animal.com/info/'],
+['預ける','玉名ドッグスクール','玉名市築地1396-44',32.945,130.56,'https://www.tamana-dog.com/dog_care.html'],
+['預ける','PET HOUSE MARI','合志市幾久富1647',32.884,130.752,'https://sites.google.com/site/pethousemari/'],
+['預ける','くまもとドッグラン もりのみやこ ペットホテル','熊本市南区良町5-25-8',32.79,130.74,'https://www.dogrunmorinomiyako.jp/park.html'],
+['預ける','熊本動物病院 ペットホテル','熊本市中央区保田窪2丁目11-7',32.805,130.744,'https://www.kumamoto-animal.com/'],
+['預ける','江津動物病院 ペットホテル','熊本市東区江津1丁目4-8',32.779,130.736,'https://ezu-animalhospital.net/pets_hotel/'],
+['病院','竜之介動物病院','熊本市中央区',32.795,130.702,'https://ryunosuke.co.jp/'],
+['病院','さくま動物医療センター','熊本市南区城南町東阿高20-3',32.707,130.755,'https://jsah1988.com/'],
+['病院','ともだ動物病院','熊本市中央区坪井',32.805,130.718,'https://tomoda-k.com/'],
+['病院','佐藤動物病院','熊本市中央区神水本町20-1',32.789,130.739,'https://sato-animal.com/'],
+['病院','健軍よしい動物病院','熊本市東区健軍3丁目1-51',32.787,130.744,'https://www.kengun-yoshii.com/'],
+['病院','坂本動物クリニック','熊本市南区御幸笛田1丁目6-92',32.758,130.706,'http://sakamotovc.com/'],
+['病院','ムサシ動物医療センター','熊本市北区楠5丁目17-27',32.856,130.735,'https://musashi-pet.jp/'],
+['病院','まつばせペットクリニック','宇城市松橋町松橋119-2',32.647,130.679,'https://matsubase-pc.com/'],
+['病院','動物病院デーリー','菊池市泗水町住吉2049-2',32.94,130.76,'https://animal-hospital.p-kit.com/'],
+['病院','げんき動物病院','熊本市西区池田1丁目32-27',32.82,130.704,'https://genki-animal.net/'],
+['病院','江津動物病院','熊本市東区江津1丁目4-8',32.779,130.736,'https://ezu-animalhospital.net/'],
+['病院','中央動物病院','熊本市北区龍田6丁目12-91',32.855,130.749,'https://kcvs.jp/'],
+['病院','烏城ペットクリニック','熊本市南区川尻6丁目8-7',32.744,130.691,'https://ujo-petclinic.jp/'],
+['病院','熊本動物病院','熊本市中央区保田窪2丁目11-7',32.805,130.744,'https://www.kumamoto-animal.com/'],
+['病院','こがペットクリニック','熊本市東区小峯4丁目4-120',32.806,130.783,'https://koga-vet.jp/'],
+['病院','どうそペットクリニック','熊本市東区長嶺南4丁目10-1',32.817,130.776,'https://douso-petclinic.com/'],
+['病院','阿蘇動物病院','阿蘇市内牧1051-10',32.975,131.045,'http://www.aso-vet.jp/'],
+['病院','山城どうぶつ病院','山鹿市大橋通1208',33.02,130.69,'https://www.yamashiro-ah.com/'],
+['病院','山口動物病院','人吉市相良町1211',32.20,130.76,'https://www7b.biglobe.ne.jp/~yamaguchi-ah/'],
+['病院','エンジェル動物病院（UKアニマルメディカル）','人吉市下城本町1423',32.20,130.75,'https://ukamc.com/'],
+['病院','サンマリン動物病院','天草市亀場町食場121-4',32.458,130.189,'https://sunmarine.jp/'],
+['病院','アイジュ動物クリニック〜Furufuru〜','天草市北原町6-20',32.466,130.191,'https://petsite.jp/aijyu-pc/'],
+['病院','かしわの動物病院','天草市八幡町6-20',32.462,130.190,'https://www.kashiwano.jp/'],
+['病院','さとう動物病院（宇城市）','宇城市三角町三角浦1159-22',32.620,130.468,'https://ah-sato.com/'],
+['病院','大津どうぶつ医療センター','菊池郡大津町室317-1',32.879,130.866,'https://ozuanimal.com/'],
+['病院','Lucas Animal Clinic','熊本市中央区南千反畑町9-5',32.808,130.713,'https://lucas-vet.com/'],
+['病院','ちあき犬と猫のクリニック','熊本市中央区出水3丁目12-13',32.789,130.733,'https://chiaki-dogcatclinic.com/'],
+['病院','エルフペットクリニック','熊本市中央区水前寺4丁目53-16',32.799,130.735,'https://elf-petclinic.com/'],
+['病院','吉田獣医科病院','熊本市東区尾ノ上1丁目2-2',32.796,130.761,'https://yoshida-vet.com/'],
+['病院','戸島ふじもと動物病院','熊本市東区戸島西4丁目4-1',32.821,130.805,'https://toshima-fjmt-ah.com/'],
+['病院','たかた動物病院','熊本市東区尾ノ上1丁目43-18',32.795,130.766,'https://tah-jp.com/'],
+['病院','尾崎ペットクリニック','熊本市西区谷尾崎町1-6',32.789,130.667,'https://www.ozakipet.com/'],
+['病院','じんだ動物病院','上益城郡益城町広崎910',32.790,130.811,'https://jinda-doubutsu.jp/'],
+['病院','いけだ動物病院','熊本市西区新土河原2丁目3-5',32.781,130.674,'https://www.instagram.com/ikeda_animal_hospital/'],
+['病院','けやき通り動物病院','熊本市南区田迎4丁目9-36',32.773,130.714,'https://www.keyakidoori-ah.com/'],
+['病院','なかじま動物病院','熊本県八代郡氷川町鹿野158-4',32.584,130.659,'https://nakajima-ac.com/'],
+['病院','うさぎの病院','熊本市中央区出水1丁目9-20',32.789,130.733,'https://www.usagihospital.com/'],
+['病院','園田動物病院','熊本市東区花立2丁目7-5',32.790,130.779,'https://www.s-animalhp.jp/'],
+['病院','森動物クリニック','熊本市東区保田窪5丁目7-1',32.807,130.747,'http://nyawan.jp/'],
+['病院','カイハラ動物病院','熊本県宇土市南段原町68-1',32.688,130.660,'https://www.kaihara-ah.com/'],
+['病院','神西ペットクリニック','熊本市北区小糸山町758',32.882,130.715,'https://jinsai-pc.com/'],
+['病院','滝川ペットクリニック','熊本市東区新外1丁目5-49',32.799,130.778,'https://takigawa-petclinic.com/'],
+['病院','動物病院たまとぽち','熊本県宇城市小川町江頭36-1',32.603,130.692,'https://www.tama-to-pochi.com/'],
+['病院','桜町サンシャイン動物病院','熊本市中央区桜町5-8',32.802,130.704,'https://ssah.jp/'],
+['病院','よもぎ動物病院','熊本市北区四方寄町1631-1',32.872,130.707,'https://yomogi-animalclinic.com/'],
+['病院','ほっぺ犬猫病院','熊本県菊池郡菊陽町新山2-2-16',32.864,130.803,'https://hoppe-dc.com/'],
+['病院','ビッグベア動物病院','熊本市東区小山3丁目1-5',32.833,130.783,'http://www.bigbearvh.com/'],
+['病院','光の森にしぐち動物病院','熊本県菊池郡菊陽町光の森7丁目25-5',32.861,130.790,'https://nishiguchi-a-h.com/'],
+['病院','そのだ動物病院','熊本県下益城郡美里町中郡1504',32.625,130.770,'https://www.sonoda-ah.net/'],
+['病院','タナカ動物病院','熊本県合志市幾久富1866-350',32.880,130.778,'https://www.vet-tanaka.com/'],
+['病院','こすみ動物病院','熊本市中央区京町2丁目6-68',32.814,130.708,'https://www.kosumi-ah.com/'],
+['病院','とくお動物病院','熊本市北区徳王1丁目14-19',32.854,130.700,'https://tokuo-ah.com/'],
+['病院','鳥城ペットクリニック','熊本市南区川尻6丁目8-7',32.741,130.681,'https://ujo-petclinic.jp/'],
+['病院','やまもと動物病院','熊本市東区東野3丁目2-2',32.789,130.777,'https://yamamoto-vet.com/'],
+['カフェ','Cafe LuLu','熊本市中央区城東町',32.805,130.713,'https://www.instagram.com/dogcafe_o2.lulu_kumamoto/'],
+['カフェ','le café NISHIHARA','阿蘇郡西原村河原2004',32.835,130.927,'https://lecafenishihara.com/news/%E3%83%9A%E3%83%83%E3%83%88%E5%90%8C%E4%BC%B4%E3%81%AE%E3%81%8A%E5%AE%A2%E6%A7%98%E3%81%B8/'],
+['カフェ','CAFE&DINER LOFT STAIRS','上益城郡甲佐町府領2182-56',32.650,130.820,'https://www.instagram.com/cafe_and_diner_loft_stairs/'],
+['カフェ','LIKE A TAVERN','熊本市中央区上林町',32.808,130.710,'https://www.instagram.com/like_a_tavern/'],
+['宿泊','フォレスタ阿蘇車帰','阿蘇市',32.96,131.04,'https://foresta-aso.jp/5590-2/'],
+['宿泊','月亭 TSUKITEI','南阿蘇村',32.82,131.04,'https://tsukitei-aso.com/pet_room.html'],
+['宿泊','ペンションあかね雲','南阿蘇村',32.84,131.06,'https://p-akanegumo.com/room.html'],
+['宿泊','南阿蘇 BlueBeeGarden','南阿蘇村',32.86,131.04,'https://www.bluebeegarden.com/'],
+['宿泊','花心','南小国町',33.08,131.07,'https://hanagocoro.jp/'],
+['宿泊','人吉神城の宿','錦町',32.17,130.78,'https://reserve.489ban.net/client/shinjyounoyado/0/detail/1236181'],
+['宿泊','不知火ホテル','八代市日奈久',32.432,130.568,'https://shiranuhi-hotel.com/pet.html'],
+['宿泊','貸別荘ふなざし','南阿蘇村',32.84,131.02,'https://www.funazashi.com/room/'],
+['宿泊','SHIJIN南阿蘇','南阿蘇村',32.82,131.05,'https://shijin-minamiaso.jp/stay/'],
+['宿泊','ペットと泊まれる宿 ペンションむさし','南阿蘇村',32.82,131.04,'http://aso-petyado.com']
+,
+['カフェ','DOG GARDEN 南を翔る風','南阿蘇村',32.82,131.04,'https://www.kunosato.jp/sightseeing/'],
+['カフェ','kura倉cafe','人吉市',32.21,130.75,'https://kurakuracafe.com/'],
+['カフェ','グレーテルの森','阿蘇郡南阿蘇村河陰3485-14',32.820,131.040,'https://www.gretel5.com/'],
+['カフェ','Three TAILs（スリーテイルズ）','熊本市中央区出水4丁目34-3 1F',32.779,130.736,'https://three-tails111.com/'],
+['カフェ','brunch&cafe MILK','菊池郡菊陽町光の森',32.861,130.797,'https://www.instagram.com/milk_hikarinomori/'],
+['カフェ','クラッチカフェ（clutch cafe）','熊本市北区龍田',32.851,130.751,'https://www.instagram.com/clutchcafe715/'],
+['カフェ','KATARIBA 伍乃四〇（カタリバ ごのよんじゅう）','熊本市南区城南町藤山1715-2',32.705,130.738,'https://5no40.com/'],
+['カフェ','RESTAURANT Tiger Man（レストラン タイガーマン）','熊本市北区楡木4丁目5-14',32.873,130.743,'https://restauranttigerman.wixsite.com/mysite'],
+['カフェ','のほほんcafeボジョリ','南阿蘇村',32.820,131.040,'https://www.instagram.com/cafe_boisjoli/'],
+['カフェ','山ぼうしの樹（さびカフェ）','上益城郡甲佐町糸田136',32.652,130.805,'https://www.yamabousinoki.com/'],
+['カフェ','立田山薪窯パン屋 GONZINO（ゴンジーノ）','熊本市北区龍田陳内2丁目2-2',32.842,130.747,'https://www.mare52.com/'],
+['カフェ','Route208（ルート208）','荒尾市野原1061-12',32.994,130.468,'https://www.instagram.com/route.208/'],
+['カフェ','創作手打ちそば 宝処三昧','阿蘇郡南小国町北里429-2',33.095,131.070,'https://housyozanmai.com/'],
+['カフェ','ママトコキッチン','菊池市',32.93,130.80,'https://mamatoco.co.jp/eat'],
+['カフェ','boketto','阿蘇郡西原村布田834-27',32.828,130.910,'https://boketto.biz/']
+,
+['ドッグラン','熊本ドッグラン さんろく×相棒の湯','山鹿市久原3905',33.02,130.69,'https://www.dongurimura.info/sanroku/'],
+['ドッグラン','Route208（ルート208）','荒尾市野原1061-12',32.994,130.468,'https://www.instagram.com/route.208/'],
+['ドッグラン','火の国ドッグラン・オートキャンプ場','阿蘇市',32.95,131.10,'https://www.city.aso.kumamoto.jp/tourism/spot/accommodation-hot-springs/campsite-2/'],
+['ドッグラン','あそ望の郷くぎの','南阿蘇村',32.82,131.03,'https://www.aso-kugino.jp/asobou_dogrun.html'],
+['ドッグラン','道の駅 宮地岳かかしの里','天草市',32.446,130.247,'https://kakashinosato.jp/facility/']
+];const colors={カフェ:'#e85d75',ドッグラン:'#159a9c',宿泊:'#7357d9',預ける:'#c052b8',病院:'#e5484d'};let markers=[];let render=function(type='all'){markers.forEach(m=>map.removeLayer(m));markers=places.filter(p=>type==='all'||p[0]===type).map(p=>L.circleMarker([p[3],p[4]],{radius:9,color:'#fff',weight:2,fillColor:colors[p[0]],fillOpacity:.95}).addTo(map).bindPopup('<strong>'+p[1]+'</strong><br>'+p[2]+'<br><a href="'+p[5]+'" target="_blank" rel="noopener">詳細・公式情報を見る →</a>'))};render();document.querySelectorAll('button').forEach(b=>b.onclick=()=>{document.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.type)})</script>
+<script>const trip=[];let origin=null;const tl=document.getElementById('trip-list');const routeButton=document.getElementById('open-route');const locationButton=document.getElementById('use-location');function renderTrip(){tl.innerHTML=trip.length?trip.map((p,i)=>'<div>'+(i+1)+'．'+p[1]+'</div>').join(''):'まだ場所が選ばれていません。';if(origin)tl.innerHTML='<div>出発地：現在地</div>'+tl.innerHTML;routeButton.disabled=trip.length===0;routeButton.textContent=trip.length>1?'Googleマップでルートを見る':'Googleマップで場所を見る'}locationButton.onclick=()=>{if(!navigator.geolocation){alert('この端末では現在地を取得できません。');return}locationButton.disabled=true;locationButton.textContent='現在地を取得中…';navigator.geolocation.getCurrentPosition(pos=>{origin=[pos.coords.latitude,pos.coords.longitude];locationButton.textContent='現在地を出発地に設定済み';renderTrip()},()=>{locationButton.disabled=false;locationButton.textContent='現在地を出発地にする';alert('位置情報を取得できませんでした。ブラウザの位置情報を許可してください。')},{enableHighAccuracy:true,timeout:10000})};document.getElementById('clear-trip').onclick=()=>{trip.length=0;origin=null;locationButton.disabled=false;locationButton.textContent='現在地を出発地にする';renderTrip()};routeButton.onclick=()=>{if(!trip.length)return;const stops=trip.map(p=>p[3]+','+p[4]);const url=origin?'https://www.google.com/maps/dir/'+origin.join(',')+'/'+stops.join('/'):(trip.length===1?'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(trip[0][1]+' '+trip[0][2]):'https://www.google.com/maps/dir/'+stops.join('/'));window.open(url,'_blank','noopener')};document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.type)});map.on('popupopen',e=>{const p=places.find(x=>e.popup.getContent().includes(x[1]));if(!p)return;const box=e.popup.getElement().querySelector('.leaflet-popup-content');if(box.querySelector('.trip-add'))return;const b=document.createElement('button');b.className='trip-add';b.type='button';b.textContent=trip.includes(p)?'予定に追加済み':'この場所を予定に追加';b.onclick=()=>{if(!trip.includes(p)){trip.push(p);renderTrip();b.textContent='予定に追加済み'}};box.appendChild(b)});renderTrip()</script>
+<script>let facilityTags=p=>{const n=p[1];if(p[0]==='カフェ'){if(n.includes('Manly'))return ['犬OK','店内OK','犬用メニュー','駐車場あり'];if(n.includes('HUI'))return ['犬OK','テラス席のみ','海辺のカフェ','駐車場あり'];if(n.includes('ヒバリ'))return ['犬OK','テラス席のみ','リード必須','駐車場あり'];if(n.includes('CROSS'))return ['犬OK','テラス席のみ','小型犬のみ','朝食・ランチ・ディナー'];if(n.includes('Myu'))return ['犬OK','テラス席','ランチ・ディナー','駐車場あり'];return ['犬OK','テラス席','駐車場あり']}if(p[0]==='ドッグラン')return n.includes('さんろく')?['犬OK','大型犬向け','ドッグラン併設','温泉']:['犬OK','ドッグラン','駐車場あり'];if(p[0]==='宿泊')return n.includes('With Dogs')?['犬OK','ドッグラン付き','一棟貸し','要予約']:n.includes('風の音')?['犬OK','ドッグラン付き','温泉','要予約']:['犬OK','ペット同伴宿','要予約','駐車場あり'];if(p[0]==='預ける')return n.includes('エンジェル')?['犬・猫対応','腎臓病に特化','腎臓ケア商品']:['犬OK','一時預かり','要予約'];if(n.includes('竜之介'))return ['夜間診療','ペットホテル','トリミング','予防接種'];if(n.includes('熊本動物病院'))return ['循環器・心臓病','心臓病','心エコー','ペットホテル'];if(n.includes('江津動物病院'))return ['ペットホテル','一時預かり','犬猫別室'];if(n.includes('阿蘇動物病院'))return ['犬・猫対応','ペットホテル','トリミング'];if(n.includes('サンマリン'))return ['犬・猫対応','土日診療','要確認'];if(n.includes('桜町サンシャイン'))return ['犬・猫対応','呼吸器科','循環器科','心臓病','泌尿器科','消化器科','内分泌科','皮膚科','腫瘍科','眼科'];return ['診療対応','要確認','駐車場あり']};document.getElementById("all-facilities-list").innerHTML=places.map((p,i)=>'<div>'+(i+1)+'. '+p[1]+' / '+p[0]+' / '+p[2]+'</div>').join('');</script></body>
+<script>map.on('popupopen',e=>{const p=places.find(x=>e.popup.getContent().includes(x[1]));if(!p)return;const box=e.popup.getElement().querySelector('.leaflet-popup-content');if(box.querySelector('.facility-tags'))return;const tags=document.createElement('div');tags.className='facility-tags';tags.innerHTML=facilityTags(p).map(t=>'<span class="facility-tag">'+t+'</span>').join('');box.insertBefore(tags,box.querySelector('a'))});</script>
+<script>let activeType='all',searchQuery='';const searchInput=document.getElementById('facility-search');const list=document.getElementById('all-facilities-list');const matches=p=>{const tags=facilityTags(p).concat(typeof verifiedTags==='function'?verifiedTags(p):[]);const text=(p[1]+' '+p[2]+' '+tags.join(' ')).toLowerCase();const terms=searchQuery.split(/\s+/).filter(Boolean);return terms.every(term=>text.includes(term))};const visiblePlaces=()=>places.filter(p=>(activeType==='all'||p[0]===activeType)&&matches(p));const renderList=()=>{const items=visiblePlaces();list.innerHTML=items.length?items.map((p,i)=>'<div>'+ (i+1)+'. '+p[1]+' / '+p[0]+' / '+p[2]+'</div>').join(''):'該当する施設がありません。'};render=type=>{activeType=type;markers.forEach(m=>map.removeLayer(m));markers=visiblePlaces().map(p=>L.circleMarker([p[3],p[4]],{radius:9,color:'#fff',weight:2,fillColor:colors[p[0]],fillOpacity:.95}).addTo(map).bindPopup('<strong>'+p[1]+'</strong><br>'+p[2]+'<br><a href="'+p[5]+'" target="_blank" rel="noopener">詳細・公式情報を見る →</a>'));renderList()};document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.type)});searchInput.addEventListener('input',()=>{searchQuery=searchInput.value.trim().toLowerCase();render(activeType)});document.getElementById('clear-search').onclick=()=>{searchInput.value='';searchQuery='';render(activeType)};render('all');</script>
+<script>const originalFacilityTags=facilityTags;facilityTags=p=>{const n=p[1];if(n.includes('げんき動物病院'))return ['犬・猫対応','入院設備','夜間救急は電話確認'];if(n.includes('神西ペット'))return ['循環器科','眼科','腫瘍科','皮膚科'];if(n.includes('滝川ペット'))return ['眼科','歯科','アレルギー科','リハビリ','トリミング','ペットホテル','往診'];if(n.includes('カイハラ'))return ['犬・猫対応','入院対応','ICU','トリミング','ペットホテル'];if(n.includes('たまとぽち'))return ['犬・猫対応','トリミング','ペットホテル'];if(n.includes('うさぎの病院'))return ['うさぎ専門','二次診療'];if(n.includes('園田動物病院'))return ['犬・猫・小動物対応','土曜診療','駐車場あり'];if(n.includes('なかじま動物病院'))return ['犬・猫対応','エキゾチックアニマル','予約優先','駐車場あり'];if(n.includes('動物病院デーリー'))return ['犬・猫対応','一般診療','要確認'];if(n.includes('山口動物病院'))return ['犬・猫対応','土曜診療','要確認'];if(n.includes('さとう動物病院'))return ['犬・猫対応','一般診療','要確認'];return originalFacilityTags(p)};</script>
+<script>const facilityTagsBeforeYomogi=facilityTags;facilityTags=p=>p[1].includes('とくお動物病院')?['犬・猫対応','手術対応','予防医療','ワクチン','ノミ・ダニ予防']:p[1].includes('こすみ動物病院')?['犬・猫対応','土日診療','予防医療','トリミング','ペットホテル']:p[1].includes('タナカ動物病院')?['犬・猫対応','鍼灸・漢方','しつけ相談','予防医療']:p[1].includes('そのだ動物病院')?['犬・猫対応','レーザー治療','ワクチン','予防医療']:p[1].includes('光の森にしぐち動物病院')?['犬・猫・うさぎ対応','ハムスター対応','入院対応','一般診療','ワクチン','ノミ・ダニ予防','食事管理']:p[1].includes('ビッグベア動物病院')?['犬・猫対応','ペットホテル','予防医療']:p[1].includes('ほっぺ犬猫病院')?['犬・猫対応','トリミング','ペットホテル','予防医療']:p[1].includes('よもぎ動物病院')?['犬・猫対応','内視鏡','血液検査','駐車場あり','予防医療']:facilityTagsBeforeYomogi(p);</script>
+<script>searchInput.addEventListener('input',()=>setTimeout(()=>{if(markers.length===1)map.setView(markers[0].getLatLng(),13);else if(markers.length>1)map.fitBounds(L.featureGroup(markers).getBounds().pad(.2))},0));</script>
+<script>
+const verifiedTags=p=>{const n=p[1];
+if(n.includes('竜之介動物病院'))return['犬・猫対応','夜間診療','レーザー治療','リハビリ','食事・ダイエット相談','予防接種','ノミ・ダニ予防','ペットホテル','トリミング'];
+if(n.includes('さくま動物医療センター'))return['犬・猫専門','腫瘍科','皮膚科','整形外科','動物歯科・口腔外科','循環器科','CT・高度画像診断','各種検査','手術対応','ダイエット相談','予防医療'];
+if(n.includes('佐藤動物病院'))return['犬・猫対応','内科','皮膚科','消化器科','外科','眼科','歯科','腫瘍科','整形外科','血液・尿・便検査','レントゲン','心電図・エコー','予防接種','ペットホテル','トリミング'];
+if(n.includes('まつばせペットクリニック'))return['犬・猫対応','内科','外科','歯科','皮膚科','循環器科','健康診断','ワクチン','フィラリア予防','ノミ・ダニ予防','レントゲン','内視鏡','心電図・エコー','入院対応','ペットホテル','日曜診療'];
+if(n.includes('Lucas Animal Clinic'))return['犬・猫専門','一般内科・一般外科','眼科','眼科手術','避妊・去勢','ノミ・マダニ予防','フィラリア予防','ワクチン','健康診断'];
+if(n.includes('山城どうぶつ病院'))return['犬・猫対応','予防接種','トリミング','しつけ方教室','パピークラス','成犬クラス','ノミ・マダニ予防'];
+if(n.includes('ちあき犬と猫のクリニック'))return['犬・猫対応','避妊・去勢','ワクチン','狂犬病ワクチン','フィラリア予防','ノミ・マダニ予防','健康診断','手術・麻酔','血液検査','レントゲン','エコー','心電図'];
+if(n.includes('エルフペットクリニック'))return['犬・猫専門','超音波・エコー','消化管内視鏡','鼻腔内視鏡','耳道内視鏡','ビデオオトスコープ','内視鏡治療','健康診断','フィラリア予防','ノミ・マダニ予防','手術対応'];
+if(n.includes('どうそペットクリニック'))return['犬・猫対応','避妊・去勢相談','ワクチン相談','しつけ相談','健康診断','ペットホテル','院内ドッグラン','血液検査','尿検査','レントゲン','手術対応'];
+if(n.includes('吉田獣医科病院'))return['犬・猫専門','一般診療','予防接種','去勢手術','避妊手術','健康診断','デイケア相談','往診','入院室','隔離入院室','ペットホテル','トリミング'];
+if(n.includes('戸島ふじもと動物病院'))return['犬・猫・うさぎ・ハムスター対応','健康診断','去勢・避妊','ワクチン・予防接種','デンタルケア','腫瘍手術','血液検査','レントゲン','心臓・腹部エコー','犬猫別入院室','ドッグラン','日曜診療'];
+if(n.includes('動物病院デーリー'))return['犬・猫専門','皮膚科','外科手術','高齢犬・高齢猫の相談','X線検査','トリミング','ペットホテル','休日診療（緊急時）'];
+if(n.includes('かしわの動物病院'))return['犬・猫対応','土日・祝日診療','ワクチン','フィラリア予防','ノミ・ダニ予防','避妊・去勢','トリミング','食事指導','飼育相談','しつけ相談','繁殖相談','カウンセリング','当日予約・電話予約'];
+if(n.includes('動物病院たまとぽち'))return['犬・猫・小動物対応','健康診断','予防医療','混合ワクチン','狂犬病予防接種','フィラリア予防','高齢犬ケア','食事・生活習慣相談','トリミング','ペットホテル'];
+if(n.includes('さとう動物病院（宇城市）'))return['犬・猫対応','小動物診療','手術時間帯あり','トリミング','クレジットカード','駐車場あり'];
+if(n.includes('山口動物病院'))return['犬・猫対応','フィラリア予防','ノミ・ダニ予防','時間外は留守番電話対応','ペットホテルなし'];
+if(n.includes('カイハラ動物病院'))return['犬・猫・その他対応','予防医療','しつけ方教室','トリミング','ペットホテル','往診'];
+if(n.includes('尾崎ペットクリニック'))return['犬・猫対応','一般診療','健康診断','各種検査','予防接種','去勢手術','避妊手術','歯科処置','外来手術','フィラリア予防'];
+if(n.includes('けやき通り動物病院'))return['犬・猫・小鳥・うさぎ・ハムスター・フェレット対応','健康管理','病気予防','飼育相談','日曜・祝日診療','急患対応'];
+if(n.includes('なかじま動物病院'))return['犬・猫対応','混合ワクチン','狂犬病ワクチン','避妊・去勢','予約優先制','駐車場'];
+if(n.includes('じんだ動物病院'))return['犬・猫対応','一般診療','手術','予防医療'];
+if(n.includes('やまもと動物病院'))return['犬・猫対応','健康診断','血液検査','尿検査','便検査','心電図','胸部・腹部レントゲン','心臓・腹部エコー','眼圧検査'];
+if(n.includes('こがペットクリニック'))return['犬・猫対応','避妊・去勢','手術','フィラリア予防','予防接種','健康診断','皮膚疾患','循環器疾患','消化器疾患','デンタルケア','トリミング','ペットホテル'];
+if(n.includes('江津動物病院'))return['犬・猫対応','小動物は要問い合わせ','一般診療','内科','整形外科','健康診断','予防接種','避妊・去勢','皮膚科','眼科専門診療','歯科検診','血液検査','尿検査','便検査','超音波・心腹部エコー','デジタルX線','心電図','細径内視鏡','オゾン治療','再生医療','トリミング','ペットホテル'];
+if(n.includes('中央動物病院'))return['犬・猫対応','一般内科','一般外科','トリミング','ペットホテル','駐車場あり','予約優先制'];
+if(n.includes('そのだ動物病院'))return['犬・猫対応','一般診療','レーザー治療','狂犬病予防注射','混合ワクチン','フィラリア予防','ノミ・マダニ予防','マイクロチップ','避妊・去勢','一般手術'];
+if(n.includes('よもぎ動物病院'))return['犬・猫対応','全科診療','予防接種','フィラリア予防','健康診断','急患対応','クレジットカード・電子マネー','駐車場あり'];
+if(n.includes('神西ペットクリニック'))return['犬・猫対応','循環器科','眼科','腫瘍科','皮膚科','心臓病相談','超音波検査','健康診断','土曜診療','日曜午前診療','駐車場あり'];
+if(n.includes('滝川ペットクリニック'))return['犬・猫対応','内科','外科','整形外科','内分泌科','皮膚科','腫瘍科','行動学科','神経内科','消化器科','泌尿器科','眼科','歯科','アレルギー科','リハビリテーション科','トリミング','ペットホテル','急患対応'];
+if(n.includes('桜町サンシャイン動物病院'))return['犬・猫対応','一般内科','避妊・去勢','軟部外科','呼吸器科','循環器科','泌尿器科','消化器科','内分泌科','皮膚科','腫瘍科','眼科','専門病院・大学病院紹介'];
+if(n.includes('烏城ペットクリニック'))return['犬・猫・うさぎ・フェレット・ハムスター対応','一般内科','神経内科','循環器科','泌尿器科','呼吸器科','消化器科','内分泌科','腫瘍科','皮膚科','歯科','耳鼻科','眼科','一般外科','神経外科','整形外科','軟部外科','産科','腫瘍外科','MRI','健康診断','デンタルケア','カウンセリング','ペットホテル','駐車場あり'];
+if(n.includes('げんき動物病院'))return['犬・猫対応','レーザー治療','入院対応','酸素室・人工呼吸器','心電図・超音波','予防医療'];
+if(n.includes('タナカ動物病院'))return['犬・猫対応','レーザー治療','CO2レーザー手術','鍼灸・漢方','入院対応','予防医療'];
+if(n.includes('たかた動物病院'))return['犬・猫対応','CO2レーザー手術','CT','内視鏡','心電図・血液検査','予防医療'];
+if(n.includes('大津どうぶつ医療センター'))return['犬・猫対応','MRI','CT','レーザー治療（椎間板）','高度画像診断'];
+if(n.includes('鳥城ペットクリニック'))return['犬・猫・うさぎ・フェレット・ハムスター対応','MRI','画像診断'];
+if(n.includes('熊本動物病院'))return['犬・猫対応','循環器・心臓病','心エコー','内視鏡','健康診断','予防接種','ノミ・ダニ予防','ペットホテル'];
+if(n.includes('健軍よしい動物病院'))return['犬・猫対応','循環器科','眼科','皮膚科','腫瘍科','歯科','予防接種','土日診療'];
+if(n.includes('ともだ動物病院'))return['犬・猫対応','循環器・心臓病','皮膚科','腎臓病','眼科検査','歯科','ワクチン','ノミ・ダニ予防','トリミング','ペットホテル'];
+if(n.includes('阿蘇マロンの樹'))return['ペット同伴テラス','ドッグラン','RVパーク','オートキャンプ場','犬用メニュー'];
+if(n.includes('le café NISHIHARA'))return['ペット同伴テラス','小型犬対応','ペットキャリー・カート必須','要事前連絡'];
+if(n.includes('LOFT STAIRS'))return['カフェ・ダイナー','トレーラー型席','ペット同伴要確認'];
+if(n.includes('Manly 熊本店'))return['ドッグカフェ','犬同伴可','店内同伴可','テラス席','犬用メニュー','ふわふわパンケーキ','ネット予約'];
+if(n.includes('園田動物病院'))return['犬・猫対応','一般診療','手術対応','犬入院室','猫入院室','伝染病入院室','家庭用ICU','健康診断'];
+if(n.includes('うさぎの病院'))return['うさぎ専門','定期ケア','健康診断','食事管理','予防医療','二次診療','日曜診療','駐車場あり'];
+return[]};
+map.on('popupopen',e=>{const el=e.popup.getElement(),p=places.find(x=>x[1]===el.querySelector('strong')?.textContent);if(!p||!verifiedTags(p).length||el.querySelector('.verified-facility-tags'))return;const existing=[...el.querySelectorAll('.facility-tag')].map(x=>x.textContent);const tags=verifiedTags(p).filter(t=>!existing.includes(t));if(!tags.length)return;const box=document.createElement('div');box.className='verified-facility-tags';box.style='margin-top:8px;display:flex;gap:4px;flex-wrap:wrap';box.innerHTML=tags.map(t=>'<span style="background:#e5f3ee;color:#18594b;border-radius:999px;padding:3px 7px;font-size:11px">'+t+'</span>').join('');el.querySelector('strong').parentElement.insertBefore(box,el.querySelector('a'))});
+const facilityTagsVerified=facilityTags;facilityTags=p=>p[1].includes('ふぉれすと')?['ペット同伴要確認','公式Instagramで営業情報確認']:p[1].includes('Little Garden')?['店内ペット同伴可','テラス席','グランピングテント','犬用フード','駐車場あり']:p[1].includes('give me a little RYU')?['アメリカンサンドウィッチ','ハンバーガー','駐車場あり','ペット同伴要確認']:p[1].includes('森の時間')?['森の中のカフェ','土日月営業','ペット同伴情報あり','営業日・時間は公式Instagram確認']:p[1].includes('ONE FIVE DOG')?['ドッグカフェ','揚げサンド','ホットドッグ','テイクアウト','12:00〜19:00']:p[1].includes('CAFE lx')?['スフレパンケーキ','テラス席','ペット同伴可','駐車場あり','11:00〜20:00']:p[1].includes('BOUCHE')?['フレンチ・カフェ','テラス席','ペット同伴可','ランチ・ディナー','スイーツ']:p[1].includes('TANPOPO')?['イタリアン','ピザ','テラス席','ペット同伴可','テラス席の一部のみ','テイクアウト']:p[1].includes('SORAHIRO FIKA')?['北欧風カフェ','ランチ','スイーツ','駐車場あり','ペット同伴要確認']:p[1].includes('Three TAILs')?['獣医師のいるドッグカフェ','店内ペット同伴可','ペットケア相談','筋膜リリース・マッサージ','フード・サプリ相談','駐車場3台','10:00〜18:00']:p[1].includes('MILK')?['ブランチ・カフェ','スイーツ','11:00〜21:00','火曜定休','ペット同伴要確認']:p[1].includes('クラッチカフェ')?['川沿いのカフェ','モーニング','ランチ・カフェ','テイクアウト','ペット同伴要確認']:p[1].includes('伍乃四〇')?['うどん・和食','縁側のある店','個室プラン','テイクアウト','ペット同伴要確認']:p[1].includes('Tiger Man')?['アメリカ料理','ハンバーガー','ステーキ','フライドチキン','ワイン・アルコール','ペット同伴要確認']:p[1].includes('ボジョリ')?['小さな森のカフェ','現金のみ','火・水・木・土・日営業','ペット同伴要確認']:p[1].includes('狗の郷')?['ペットと泊まれる宿','温泉','ドッグラン','ペット同伴可']:p[1].includes('boketto')?['オーガニックレストラン','森の中の施設','インテリアショップ','イベント・スペース利用','ペット同伴要確認']:p[1].includes('グレーテルの森')?['ペット同伴可','テラス席のみ','要予約','雨天時は利用不可']:p[1].includes('海の隠れ家')?['ペット同伴可の情報あり','ドッグラン','キャンプ・グランピング','バーベキュー','レンタルボート']:facilityTagsVerified(p);
+</script>
+<script>const facilityTagsCurrent=facilityTags;facilityTags=p=>p[1].includes('CROSS TIME CROSS BE')?['ホテルレストラン','テラス席','小型犬のみ（10kg以下）','予防接種要','7:00〜22:00','BBQスタイル']:p[1].includes('ルナカルド')?['ドッグラン内カフェ','ピザ','サンドイッチ','犬用おやつ販売','飼い主と一緒に利用可']:p[1].includes('DOG RUN & CAFE Teo One')?['ドッグラン','小型犬エリア','大型犬エリア','貸切エリア','天然芝','カフェ併設','駐車場13台','予防接種証明']:facilityTagsCurrent(p);</script>
+<script>const facilityTagsPetDining=facilityTags;facilityTags=p=>p[1].includes('GONZINO')?['薪窯パン・カフェ','ドッグガーデンテラス','犬同伴可','リード必須','ドッグランではありません']:p[1].includes('Route208')?['ドッグランCafe','犬同伴可','わんちゃんの食事','ランチ','BAR営業']:p[1].includes('宝処三昧')?['手打ちそば','ペット同伴可','個室利用可']:facilityTagsPetDining(p);</script>
+</html>
+<script>(()=>{if(typeof map==='undefined')return;const event={name:'ASO OVAL DOG FES 2026 AUTUMN',place:'阿蘇市・ふれあい水辺公園',lat:32.975,lng:131.08,start:'2026-10-10',end:'2026-10-11',url:'https://kumamoto-odekake.com/event/9179/'};const today=new Date();const end=new Date(event.end+'T23:59:59+09:00');if(today>end)return;const filters=document.querySelector('.filters');if(!filters)return;const b=document.createElement('button');b.type='button';b.dataset.type='イベント';b.textContent='イベント';b.style='color:#8a6518;border-color:#d9b35f';b.className='event-filter';filters.appendChild(b);const marker=L.circleMarker([event.lat,event.lng],{radius:10,color:'#fff',weight:2,fillColor:'#d9a441',fillOpacity:.95});marker.bindPopup('<strong>'+event.name+'</strong><br>'+event.place+'<br>開催日：2026年10月10日（土）・11日（日）<br><a href="'+event.url+'" target="_blank" rel="noopener">イベント詳細を見る →</a>');const hide=()=>{if(map.hasLayer(marker))map.removeLayer(marker)};const show=()=>{if(!map.hasLayer(marker))marker.addTo(map);marker.openPopup()};b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');if(typeof markers!=='undefined')markers.forEach(m=>map.removeLayer(m));show()};document.querySelectorAll('.filters button:not(.event-filter)').forEach(x=>x.addEventListener('click',hide));const s=document.createElement('style');s.textContent='.event-filter.active{background:#d9a441!important;color:#fff!important;border-color:#d9a441!important}.event-filter::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;background:#d9a441}.event-filter.active::before{background:#fff}';document.head.appendChild(s)})();</script>
+<script>(()=>{const official='https://asodc.or.jp/archives/event/aso_dogfes_261010';const fix=()=>{if(typeof map==='undefined')return;map.eachLayer(layer=>{if(layer.getPopup&&layer.getPopup()){const c=String(layer.getPopup().getContent());if(c.includes('ASO OVAL DOG FES'))layer.getPopup().setContent(c.replace(/https:\/\/kumamoto-odekake\.com\/event\/9179\//,official))}})};setTimeout(fix,800);setInterval(fix,2000)})();</script>
+
+<script>(()=>{const setup=()=>{if(typeof map==='undefined')return;const b=document.querySelector('.event-filter');if(!b||b.dataset.asoRestored)return;b.dataset.asoRestored='1';const m=L.circleMarker([32.975,131.08],{radius:10,color:'#fff',weight:2,fillColor:'#d9a441',fillOpacity:.95}).bindPopup('<strong>ASO OVAL DOG FES 2026 AUTUMN</strong><br>阿蘇市・ふれあい水辺公園<br>開催日：2026年10月10日（土）・11日（日）<br><a href="https://asodc.or.jp/archives/event/aso_dogfes_261010" target="_blank" rel="noopener">公式情報を見る →</a>');b.addEventListener('click',()=>{setTimeout(()=>m.addTo(map),30)});document.querySelectorAll('.filters button:not(.event-filter)').forEach(x=>x.addEventListener('click',()=>{if(map.hasLayer(m))map.removeLayer(m)}))};setTimeout(setup,1400)})();</script>
+<script>(()=>{const limits=[['ASO OVAL DOG FES','2026-10-11T23:59:59+09:00']];const hideExpired=()=>{if(typeof map==='undefined')return;const now=Date.now();map.eachLayer(l=>{if(!l.getPopup||!l.getPopup())return;const t=String(l.getPopup().getContent());for(const [name,end] of limits)if(t.includes(name)&&now>new Date(end).getTime()&&map.hasLayer(l))map.removeLayer(l)})};setTimeout(hideExpired,1500);setInterval(hideExpired,60000)})();</script>
+
