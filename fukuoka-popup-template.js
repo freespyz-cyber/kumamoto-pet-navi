@@ -6,7 +6,7 @@
     });
     const esc = value => String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const add = (p, category, href) => {
-      if (!FacilityLinks.has('fukuoka', p[0])) return;
+      // Restore original facilities regardless of official-link registration.
       const rawCategory = String(category || '');
       const kind = !rawCategory || rawCategory.startsWith('#') ? '宿泊' : rawCategory;
       const food = kind.includes('食事'), place = kind.includes('ドッグラン') || kind.includes('公園'), hospital = kind.includes('病院');
