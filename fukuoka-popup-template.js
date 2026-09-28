@@ -18,7 +18,22 @@
       const html = `<strong>${esc(p[0])}</strong><br><span class="map-area">${esc(p[1])}</span><br><span class="map-category">分類：${esc(kind)}</span><br>${tags.map(t => `<span class="map-tag">${t}</span>`).join(' ')}${links}${FacilityLinks.html('fukuoka', p[0], [href, ...p.slice(5)])}<br><button class="map-add-plan">この場所を予定に追加</button>`;
       const marker = L.circleMarker([p[2], p[3]], {radius:9, color:'#fff', weight:2, fillColor:color, fillOpacity:.95}).addTo(map);
       marker.bindPopup(html);
-      marker.on('popupopen', event => { const button = event.popup.getElement()?.querySelector('.map-add-plan'); if (button) button.onclick = () => { button.textContent = '追加済み'; }; });
+      marker.on('popupopen', event => {
+        const root = event.popup.getElement();
+        if (!root) return;
+        root.onclick = e => {
+          const button = e.target.closest('.map-add-plan');
+          if (!button) return;
+          if (!selected.some(row => row[0] === p[0])) {
+            if (selected.length >= 4) { alert('スマートフォン対応のため、予定は4施設までです。'); return; }
+            selected.push(p);
+          }
+          renderTrip();
+          const plan = document.querySelector('.map-plan');
+          if (plan) plan.textContent = '自分の予定を作る：' + selected.map(row => row[0]).join(' → ');
+          button.textContent = '追加済み';
+        };
+      });
     };
     const seen = new Set();
     const addOnce = (p, category, href) => {

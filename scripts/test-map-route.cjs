@@ -1,0 +1,18 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const c={window:{},URLSearchParams};vm.createContext(c);
+vm.runInContext(fs.readFileSync('assets/map-route-url.js','utf8'),c);
+const route=c.window.MapRouteURL;
+assert.equal(route([],null),null);
+let u=new URL(route(['大分県 施設A'],null));
+assert.equal(u.searchParams.get('api'),'1');
+assert.equal(u.searchParams.get('destination'),'大分県 施設A');
+assert(!u.searchParams.has('origin'));
+u=new URL(route(['A','B','C','D'],[33,131]));
+assert.equal(u.searchParams.get('origin'),'33,131');
+assert.equal(u.searchParams.get('waypoints'),'A|B|C');
+assert.equal(u.searchParams.get('destination'),'D');
+u=new URL(route(['A','B','C'],null));
+assert.equal(u.searchParams.get('origin'),'A');
+assert.equal(u.searchParams.get('waypoints'),'B');
+assert.throws(()=>route(['A','B','C','D','E'],null));
+console.log('Google Maps route: empty, single, multiple, current location and mobile limit passed');
