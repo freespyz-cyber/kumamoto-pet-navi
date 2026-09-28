@@ -1481,7 +1481,26 @@ window.mapSourceLinks = {
     "王様のたまご 門司港本店": [],
     "made in HACHI（CAFE BAR 8移転後）": [],
     "ドッグカフェTARO＆HANA（たろはな）": [],
-    "ふらってぃーのドッグカフェ": [],
+    "ふらってぃーのドッグカフェ": [
+      {
+        "url": "https://www.flattyroom.com/dogcafe.html",
+        "label": "ホームページ",
+        "source": "2026-09-28 公式ページの店名・飯塚市中353・内容を確認",
+        "official": true
+      },
+      {
+        "url": "https://www.instagram.com/flattyroom_koupapa",
+        "label": "Instagram（閲覧未確認）",
+        "source": "https://map.yahoo.co.jp/v3/place/fVBWMb9t-MI の公式SNS欄。2026-09-28取得制限のためSNS本文は未確認",
+        "official": true
+      },
+      {
+        "url": "https://www.facebook.com/flattyroom.0916",
+        "label": "Facebook（閲覧未確認）",
+        "source": "https://map.yahoo.co.jp/v3/place/fVBWMb9t-MI の公式SNS欄。2026-09-28取得制限のためSNS本文は未確認",
+        "official": true
+      }
+    ],
     "ドッグラン カフェ レオちんのあんよ": [],
     "西部運動公園": [
       {
@@ -1652,13 +1671,34 @@ window.mapSourceLinks = {
     "キャバリアハウス": [],
     "PET’s THE WORLD": [],
     "くるみcafe": [],
-    "cafe Lanai（カフェ ラナイ）": [],
-    "カフェドボッコ（cafe de BoCCo）": [],
+    "cafe Lanai（カフェ ラナイ）": [
+      {
+        "url": "https://cafe-lanai2.webnode.jp/",
+        "label": "ホームページ",
+        "source": "https://cafe-lanai2.webnode.jp/ 店名・所在地・ページ到達確認 2026-09-28。ペット同伴条件は来店前確認",
+        "official": true
+      }
+    ],
+    "カフェドボッコ（cafe de BoCCo）": [
+      {
+        "url": "https://cafedebocco.com/",
+        "label": "ホームページ",
+        "source": "https://cafedebocco.com/ 店名・所在地・ページ到達確認 2026-09-28。ペット同伴条件は来店前確認",
+        "official": true
+      }
+    ],
     "草の家": [],
     "café OFF COURSE（カフェオフコース）": [],
     "カフェ プリリネ": [],
     "アッカントエッフェ": [],
-    "Current（カレント）": [],
+    "Current（カレント）": [
+      {
+        "url": "https://www.bakeryrestaurantcurrent-2007.com/",
+        "label": "ホームページ",
+        "source": "https://www.bakeryrestaurantcurrent-2007.com/ 店名・所在地・ページ到達確認 2026-09-28。ペット同伴条件は来店前確認",
+        "official": true
+      }
+    ],
     "動物医療センター春日": [
       {
         "url": "https://f-dic.com/top-2/",
