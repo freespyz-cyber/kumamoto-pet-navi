@@ -1191,20 +1191,20 @@ window.mapSourceLinks = {
     ],
     "火の国ドッグラン・オートキャンプ場": [
       {
-        "url": "https://www.city.aso.kumamoto.jp/tourism/spot/accommodation-hot-springs/campsite-2/",
+        "url": "https://hinokunidogrun-autocamp.com/",
         "label": "ホームページ",
         "source": "MAP登録データ",
         "official": true
       },
       {
-        "url": "https://hinokunidogrun-autocamp.com/service/",
-        "label": "公式案内",
+        "url": "https://hinokunidogrun-autocamp.com/access/",
+        "label": "アクセス",
         "source": "dog-run-candidates.html",
         "official": true
       },
       {
         "url": "https://hinokunidogrun-autocamp.com/faq/",
-        "label": "ホームページ",
+        "label": "FAQ",
         "source": "pet-camping.html",
         "official": true
       }
