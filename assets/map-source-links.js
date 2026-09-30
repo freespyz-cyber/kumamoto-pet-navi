@@ -889,7 +889,7 @@ window.mapSourceLinks = {
     ],
     "ほっぺ犬猫病院": [
       {
-        "url": "https://hoppe-dc.com/",
+        "url": "https://www.hoppe-dc.net/",
         "label": "ホームページ",
         "source": "MAP登録データ",
         "official": true
@@ -937,7 +937,7 @@ window.mapSourceLinks = {
     ],
     "とくお動物病院": [
       {
-        "url": "https://tokuo-ah.com/",
+        "url": "http://www.tokuo-ah.com/",
         "label": "ホームページ",
         "source": "MAP登録データ",
         "official": true

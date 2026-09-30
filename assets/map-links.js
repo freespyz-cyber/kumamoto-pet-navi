@@ -13,14 +13,17 @@
         : /https?:\/\/(?:page\.line\.me|lin\.ee)\//i.test(link) ? 'LINE' : 'ホームページ';
       return {url: link, label};
     }).filter(link => {
-      if (!link || !/^https?:\/\//i.test(link.url || '') || seen.has(link.url)) return false;
+      if (!link || link.official === false || !/^https?:\/\//i.test(link.url || '') || seen.has(link.url)) return false;
       seen.add(link.url);
       return true;
+    }).filter((link, _, links) => {
+      if (link.label !== 'ホームページ') return true;
+      return links.find(candidate => candidate.label === 'ホームページ') === link;
     });
   };
   window.FacilityLinks = {
     get,
-    has: (prefecture, name) => get(prefecture, name).some(link => link.official),
+    has: (prefecture, name, saved = []) => get(prefecture, name, saved).length > 0,
     html: (prefecture, name, saved = []) => '<div class="facility-source-links">' + get(prefecture, name, saved).map(link => '<a href="' + esc(link.url) + '" target="_blank" rel="noopener noreferrer">' + esc(link.label) + ' ↗</a>').join('') + '</div>'
   };
   const style = document.createElement('style');

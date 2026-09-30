@@ -170,13 +170,13 @@ html,body{max-width:100%;overflow-x:hidden}
 ['病院','動物病院たまとぽち','〒869-0624 熊本県宇城市小川町江頭36-1',32.5915429,130.7052555,'https://www.tama-to-pochi.com/'],
 ['病院','桜町サンシャイン動物病院','〒860-0805 熊本市中央区桜町5-8',32.7998123,130.7014552,'https://ssah.jp/'],
 ['病院','よもぎ動物病院','〒861-5515 熊本県熊本市北区四方寄町1631-1',32.8620417,130.708773,'https://yomogi-animalclinic.com/'],
-['病院','ほっぺ犬猫病院','〒869-1109 熊本県菊池郡菊陽町新山2-2-16',32.864567,130.7837935,'https://hoppe-dc.com/'],
+['病院','ほっぺ犬猫病院','〒869-1109 熊本県菊池郡菊陽町新山2-2-16',32.864567,130.7837935,'https://www.hoppe-dc.net/'],
 ['病院','ビッグベア動物病院','〒861-8045 熊本県熊本市東区小山3丁目1-5',32.827402,130.784078,'http://www.bigbearvh.com/'],
 ['病院','光の森にしぐち動物病院','〒869-1108 熊本県菊池郡菊陽町光の森7丁目25-5',32.8628361,130.7892992,'https://nishiguchi-a-h.com/'],
 ['病院','そのだ動物病院','〒861-4403 熊本県下益城郡美里町中郡1504',32.6373331,130.7967566,'https://www.sonoda-ah.net/'],
 ['病院','タナカ動物病院','〒861-1112 熊本県合志市幾久富1866-350',32.8674811,130.7783553,'https://www.vet-tanaka.com/'],
 ['病院','こすみ動物病院','〒860-0078 熊本県熊本市中央区京町2丁目6-68',32.8159045,130.704152,'https://www.kosumi-ah.com/'],
-['病院','とくお動物病院','〒861-5525 熊本県熊本市北区徳王1丁目14-19',32.836661,130.7062288,'https://tokuo-ah.com/'],
+['病院','とくお動物病院','〒861-5525 熊本県熊本市北区徳王1丁目14-19',32.836661,130.7062288,'http://www.tokuo-ah.com/'],
 ['病院','やまもと動物病院','〒861-2106 熊本県熊本市東区東野3丁目2-2',32.775134,130.766402,'https://yamamoto-vet.com/'],
 ['カフェ','Cafe LuLu','熊本市中央区城東町5-33 並木坂331tower 1F右奥',32.8067117,130.7113032,'https://www.instagram.com/dogcafe_o2.lulu_kumamoto/'],
 ['カフェ','le café NISHIHARA','阿蘇郡西原村河原2004',32.8043398,130.8918724,'https://lecafenishihara.com/news/%E3%83%9A%E3%83%83%E3%83%88%E5%90%8C%E4%BC%B4%E3%81%AE%E3%81%8A%E5%AE%A2%E6%A7%98%E3%81%B8/'],
@@ -276,6 +276,18 @@ const facilityTagsVerified=facilityTags;facilityTags=p=>p[1].includes('ふぉれ
 <script>const facilityTagsCurrent=facilityTags;facilityTags=p=>p[1].includes('CROSS TIME CROSS BE')?['ホテルレストラン','テラス席','小型犬のみ（10kg以下）','予防接種要','7:00〜22:00','BBQスタイル']:p[1].includes('ルナカルド')?['ドッグラン内カフェ','ピザ','サンドイッチ','犬用おやつ販売','飼い主と一緒に利用可']:p[1].includes('DOG RUN & CAFE Teo One')?['ドッグラン','小型犬エリア','大型犬エリア','貸切エリア','天然芝','カフェ併設','駐車場13台','予防接種証明']:facilityTagsCurrent(p);</script>
 <script>const facilityTagsPetDining=facilityTags;facilityTags=p=>p[1].includes('GONZINO')?['薪窯パン・カフェ','ドッグガーデンテラス','犬同伴可','リード必須','ドッグランではありません']:p[1].includes('Route208')?['ドッグランCafe','犬同伴可','わんちゃんの食事','ランチ','BAR営業']:p[1].includes('宝処三昧')?['手打ちそば','ペット同伴可','個室利用可']:facilityTagsPetDining(p);</script>
 </html>
+<script>
+map.on('popupopen', e => {
+  const popup = e.popup.getElement();
+  const name = popup?.querySelector('strong')?.textContent;
+  const place = places.find(p => p[1] === name);
+  if (!place) return;
+  const current = popup.querySelector('.facility-source-links');
+  const holder = document.createElement('div');
+  holder.innerHTML = FacilityLinks.html('kumamoto', place[1], [place[5]]);
+  if (current && holder.firstElementChild) current.replaceWith(holder.firstElementChild);
+});
+</script>
 <script>(()=>{if(typeof map==='undefined')return;const event={name:'ASO OVAL DOG FES 2026 AUTUMN',place:'阿蘇市・ふれあい水辺公園',lat:32.975,lng:131.08,start:'2026-10-10',end:'2026-10-11',url:'https://kumamoto-odekake.com/event/9179/'};const today=new Date();const end=new Date(event.end+'T23:59:59+09:00');if(today>end)return;const filters=document.querySelector('.filters');if(!filters)return;const b=document.createElement('button');b.type='button';b.dataset.type='イベント';b.textContent='イベント';b.style='color:#8a6518;border-color:#d9b35f';b.className='event-filter';filters.appendChild(b);const marker=L.circleMarker([event.lat,event.lng],{radius:10,color:'#fff',weight:2,fillColor:'#d9a441',fillOpacity:.95});marker.bindPopup('<strong>'+event.name+'</strong><br>'+event.place+'<br>開催日：2026年10月10日（土）・11日（日）<br><a href="'+event.url+'" target="_blank" rel="noopener">イベント詳細を見る →</a>');const hide=()=>{if(map.hasLayer(marker))map.removeLayer(marker)};const show=()=>{if(!map.hasLayer(marker))marker.addTo(map);marker.openPopup()};b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');if(typeof markers!=='undefined')markers.forEach(m=>map.removeLayer(m));show()};document.querySelectorAll('.filters button:not(.event-filter)').forEach(x=>x.addEventListener('click',hide));const s=document.createElement('style');s.textContent='.event-filter.active{background:#d9a441!important;color:#fff!important;border-color:#d9a441!important}.event-filter::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;background:#d9a441}.event-filter.active::before{background:#fff}';document.head.appendChild(s)})();</script>
 <script>(()=>{const official='https://asodc.or.jp/archives/event/aso_dogfes_261010';const fix=()=>{if(typeof map==='undefined')return;map.eachLayer(layer=>{if(layer.getPopup&&layer.getPopup()){const c=String(layer.getPopup().getContent());if(c.includes('ASO OVAL DOG FES'))layer.getPopup().setContent(c.replace(/https:\/\/kumamoto-odekake\.com\/event\/9179\//,official))}})};setTimeout(fix,800);setInterval(fix,2000)})();</script>
 
