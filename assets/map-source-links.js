@@ -125,15 +125,9 @@ window.mapSourceLinks = {
     ],
     "FRAPPE×FRAPPE": [
       {
-        "url": "https://frappefrappe.studio/",
-        "label": "ホームページ",
-        "source": "MAP登録データ",
-        "official": true
-      },
-      {
         "url": "https://frappefrappe.studio.site/",
         "label": "ホームページ",
-        "source": "pet-cafes.html",
+        "source": "公式サイト",
         "official": true
       }
     ],
