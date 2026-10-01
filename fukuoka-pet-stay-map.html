@@ -8,4 +8,5 @@ const selected=[];const tripList=document.getElementById("trip-list"),routeButto
 <script>(()=>{const apply=()=>{if(typeof map==='undefined')return;const active=document.querySelector('.fukuoka-filters button.active')?.dataset.cat||'all';const colors={食事:'#e85d75',行く:'#159a9c',宿泊:'#7357d9',預ける:'#c052b8',病院:'#e5484d'};map.eachLayer(layer=>{if(!layer.getPopup||!layer.getPopup()||!layer.setStyle)return;const t=String(layer.getPopup().getContent());const color=active==='all'?(t.includes('分類：食事')?'#e85d75':(t.includes('ドッグラン')||t.includes('公園'))?'#159a9c':'#7357d9'):colors[active]||'#7357d9';layer.setStyle({fillColor:color})})};setTimeout(()=>{document.querySelectorAll('.fukuoka-filters button').forEach(b=>b.addEventListener('click',()=>setTimeout(apply,20)));apply()},700)})();
 </script>
 <script src="fukuoka-food-verified.js"></script>
+<script src="fukuoka-places-verified.js"></script>
 </body></html>
