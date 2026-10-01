@@ -54,6 +54,47 @@
       query: 'わんにゃんシッター＆ホテルmomo 福岡市西区 室見が丘',
       site: 'https://www.instagram.com/momo_hotel/',
       linkLabel: 'Instagram ↗'
+    },
+    {
+      name: 'promenons DOG HOTEL + GROOMING',
+      lat: 33.5931386,
+      lng: 130.3816468,
+      address: '〒810-0075 福岡県福岡市中央区港2丁目4-2 小宮ビル2F',
+      query: 'promenons DOG HOTEL + GROOMING 福岡市中央区 港',
+      site: 'https://www.promenons.com/',
+      note: '公式サイトでは現在、新規受付を休止中と案内されています。'
+    },
+    {
+      name: '福岡ペットホテル＆サロン Nicori（ニコリ）',
+      lat: 33.5715546,
+      lng: 130.4169084,
+      address: '〒815-0082 福岡県福岡市南区大楠1丁目28-23 レジデンス秋山103',
+      query: '福岡ペットホテル＆サロン Nicori 福岡市南区 大楠',
+      site: 'https://nicoripet.com/'
+    },
+    {
+      name: 'ペット訪問サービスNao',
+      lat: 33.5824405,
+      lng: 130.4036698,
+      address: '〒810-0004 福岡県福岡市中央区渡辺通2丁目3-27 待鳥ビル402',
+      query: 'ペット訪問サービスNao 福岡市中央区 渡辺通',
+      site: 'https://psnao.jp/'
+    },
+    {
+      name: 'Pet Hotel Bd',
+      lat: 33.5940384,
+      lng: 130.4217556,
+      address: '〒812-0013 福岡県福岡市博多区博多駅東1丁目5-6',
+      query: 'Pet Hotel Bd 福岡市博多区 博多駅東',
+      site: 'https://pethotel-bd.com/'
+    },
+    {
+      name: 'Family Dog Lupinus（ファミリードッグルピナス）',
+      lat: 33.5988487,
+      lng: 130.4103102,
+      address: '〒812-0035 福岡県福岡市博多区中呉服町4-1 2F',
+      query: 'Family Dog Lupinus 福岡市博多区 中呉服町',
+      site: 'https://www.lupinusdog.com/'
     }
   ];
 
@@ -82,6 +123,7 @@
     marker.bindPopup(
       `<strong>${esc(record.name)}</strong><br>${esc(record.address)}<br>分類：預ける` +
       `<br><a href="${esc(record.site)}" target="_blank" rel="noopener">${esc(record.linkLabel || 'ホームページ ↗')}</a>` +
+      (record.note ? `<br>${esc(record.note)}` : '') +
       `<br><a href="${search}" target="_blank" rel="noopener">Googleマップで照合 →</a>` +
       `<br><button class="fukuoka-boarding-add">この場所をルートに追加</button>`
     );
