@@ -1,6 +1,7 @@
 /* Fukuoka boarding/sitter facilities added only when the named Google Maps
    listing matched the facility and an official site/SNS was available.
-   Public popup addresses intentionally stop at the locality level. */
+   Popup addresses use the full official address after matching the Google Maps
+   place by facility name and locality. */
 (() => {
   if (typeof map === 'undefined' || typeof places === 'undefined' || typeof L === 'undefined') return;
 
@@ -20,6 +21,30 @@
       address: '福岡県福岡市東区和白丘',
       query: 'Petland VIS A VIS 福岡市東区 和白丘',
       site: 'http://vsav.jp/'
+    },
+    {
+      name: 'ペットホテル＆トリミングサロン ワンルーク 福岡東区店',
+      lat: 33.6430226,
+      lng: 130.4452199,
+      address: '〒813-0036 福岡県福岡市東区若宮5丁目1-6 エクセレント若宮101',
+      query: 'ペットホテル＆トリミングサロン ワンルーク 福岡東区店 福岡市東区 若宮',
+      site: 'https://oneluke.net/fukuokahigashi/'
+    },
+    {
+      name: 'ワンパーク警固店',
+      lat: 33.5834454,
+      lng: 130.3915633,
+      address: '〒810-0023 福岡県福岡市中央区警固2丁目3-27',
+      query: 'ワンパーク警固店 福岡市中央区 警固',
+      site: 'https://www.wanpark.co.jp/sp/info/nisinakasu/'
+    },
+    {
+      name: 'Dog Salon GRACE（グラース）',
+      lat: 33.6568497,
+      lng: 130.4420354,
+      address: '〒813-0044 福岡県福岡市東区千早5丁目13-26 ラウレアガーデン千早1F',
+      query: 'Dog Salon GRACE グラース 福岡市東区 千早',
+      site: 'https://dogsalongrace.jp/'
     }
   ];
 
