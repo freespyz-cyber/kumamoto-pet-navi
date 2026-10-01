@@ -15,7 +15,8 @@
       const detailHref = href || (rawCategory.startsWith('#') ? `fukuoka-fukkou-pet-stay.html${rawCategory}` : '');
       const linkLabel = hospital ? '病院の詳細・公式情報を見る →' : food ? '詳細・公式情報を見る →' : '宿泊条件・詳細を見る →';
       const links = detailHref ? `<br><a class="map-detail-link" href="${esc(detailHref)}"${/^https?:/.test(detailHref) ? ' target="_blank" rel="noopener"' : ''}>${linkLabel}</a>` : '';
-      const html = `<strong>${esc(p[0])}</strong><br><span class="map-area">${esc(p[1])}</span><br><span class="map-category">分類：${esc(kind)}</span><br>${tags.map(t => `<span class="map-tag">${t}</span>`).join(' ')}${links}${FacilityLinks.html('fukuoka', p[0], [href, ...p.slice(5)])}<br><button class="map-add-plan">この場所を予定に追加</button>`;
+      const googleCheck = food && p[7] ? `<br><a class="map-google-check" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p[7])}" target="_blank" rel="noopener">Googleマップで照合 →</a>` : '';
+      const html = `<strong>${esc(p[0])}</strong><br><span class="map-area">${esc(p[1])}</span><br><span class="map-category">分類：${esc(kind)}</span><br>${tags.map(t => `<span class="map-tag">${t}</span>`).join(' ')}${links}${googleCheck}${FacilityLinks.html('fukuoka', p[0], [href, ...p.slice(5)])}<br><button class="map-add-plan">この場所を予定に追加</button>`;
       const marker = L.circleMarker([p[2], p[3]], {radius:9, color:'#fff', weight:2, fillColor:color, fillOpacity:.95}).addTo(map);
       marker.bindPopup(html);
       marker.on('popupopen', event => {
