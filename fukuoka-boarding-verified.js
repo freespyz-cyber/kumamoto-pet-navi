@@ -10,7 +10,7 @@
       name: 'ペットホテルこころ',
       lat: 33.6210069,
       lng: 130.4398182,
-      address: '福岡県福岡市東区原田',
+      address: '〒812-0063 福岡県福岡市東区原田4丁目34-21',
       query: 'ペットホテルこころ 福岡市東区 原田',
       site: 'https://www.petlifesupport-cocoro.com/'
     },
@@ -18,7 +18,7 @@
       name: 'Petland VIS A VIS（ペットランド ビザビ）',
       lat: 33.6950515,
       lng: 130.4348232,
-      address: '福岡県福岡市東区和白丘',
+      address: '〒811-0213 福岡県福岡市東区和白丘3丁目3-26 VIS・A・VISLand 1F',
       query: 'Petland VIS A VIS 福岡市東区 和白丘',
       site: 'http://vsav.jp/'
     },
@@ -45,6 +45,15 @@
       address: '〒813-0044 福岡県福岡市東区千早5丁目13-26 ラウレアガーデン千早1F',
       query: 'Dog Salon GRACE グラース 福岡市東区 千早',
       site: 'https://dogsalongrace.jp/'
+    },
+    {
+      name: 'わんにゃんシッター＆ホテルmomo',
+      lat: 33.517444,
+      lng: 130.3156624,
+      address: '〒819-0030 福岡県福岡市西区室見が丘3丁目27-11',
+      query: 'わんにゃんシッター＆ホテルmomo 福岡市西区 室見が丘',
+      site: 'https://www.instagram.com/momo_hotel/',
+      linkLabel: 'Instagram ↗'
     }
   ];
 
@@ -72,7 +81,7 @@
     }).addTo(map);
     marker.bindPopup(
       `<strong>${esc(record.name)}</strong><br>${esc(record.address)}<br>分類：預ける` +
-      `<br><a href="${esc(record.site)}" target="_blank" rel="noopener">ホームページ ↗</a>` +
+      `<br><a href="${esc(record.site)}" target="_blank" rel="noopener">${esc(record.linkLabel || 'ホームページ ↗')}</a>` +
       `<br><a href="${search}" target="_blank" rel="noopener">Googleマップで照合 →</a>` +
       `<br><button class="fukuoka-boarding-add">この場所をルートに追加</button>`
     );
