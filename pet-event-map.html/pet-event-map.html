@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>九州ペットイベントMAP｜熊本ペットナビ</title>
+<meta name="description" content="公式開催情報を確認した九州のペットイベントを、開催期間限定で地図に表示します。">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif;line-height:1.65}.wrap{max-width:1100px;margin:auto;padding:28px 18px 56px}.brand{color:#234d43;font-weight:900;text-decoration:none}.eyebrow{margin-top:32px;color:#bd6d57;font-size:12px;font-weight:900;letter-spacing:.12em}.hero,.event-list{background:#fffdf9;border:1px solid #dddcd5;border-radius:16px;padding:22px;margin:14px 0}.hero h1{font-size:clamp(32px,6vw,52px);line-height:1.15;margin:6px 0 12px}.muted{color:#718078}.notice{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin:16px 0}.map-wrap{position:relative}#map{height:min(68vh,680px);min-height:420px;border:1px solid #d7d5cb;border-radius:16px;overflow:hidden}.event-list h2{margin-top:0}.event{border-top:1px solid #e6e2d8;padding:14px 0}.event:first-of-type{border-top:0}.event h3{margin:4px 0}.event a,.back{color:#234d43;font-weight:800}.badge{display:inline-block;background:#edf3ef;color:#376052;border-radius:99px;padding:2px 9px;font-size:12px}.leaflet-popup-content{line-height:1.7}.leaflet-popup-content a{color:#1779a8;font-weight:700}.empty{padding:16px;background:#fffdf9;border-radius:12px}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="brand" href="index.html">熊本ペットナビ</a>
+<div class="eyebrow">KYUSHU / PET EVENTS MAP</div>
+<section class="hero"><h1>九州ペットイベントMAP</h1><p class="muted">開催元の公式情報を確認できたイベントだけを、開催期間限定で掲載します。</p></section>
+<div class="notice">会場名でGoogleマップを照合してピンを置いています。開催日・会場・参加条件は変更される場合があるため、出発前に必ず公式情報をご確認ください。終了日の翌日（日本時間）にピンと掲載情報を自動で非表示にします。熊本県・福岡県の既存施設MAPは変更していません。</div>
+<div class="map-wrap"><div id="map" aria-label="九州のペットイベント地図"></div></div>
+<section class="event-list"><h2>開催予定・開催中</h2><div id="events"></div></section>
+<p><a class="back" href="pet-events.html">← ペットイベント一覧へ戻る</a>　<a class="back" href="index.html">トップへ戻る</a></p>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const allEvents=[
+{name:'ASO OVAL DOG FES 2026 AUTUMN',area:'熊本県阿蘇市小里',venue:'阿蘇ふれあい水辺公園',lat:32.9732902,lng:131.0558648,start:'2026-10-10',end:'2026-10-11',time:'10月10日・11日',query:'阿蘇ふれあい水辺公園 阿蘇市 小里',official:'https://asodc.or.jp/archives/event/aso_dogfes_261010'},
+{name:'わんだふるあさくら2026',area:'福岡県朝倉市杷木志波',venue:'原鶴温泉分水路グラウンド',lat:33.3543633,lng:130.7816121,start:'2026-10-10',end:'2026-10-12',time:'10月10日〜12日 10:00〜16:00',query:'原鶴温泉分水路グラウンド 朝倉市 杷木志波',official:'https://www.wonderful-dogfes.com/asakura'}
+];
+const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo'}).format(new Date());
+const events=allEvents.filter(e=>e.end>=today);
+const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const list=document.getElementById('events');
+if(!events.length){list.innerHTML='<p class="empty">現在掲載中のイベントはありません。次回開催の公式情報が確認でき次第、期間限定で掲載します。</p>';document.getElementById('map').style.display='none';}
+else{
+const map=L.map('map',{scrollWheelZoom:false}).setView([33.45,130.9],7);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+const bounds=[];
+for(const e of events){
+const marker=L.circleMarker([e.lat,e.lng],{radius:10,color:'#fff',weight:2,fillColor:'#d9a441',fillOpacity:.98}).addTo(map);
+const google='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(e.query);
+marker.bindPopup('<strong>'+escape(e.name)+'</strong><br>'+escape(e.area)+'<br>'+escape(e.venue)+'<br>開催日：'+escape(e.time)+'<br><a href="'+escape(e.official)+'" target="_blank" rel="noopener">公式開催情報 →</a><br><a href="'+escape(google)+'" target="_blank" rel="noopener">Googleマップで会場を確認 →</a>');
+bounds.push([e.lat,e.lng]);
+const card=document.createElement('article');card.className='event';
+const meta=document.createElement('span');meta.className='badge';meta.textContent=e.area+'｜期間限定';
+const title=document.createElement('h3');title.textContent=e.name;
+const detail=document.createElement('p');detail.textContent='開催日：'+e.time+' ／ 会場：'+e.venue;
+const official=document.createElement('a');official.href=e.official;official.target='_blank';official.rel='noopener';official.textContent='公式開催情報を見る →';
+const googleLink=document.createElement('a');googleLink.href=google;googleLink.target='_blank';googleLink.rel='noopener';googleLink.textContent='Googleマップで会場を確認 →';googleLink.style.marginLeft='14px';
+card.append(meta,title,detail,official,googleLink);list.appendChild(card);
+}
+if(bounds.length>1)map.fitBounds(bounds,{padding:[40,40]});else map.setView(bounds[0],13);
+}
+</script>
+</body>
+</html>
