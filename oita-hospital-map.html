@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>大分県 動物病院MAP｜熊本ペットナビ</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif;line-height:1.7}.wrap{max-width:1180px;margin:auto;padding:24px 16px 48px}a{color:#1679a8;font-weight:800}.brand,.back{color:#234d43;text-decoration:none}.brand{font-size:20px}.hero,.note,.results{background:#fffdf9;border:1px solid #dddcd5;border-radius:16px;padding:18px;margin:16px 0}.hero{background:#234d43;color:#fff}.hero h1{margin:0;font-size:clamp(28px,5vw,42px)}.hero p{margin-bottom:0}.note{background:#fff9e8;border-color:#ead9a4}.toolbar{display:flex;gap:8px;margin:16px 0}.toolbar input,.toolbar select,.toolbar button{font:inherit;border:1px solid #cbd8cf;border-radius:10px;padding:10px;background:#fffdf9;color:#234d43}.toolbar input{flex:1;min-width:0}button{cursor:pointer;font-weight:800}#map{height:min(62vh,620px);min-height:360px;border-radius:16px;border:1px solid #d6d5cc}.legend{display:flex;gap:16px;flex-wrap:wrap;color:#53645d;font-size:14px}.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;background:#e5484d}.dot.region{background:#7357d9}.results h2{margin-top:0}.row{padding:12px 0;border-top:1px solid #e8e5dc}.row h3{margin:0 0 2px;font-size:17px}.muted{color:#69776f}.row .links{display:flex;gap:14px;flex-wrap:wrap}.count{font-weight:800}@media(max-width:600px){.wrap{padding:16px 12px 36px}.toolbar{flex-wrap:wrap}.toolbar input{flex-basis:100%}#map{height:55vh;min-height:340px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <a class="brand" href="index.html">熊本ペットナビ</a>
+  <section class="hero"><h1>大分県 動物病院MAP</h1><p>動物病院41件を掲載。施設名と町名でGoogleマップを確認できます。</p></section>
+  <p class="note">個別位置を確認できた20件は施設ピン、位置を確定できない21件は地域の代表位置にまとめています。地域ピンは病院の所在地ではありません。住所表示は町名までです。診療内容・受付状況は受診前に公式情報をご確認ください。</p>
+  <div class="toolbar"><input id="search" type="search" placeholder="病院名・市町村で検索" aria-label="病院名・市町村で検索"><select id="region" aria-label="市町村"><option value="">大分県すべて</option></select><button id="reset">検索をクリア</button></div>
+  <p id="count" class="count" aria-live="polite"></p>
+  <div class="legend"><span><i class="dot"></i>位置確認済みの施設ピン</span><span><i class="dot region"></i>地域の代表位置（施設所在地ではありません）</span></div>
+  <div id="map" aria-label="大分県動物病院地図"></div>
+  <section class="results"><h2>掲載病院</h2><div id="list"></div></section>
+  <a class="back" href="pet-map-hub.html">← 県選択へ戻る</a>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/oita-hospitals.js"></script>
+<script src="assets/oita-locations.js"></script>
+<script src="assets/oita-hospital-map.js"></script>
+</body>
+</html>
