@@ -27,12 +27,12 @@ window.oitaLocations = {
     locationNote: '施設公式アクセスの地図コード由来。公開前に位置をご確認ください。'
   },
   102: {
-    lat: 33.232391299999954,
-    lng: 131.67115330000001,
-    address: '大分市葛木1069',
-    locationStatus: 'review',
-    locationSource: 'https://onelove-oita.com/access/',
-    locationNote: '施設公式アクセスページの地図位置。公開前に位置をご確認ください。'
+    lat: 33.2323795,
+    lng: 131.6711571,
+    address: '大分市葛木',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E6%A3%AE%E3%82%AB%E3%83%95%E3%82%A7+%E3%83%AF%E3%83%B3%E3%83%BBLOVE/@33.2323795,131.6711571',
+    locationNote: 'Googleマップで施設名「森カフェ ワン・LOVE」と所在地「大分市葛木」を照合。'
   },
   105: {
     lat: 33.17044407112692,
@@ -357,5 +357,46 @@ window.oitaLocations = {
     locationStatus: 'review',
     locationSource: 'https://kai-clinic.jp/clinic/oita-oita/',
     locationNote: '海動物病院公式HPの大分往診所で所在地「大分市宮崎829-6」を確認。往診所のため訪問診療エリアと施設地点を混同しないよう個別ピンは未設定。'
+  },
+  110: {
+    lat: 33.5162236,
+    lng: 131.3435751,
+    address: '宇佐市別府',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/SORAcafe/@33.5162236,131.3435751',
+    locationNote: 'Googleマップで店名「SORAcafe」と所在地「宇佐市別府」を照合。'
+  },
+  111: {
+    lat: 33.3128425,
+    lng: 131.4707066,
+    address: '別府市火売',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/DOG+CAFE+KURUSAN/@33.3128425,131.4707066',
+    locationNote: 'Googleマップで店名「DOG CAFE KURUSAN」と所在地「別府市火売」を照合。'
+  },
+  201: {
+    lat: 33.0462192,
+    lng: 131.2472861,
+    address: '竹田市久住町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/Cafe+Boi+Boi/@33.0462192,131.2472861',
+    locationNote: 'Googleマップで店名「Cafe Boi Boi」と所在地「竹田市久住町」を照合。公式Instagramの施設情報とも一致。'
+  },
+  202: {
+    lat: 33.2632675,
+    lng: 131.3299407,
+    address: '由布市湯布院町',
+    officialUrl: 'https://kunuginooka.com/index.html',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/Pizzeria+%E6%AB%9F%E3%81%AE%E4%B8%98/@33.2632675,131.3299407',
+    locationNote: 'Googleマップで店名「Pizzeria 櫟の丘」と所在地「由布市湯布院町」を照合。公式サイトの所在地とも一致。'
+  },
+  203: {
+    lat: 33.2419284,
+    lng: 131.72211,
+    address: '大分市政所',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E3%82%AB%E3%83%95%E3%82%A7+flap+fly/@33.2419284,131.72211',
+    locationNote: 'Googleマップで店名「カフェ flap fly」と所在地「大分市政所」を照合。公式Instagramの所在地とも一致。'
   }
 };
