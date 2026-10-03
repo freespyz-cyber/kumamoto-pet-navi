@@ -16,7 +16,11 @@
     { names: ["PET’s THE WORLD", "PET's THE WORLD"], name: "PET's THE WORLD", lat: 33.3207287, lng: 130.524471, address: '〒830-0003 福岡県久留米市東櫛原町1460-16', query: "PET's THE WORLD 久留米市" },
     { names: ['cafe Lanai（カフェ ラナイ）', 'cafe Lanai'], name: 'cafe Lanai（カフェ ラナイ）', lat: 33.7705168, lng: 130.4714505, address: '〒811-3219 福岡県福津市西福間4丁目11-20', query: 'cafe Lanai 福津市' },
     { names: ['Current（カレント）', 'CURRENT（カレント）', 'CURRENT'], name: 'CURRENT（カレント）', lat: 33.608574, lng: 130.161862, address: '〒819-1303 福岡県糸島市志摩野北2290', query: 'CURRENT 糸島市志摩野北', site: 'https://www.bakeryrestaurantcurrent-2007.com/' },
-    { names: ['カフェドボッコ（cafe de BoCCo）', 'CAFE DE BOCCO（カフェドボッコ）', 'CAFE DE BOCCO'], name: 'CAFE DE BOCCO（カフェドボッコ）', lat: 33.7699076, lng: 130.4715675, address: '〒811-3219 福岡県福津市西福間4丁目15-36', query: 'CAFE DE BOCCO 福津市', site: 'https://cafedebocco.com/' }
+    { names: ['カフェドボッコ（cafe de BoCCo）', 'CAFE DE BOCCO（カフェドボッコ）', 'CAFE DE BOCCO'], name: 'CAFE DE BOCCO（カフェドボッコ）', lat: 33.7699076, lng: 130.4715675, address: '〒811-3219 福岡県福津市西福間4丁目15-36', query: 'CAFE DE BOCCO 福津市', site: 'https://cafedebocco.com/' },
+         { names: ['パタゴニアの南'], name: 'パタゴニアの南', lat: 33.5536792, lng: 130.3963096, address: '〒815-0075 福岡県福岡市南区長丘3丁目', query: 'パタゴニアの南 福岡市南区 長丘', site: 'https://patagonianominami.com/' },
+    { names: ['ドッグキャンパーレスト青柳'], name: 'ドッグキャンパーレスト青柳', lat: 33.7077835, lng: 130.4954672, address: '〒811-3133 福岡県古賀市青柳町', query: 'ドッグキャンパーレスト青柳 古賀市 青柳町', site: 'https://faj6107.gorp.jp/' },
+    { names: ['ながかわ'], name: 'ながかわ', lat: 33.5827166, lng: 130.3996629, address: '〒810-0022 福岡県福岡市中央区薬院1丁目', query: 'ながかわ 福岡市中央区 薬院', site: 'https://f375900.gorp.jp/' },
+
   ];
   const byName = new Map(verified.flatMap(item => item.names.map(name => [name, item])));
   const retained = [];
