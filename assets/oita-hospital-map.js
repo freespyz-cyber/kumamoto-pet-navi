@@ -26,7 +26,7 @@
   const seen = new Set();
   records.forEach(p => {const label=getRegionName(p); if(!seen.has(label)){seen.add(label);regionSelect.add(new Option(label,label));}});
   const map = window.L ? L.map('map').setView([33.36,131.45],9) : null;
-  if(map){L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© Esri',maxZoom:19}).addTo(map);}
+  if(map){L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'© Esri',maxZoom:19}).addTo(map);}
   const layer = map ? L.layerGroup().addTo(map) : null;
   function render(){
     const term=$('search').value.trim().toLowerCase(), selected=regionSelect.value;
