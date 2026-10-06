@@ -1067,6 +1067,108 @@ window.mapSourceLinks = {
         "source": "oita-pet-food.html",
         "official": true
       }
+    ],
+    "Hounds Cafe Leon": [
+      {
+        "url": "https://houndscafeleon.handi2020.com/",
+        "label": "公式ホームページ",
+        "source": "Googleマップで店舗名・玖珠町を確認。公式サイトで飲食・店内犬同伴を確認。",
+        "official": true
+      }
+    ],
+    "ベリージュファーム": [
+      {
+        "url": "https://berryjyu.base.shop/about",
+        "label": "公式ホームページ",
+        "source": "Googleマップで店舗名・九重町を確認。公式情報で石窯ピザ、店舗紹介でペット同伴テラスを確認。",
+        "official": true
+      },
+      {
+        "url": "https://www.instagram.com/berryjyufarm/",
+        "label": "Instagram",
+        "source": "Googleマップのオーナー提供ウェブサイト",
+        "official": true
+      }
+    ],
+    "農家レストラン べべんこ": [
+      {
+        "url": "https://www.eaglefarm.net/bebenko",
+        "label": "公式ホームページ",
+        "source": "Googleマップで店舗名・九重町を確認。公式サイトでレストラン・住所を照合。ペットは共生スペースのみ。",
+        "official": true
+      }
+    ],
+    "Cafe ナイト＆パパ": [
+      {
+        "url": "https://r.goope.jp/nightandpapa/",
+        "label": "公式ホームページ",
+        "source": "Googleマップで店名検索。公式店舗情報で玖珠町日出生の住所・飲食・犬同伴利用条件を照合。住所直接入力は誤案内の注意あり。",
+        "official": true
+      }
+    ],
+    "レストハウス うさぎ亭": [
+      {
+        "url": "https://visit-saiki.jp/spots/detail/a1e4cb20-812a-43e4-ba64-86bcaf9f3162",
+        "label": "佐伯市観光ナビ",
+        "source": "店舗住所・飲食営業・ペット同伴可を掲載。Googleマップで店名と住所を照合。",
+        "official": true
+      },
+      {
+        "url": "https://www.instagram.com/usagi_2/",
+        "label": "Instagram",
+        "source": "Googleマップ掲載の店舗公式Instagram",
+        "official": true
+      }
+    ],
+    "エルティカフェ 大分中津店": [
+      {
+        "url": "https://ltcaffe.net/",
+        "label": "公式ホームページ",
+        "source": "Googleマップで店名・中津市牛神の店舗位置を照合。公式案内で飲食営業と犬同伴可（店内・テラス）を確認。",
+        "official": true
+      },
+      {
+        "url": "https://ltcaffe.net/?page_id=157",
+        "label": "ペット同伴の案内",
+        "source": "公式サイトの犬同伴利用案内",
+        "official": true
+      }
+    ],
+    "森のカフェテリア 11区": [
+      {
+        "url": "https://pizzasweets11.storeinfo.jp/",
+        "label": "公式ホームページ",
+        "source": "公式サイトで飲食営業・屋外のペット連れ専用席・店名検索での道案内を確認。",
+        "official": true
+      }
+    ],
+    "CAFE LA RUCHE": [
+      {
+        "url": "https://cafelaruche.jp/",
+        "label": "公式ホームページ",
+        "source": "Googleマップで店名・住所を照合。由布院オッポの食事案内でテラス席犬同伴可を確認。",
+        "official": true
+      },
+      {
+        "url": "https://yufuin-oppo.jp/restaurant/",
+        "label": "由布院オッポ 食事案内",
+        "source": "近隣飲食店案内にCAFE LA RUCHEのテラス席犬可と掲載。",
+        "official": true
+      }
+    ],
+    "コミチカフェ": [
+      {
+        "url": "https://yufuin.gr.jp/spot/spot-1176/",
+        "label": "湯布院公式旅ガイド",
+        "source": "由布院観光公式ガイドに店内の犬同伴可、所在地、営業時間・定休日の記載。",
+        "official": true
+      },
+      {
+        "url": "https://www.instagram.com/komichicafe_yufuin/",
+        "label": "Instagram",
+        "source": "公式SNS",
+        "official": true
+      }
     ]
   }
 };

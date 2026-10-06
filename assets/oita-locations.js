@@ -398,5 +398,197 @@ window.oitaLocations = {
     locationStatus: 'google-maps-verified',
     locationSource: 'https://www.google.com/maps/place/%E3%82%AB%E3%83%95%E3%82%A7+flap+fly/@33.2419284,131.72211',
     locationNote: 'Googleマップで店名「カフェ flap fly」と所在地「大分市政所」を照合。公式Instagramの所在地とも一致。'
+  },
+  205: {
+    lat: 33.2645627,
+    lng: 131.3584444,
+    address: '由布市湯布院町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/ゆふいんバーガーハウス/@33.2645627,131.3584444',
+    locationNote: 'Googleマップで店名「ゆふいんバーガーハウス」と所在地「由布市湯布院町」を照合。公式Instagramのリンク先も一致。住所表示は町名まで。'
+  },
+  206: {
+    lat: 33.2661184,
+    lng: 131.3629718,
+    address: '由布市湯布院町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/榎屋茶房/@33.2661184,131.3629718',
+    locationNote: 'Googleマップで店名「榎屋茶房」と所在地「由布市湯布院町」を照合。公式サイトの茶房ページとも一致。住所表示は町名まで。'
+  },
+  208: {
+    lat: 33.356096,
+    lng: 131.5961178,
+    address: '速見郡日出町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/おおがファーム+Ogafarm/@33.356096,131.5961178',
+    locationNote: 'Googleマップで店名「おおがファーム Ogafarm」と所在地「日出町」を照合。公式サイトと同一施設です。住所表示は町名まで。'
+  },
+  210: {
+    lat: 32.9598704,
+    lng: 131.3826256,
+    address: '竹田市拝田原',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/カフェ+カプリセス/@32.9598704,131.3826256',
+    locationNote: 'Googleマップで店名「カフェ カプリセス」と所在地「竹田市拝田原」を照合。公式ページ kuju-egg.jp と一致。住所表示は町名まで。'
+  },
+  211: {
+    lat: 33.2624408,
+    lng: 131.3564222,
+    address: '由布市湯布院町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/J-tapas/@33.2624408,131.3564222',
+    locationNote: 'Googleマップで店名「J-tapas」と所在地「由布市湯布院町」を照合。公式Instagramのリンク先も一致。住所表示は町名まで。'
+  },
+  212: {
+    lat: 33.0502326,
+    lng: 131.2475718,
+    address: '竹田市久住町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/久住ワイナリーレストラン石窯工房/@33.0502326,131.2475718',
+    locationNote: 'Googleマップで店名「久住ワイナリーレストラン石窯工房」と所在地「竹田市久住町」を照合。公式サイト kuju-winery.co.jp の施設と一致。住所表示は町名まで。'
+  },
+  218: {
+    lat: 33.066549,
+    lng: 131.954566,
+    address: '津久見市',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/Ｏｐｅｎ+ｃａｆｆｅ+桜/@33.066549,131.954566',
+    locationNote: 'Googleマップで店名「Open caffe 桜」と所在地「津久見市」を照合。公式Facebook・Instagramの店舗情報と一致。住所表示は市町名まで。'
+  },
+  219: {
+    lat: 33.3349183,
+    lng: 131.46408,
+    address: '別府市内竈',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/アルテジオダイニング/@33.3349183,131.46408',
+    locationNote: 'Googleマップで店名「アルテジオダイニング」と別府湾SAの施設位置を照合。西日本高速道路の公式案内でテラス席のペット同伴飲食を確認。住所表示は市町名まで。'
+  },
+  224: {
+    lat: 33.3147301,
+    lng: 131.4773158,
+    address: '別府市鉄輪',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/地熱観光ラボ縁間/@33.3147301,131.4773158',
+    locationNote: 'Googleマップで店名「地熱観光ラボ縁間」と所在地「別府市鉄輪」を照合。公式サイト enma-ch.com の施設と一致。住所表示は町名まで。'
+  },
+  226: {
+    lat: 33.073741,
+    lng: 131.3794689,
+    address: '竹田市直入町長湯',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/ジプシースマイルカフェ/@33.073741,131.3794689',
+    locationNote: 'Googleマップで店名「ジプシースマイルカフェ」と所在地「竹田市直入町長湯」を照合。公式サイト gypsys-mile.com の施設と一致し、Googleマップの利用者情報に犬連れ利用を確認。住所表示は町名まで。'
+  },
+  220: {
+    lat: 33.2212909,
+    lng: 131.6536937,
+    address: '大分市明野東',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/Dining+%26+Cafe+LA+LUCE+80%E2%84%83/@33.2212909,131.6536937,17z',
+    locationNote: 'Googleマップで店名「Dining & Cafe LA LUCE 80℃」と所在地「大分市明野東」を照合。公式サイト laluce80.com と一致。住所表示は町名まで。'
+  },
+  200: {
+    lat: 33.2493697,
+    lng: 131.1674473,
+    address: '玖珠郡九重町粟野',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E6%98%A5%E6%97%A5%E3%81%86%E3%81%A9%E3%82%93/@33.2493697,131.1674473',
+    locationNote: 'Googleマップで店名「春日うどん」を検索し、公式Instagramの食事処 春日（春日うどん）・九重町粟野1140-1と一致する店舗を確認。住所表示は町名まで。'
+  },
+  217: {
+    lat: 33.3119193,
+    lng: 131.4562768,
+    address: '別府市小倉町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E6%A3%AE%E8%97%A9%E5%88%A5%E9%82%B8/@33.3119193,131.4562768',
+    locationNote: 'Googleマップで施設名「森藩別邸」を照合し、別府市小倉町68-70と確認。公式サイトでペット同伴席・ペットと食事できるスペースを確認。住所表示は町名まで。'
+  },
+  600: {
+    lat: 33.2832673,
+    lng: 131.1551544,
+    address: '玖珠郡玖珠町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/Hounds+Cafe+Leon/@33.2832673,131.1551544',
+    locationNote: 'Googleマップで店名「Hounds Cafe Leon」と玖珠町帆足の店舗を照合。公式サイトでカフェ営業・店内犬同伴を確認。住所表示は町名まで。'
+  },
+  601: {
+    lat: 33.1718185,
+    lng: 131.1693784,
+    address: '玖珠郡九重町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E3%83%99%E3%83%AA%E3%83%BC%E3%82%B8%E3%83%A5%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0/@33.1718185,131.1693784',
+    locationNote: 'Googleマップで店名「ベリージュファーム」と九重町町田の住所を照合。飲食営業は公式情報、ペット同伴テラスは店舗紹介・利用者情報で確認。住所は町名まで表示。'
+  },
+  602: {
+    lat: 33.1692786,
+    lng: 131.249273,
+    address: '玖珠郡九重町',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E8%BE%B2%E5%AE%B6%E3%83%AC%E3%82%B9%E3%83%88%E3%83%A9%E3%83%B3+%E3%81%B9%E3%81%B9%E3%82%93%E3%81%93/@33.1692786,131.249273',
+    locationNote: 'Googleマップで店名「農家レストラン べべんこ」と九重町田野の住所を照合。公式サイトで飲食営業、店舗案内でペット入店は共生スペースのみと確認。住所は町名まで表示。'
+  },
+  603: {
+    lat: 33.3355929,
+    lng: 131.2127795,
+    address: '玖珠郡玖珠町日出生',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/Cafe+%E3%83%8A%E3%82%A4%E3%83%88%EF%BC%86%E3%83%91%E3%83%91/@33.3355929,131.2127795',
+    locationNote: 'Googleマップで店名「ナイト＆パパ」を検索し、公式店舗情報の玖珠町日出生3478と一致する店舗を確認。公式注意書きに従い住所からでなく店名検索で照合。住所表示は町名まで。犬同伴時は公式の接種証明・利用条件を要確認。'
+  },
+  103: {
+    lat: 33.3818431,
+    lng: 131.5426774,
+    address: '速見郡日出町藤原',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E3%83%89%E3%83%83%E3%82%B0%E3%83%A9%E3%83%B3%E3%82%AB%E3%83%95%E3%82%A7+%E3%83%8F%E3%83%AB/@33.3818431,131.5426774',
+    locationNote: 'Googleマップで「ドッグランカフェ ハル」・日出町藤原2304-3を照合。飲食・犬同伴カフェは確認済みだが、公式SNSの一時休業告知後の再開確認が未了のため掲載保留は維持。'
+  },
+  223: {
+    lat: 33.3349682,
+    lng: 131.4642178,
+    address: '別府市内竈',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/B-speak+cafe/@33.3349682,131.4642178',
+    locationNote: 'Googleマップで「B-speak cafe」・別府湾SA内の店舗位置を照合。公式サイトでテラス席のペット同伴利用可を確認。住所表示は市町名まで。'
+  },
+  604: {
+    lat: 32.807218,
+    lng: 131.9618123,
+    address: '佐伯市蒲江大字竹野浦河内',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E3%81%86%E3%81%95%E3%81%8E%E4%BA%AD/@32.807218,131.9618123',
+    locationNote: 'Googleマップで「うさぎ亭」・佐伯市蒲江大字竹野浦河内2186-2を照合。佐伯市観光ナビで飲食店とペット同伴可を確認。住所表示は町名まで。ペット利用可能な席・条件は来店前に店舗へ確認してください。'
+  },
+  605: {
+    lat: 33.5959592,
+    lng: 131.2036566,
+    address: '中津市牛神',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E3%82%A8%E3%83%AB%E3%83%86%E3%82%A3%E3%82%AB%E3%83%95%E3%82%A7+%E5%A4%A7%E5%88%86%E4%B8%AD%E6%B4%A5%E5%BA%97/@33.5959592,131.2036566',
+    locationNote: 'Googleマップで「エルティカフェ 大分中津店」・中津市牛神221-5を照合。公式サイトで飲食営業と犬同伴（店内・テラス）を確認。住所表示は町名まで。'
+  },
+  606: {
+    lat: 33.2254595,
+    lng: 131.3003218,
+    address: '由布市湯布院町川西',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/%E6%A3%AE%E3%81%AE%E3%82%AB%E3%83%95%E3%82%A7%E3%83%86%E3%83%AA%E3%82%A2+11%E5%8C%BA/@33.2254595,131.3003218',
+    locationNote: 'Googleマップで「森のカフェテリア11区」・由布市湯布院町川西1750-145を照合。公式サイトで飲食営業と屋外のペット連れ専用席を確認。公式案内に従い、来店時は住所ではなくGoogleマップで店名検索してください。'
+  },
+  607: {
+    lat: 33.2673733,
+    lng: 131.3688473,
+    address: '由布市湯布院町川上',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/place/CAFE+LA+RUCHE/@33.2673733,131.3688473',
+    locationNote: 'Googleマップで「CAFE LA RUCHE」・由布市湯布院町川上1592-1を照合。由布院オッポの食事案内で飲食とテラス席の犬同伴可を確認。住所表示は町名まで。'
+  },
+  608: {
+    lat: 33.266004,
+    lng: 131.36232,
+    address: '由布市湯布院町川上',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://www.google.com/maps/search/?api=1&query=%E3%82%B3%E3%83%9F%E3%83%81%E3%82%AB%E3%83%95%E3%82%A7+%E7%94%B1%E5%B8%83%E5%B8%82%E6%B9%AF%E5%B8%83%E9%99%A2%E7%94%BA%E5%B7%9D%E4%B8%8A3001-8',
+    locationNote: '由布院公式旅ガイドの所在地「湯布院町川上3001-8」とGoogleマップ検索先を照合。公式旅ガイドで店内の犬同伴可、営業時間・定休日を確認。住所は町名まで表示。'
   }
 };

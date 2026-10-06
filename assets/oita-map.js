@@ -7,7 +7,25 @@ mapRegions.nakatsu={name:'中津',lat:33.60,lng:131.19};
 const locationOverlay=window.oitaLocations||{};
 const hospitals=(window.oitaHospitals||[]).map((p,i)=>Array.isArray(p)?{id:400+i,name:p[0],region:p[1],url:p[2],address:p[3],categories:['hospital'],note:'動物病院の公式情報をご確認ください。',hold:false}:p);
 const facilities=[...mapStays,...mapDogruns,...hospitals].map(p=>({...p,...(locationOverlay[p.id]||{})}));
-foodRows.forEach(([original,area],i)=>{const name=aliases[original]||original;const existing=facilities.find(p=>p.name===name);if(existing){if(!existing.categories.includes('food'))existing.categories.push('food');existing.foodDisplayArea=['official-map','google-maps-verified'].includes(existing.locationStatus)&&existing.address?existing.address:area;return;}const location=locationOverlay[200+i]||{};facilities.push({...location,id:200+i,name,region:Object.entries(areaKeys).find(([key])=>area.includes(key))?.[1]||'unknown',foodDisplayArea:location.address||area,categories:['food'],url:location.officialUrl,note:location.locationStatus==='google-maps-verified'?'Googleマップで店名と市町村を照合済み。住所は町名まで表示しています。ペット同伴条件は公式情報をご確認ください。':'食事スポット候補。位置を照合できた施設のみピンを表示します。ペット同伴条件・営業状況は公式情報をご確認ください。',hold:false});});
+const verifiedFoodRows=[
+ ['Hounds Cafe Leon','玖珠町','houndscafe-leon',33.2832673,131.1551544],
+ ['ベリージュファーム','九重町','berryjyu-farm',33.1718185,131.1693784],
+ ['農家レストラン べべんこ','九重町','bebenko',33.1692786,131.249273],
+ ['Cafe ナイト＆パパ','玖珠町','night-and-papa',33.3355929,131.2127795],
+ ['レストハウス うさぎ亭','佐伯市','usagitei',32.807218,131.9618123],
+ ['エルティカフェ 大分中津店','中津市','ltcaffe-nakatsu',33.5959592,131.2036566],
+ ['森のカフェテリア 11区','由布市湯布院','mori-cafeteria-11ku',33.2254595,131.3003218],
+ ['CAFE LA RUCHE','由布市湯布院','cafe-la-ruche',33.2673733,131.3688473],
+ ['コミチカフェ','由布市湯布院','komichi-cafe',33.266004,131.36232]
+];
+const verifiedFoodIds=Object.fromEntries(verifiedFoodRows.map(([name,,slug],i)=>[name,600+i]));
+for(const [original,area,slug,lat,lng] of verifiedFoodRows){
+ const name=aliases[original]||original;
+ const existing=facilities.find(p=>p.name===name);
+ if(existing){if(!existing.categories.includes('food'))existing.categories.push('food');existing.foodDisplayArea=existing.address||area;continue;}
+ const id=verifiedFoodIds[original], location=locationOverlay[id]||{};
+ facilities.push({...location,id,name,region:Object.entries(areaKeys).find(([key])=>area.includes(key))?.[1]||'unknown',lat:location.lat??lat,lng:location.lng??lng,address:location.address||area,locationStatus:location.locationStatus||'google-maps-verified',locationSource:location.locationSource,foodDisplayArea:location.address||area,categories:['food'],url:FacilityLinks.get('oita',name)[0]?.url,note:location.locationNote||'公式情報で飲食営業・犬同伴条件を確認。詳細条件は来店前に公式案内をご確認ください。',hold:false});
+}
 facilities.splice(0, facilities.length, ...facilities.filter(p=>FacilityLinks.has('oita',p.name,p.url?[p.url]:[])));
 const categoryNames={food:'ペットと食事',stay:'ペットと泊まる',run:'ペットと行ける場所',boarding:'ペットを預ける',hospital:'動物病院'};
 const requestedCategory=new URLSearchParams(location.search).get('category');
