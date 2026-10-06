@@ -506,7 +506,7 @@ window.oitaLocations = {
   600: {
     lat: 33.2832673,
     lng: 131.1551544,
-    address: '玖珠郡玖珠町',
+    address: '玖珠郡玖珠町帆足',
     locationStatus: 'google-maps-verified',
     locationSource: 'https://www.google.com/maps/place/Hounds+Cafe+Leon/@33.2832673,131.1551544',
     locationNote: 'Googleマップで店名「Hounds Cafe Leon」と玖珠町帆足の店舗を照合。公式サイトでカフェ営業・店内犬同伴を確認。住所表示は町名まで。'
@@ -514,7 +514,7 @@ window.oitaLocations = {
   601: {
     lat: 33.1718185,
     lng: 131.1693784,
-    address: '玖珠郡九重町',
+    address: '玖珠郡九重町町田',
     locationStatus: 'google-maps-verified',
     locationSource: 'https://www.google.com/maps/place/%E3%83%99%E3%83%AA%E3%83%BC%E3%82%B8%E3%83%A5%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0/@33.1718185,131.1693784',
     locationNote: 'Googleマップで店名「ベリージュファーム」と九重町町田の住所を照合。飲食営業は公式情報、ペット同伴テラスは店舗紹介・利用者情報で確認。住所は町名まで表示。'
@@ -522,7 +522,7 @@ window.oitaLocations = {
   602: {
     lat: 33.1692786,
     lng: 131.249273,
-    address: '玖珠郡九重町',
+    address: '玖珠郡九重町田野',
     locationStatus: 'google-maps-verified',
     locationSource: 'https://www.google.com/maps/place/%E8%BE%B2%E5%AE%B6%E3%83%AC%E3%82%B9%E3%83%88%E3%83%A9%E3%83%B3+%E3%81%B9%E3%81%B9%E3%82%93%E3%81%93/@33.1692786,131.249273',
     locationNote: 'Googleマップで店名「農家レストラン べべんこ」と九重町田野の住所を照合。公式サイトで飲食営業、店舗案内でペット入店は共生スペースのみと確認。住所は町名まで表示。'
