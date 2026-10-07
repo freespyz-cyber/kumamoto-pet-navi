@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kumamoto-pet-navi.freespyz.chatgpt.site/sitemap.xml
+Sitemap: https://www.kyushu-pet-navi.com/sitemap.xml
