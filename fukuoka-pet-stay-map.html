@@ -1,19 +1,384 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>福岡ペット宿泊MAP｜熊本ペットナビ</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:34px 18px}.brand,a{color:#234d43;font-weight:900;text-decoration:none}h1{font-size:clamp(30px,6vw,52px);line-height:1.2}.lead{color:#718078}button{border:1px solid #234d43;background:#fffdf9;color:#234d43;border-radius:99px;padding:9px 14px;font-weight:900;cursor:pointer}.note{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin-top:18px;font-size:13px}#map{height:65vh;min-height:430px;border-radius:16px;border:1px solid #dddcd5}</style></head><body><main class="wrap"><a class="brand" href="index.html">熊本ペットナビ</a><p>MAP / FUKUOKA PET STAYS</p><h1>福岡のペット宿泊施設を<br>地図から探す。</h1><p class="lead">犬・猫と泊まれる宿を中心に、福岡版へ掲載した施設を表示しています。</p><div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0"><button id="use-location">現在地を出発地にする</button><button id="open-route" disabled>Googleマップでルートを見る</button><button id="clear-trip">選択をクリア</button></div><div id="trip-list" style="background:#fffdf9;padding:12px 16px;border-radius:10px;margin-bottom:14px">まだ場所が選ばれていません。</div><div id="map" aria-label="福岡県のペット宿泊施設地図"></div><div class="note">ピンの位置は地域の目安です。ペット同伴条件・営業状況は、各施設の公式情報をご確認ください。</div><p><a href="fukuoka-fukkou-pet-stay.html">← 福岡の宿泊施設一覧へ</a>　<a href="index.html">トップへ戻る</a></p></main><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>const map=L.map('map').setView([33.5904,130.4017],10);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);const places=[['Stay Hakata','福岡市博多区',33.583,130.407,'#stay-hakata'],['ALFACIO RESORT STAY ITOSHIMA','糸島市',33.515,130.135,'#alfacio-itoshima'],['風の 八女福島','八女市',33.211,130.56,'#kaze-yame-fukushima'],['割烹旅館 まさご屋','福岡市東区・志賀島',33.68,130.305,'#masagoya'],['イヌヤド','福岡市博多区',33.57,130.42,'#inuyado'],['ritomaru rooms hakata hakozaki','福岡市東区',33.62,130.424,'#ritomaru-hakozaki'],['御宿 はなわらび','宗像市',33.82,130.50],['グランドーム福岡ふくつ','福津市',33.78,130.49],['ふくせんか','うきは市',33.32,130.76],['グランピング五感','那珂川市',33.47,130.42],['THE TRAILERHOUSE VILLAGE 大牟田 SPA','大牟田市',33.03,130.44],['ほどあいの宿 六峰舘','朝倉市',33.39,130.76],['東横INN北九州空港','北九州市',33.84,131.04],['そらすな','行橋市',33.68,130.97],['seven x seven 糸島','糸島市',33.54,130.16],['LONG VACATION RESORT','福岡市西区',33.58,130.23],['のこのしまアイランドパーク Villa防人','福岡市西区',33.62,130.30],['くつろぎの森 グリーンピア八女','八女市',33.27,130.67],['1co・ITOSHIMA（ワンコイトシマ）','糸島市',33.55,130.14],['ホテルリブマックス小倉駅前','北九州市',33.89,130.88],['ホテルリブマックス博多中洲','福岡市博多区',33.59,130.41],['ホテルリブマックス博多駅前','福岡市博多区',33.59,130.42],['ホテルリブマックス福岡天神','福岡市中央区',33.59,130.40],['ホテルリブマックス福岡天神WEST','福岡市中央区',33.59,130.395],['ホテルリブマックス博多駅南','福岡市博多区',33.58,130.42],['THE PARTY 今泉','福岡市中央区・今泉',33.5847,130.3978,'食事'],['HIBARI HILLS','福岡市中央区・高砂',33.5817,130.4092,'食事'],['Manly（マンリー）','福岡市中央区・今泉',33.5855,130.3978,'食事','https://manlyfukuoka.owst.jp/'],['Beach cafe SUNSET','福岡市西区・西浦',33.6135,130.1490,'食事'],['THE BEACH（ザ ビーチ）','福岡市早良区・百道浜',33.5958,130.3510,'食事'],['DOGSALON & CAFE ARALE','遠賀郡芦屋町',33.8927,130.6643,'食事'],['王様のたまご 門司港本店','北九州市門司区・門司港',33.9455,130.9629,'食事'],['made in HACHI（CAFE BAR 8移転後）','北九州市小倉南区・横代東町',33.8428,130.8885,'食事'],['ドッグカフェTARO＆HANA（たろはな）','直方市・上頓野',33.7470,130.7280,'食事'],['ふらってぃーのドッグカフェ','飯塚市・中',33.6830,130.6710,'食事'],['ドッグラン カフェ レオちんのあんよ','飯塚市・大日寺',33.6480,130.6500,'食事'],['西部運動公園','福岡市西区・飯盛',33.5536,130.2905,'公園・ドッグラン','https://seibu-sports-park.com/facility/dogrun/'],['海の中道海浜公園・ドッグラン','福岡市東区・西戸崎',33.6625,130.3635,'公園・ドッグラン','https://uminaka-park.jp/guide/open-hour/'],['P2 PET WORLD トリアス久山店','糟屋郡久山町・トリアス',33.6480,130.4800,'公園・ドッグラン','https://p2-pet.com/company/content/','https://www.instagram.com/p2_and_pp_official/'],['アニマルスターフィールド','福津市・渡',33.7940,130.4680,'公園・ドッグラン','https://www.yurinomori-m.com/animal_star_field','https://www.instagram.com/animalstarfield/'],['DOG LIFE こたびより','福津市・宮司浜',33.7810,130.4660,'食事・ドッグラン','https://www.cotabiyori.com/','https://www.instagram.com/chikuwa.taniguchi/'],['グリーンハート筑紫野','筑紫野市・杉塚',33.4870,130.5120,'トリミング・ドッグラン','https://greenheart.jp/','https://www.instagram.com/greenheart7090/'],['HUWAN（ヒューワン）','北九州市小倉北区・篠崎',33.8650,130.8720,'公園・ドッグラン','https://www.honda.co.jp/dog/travel/data/huwan-run/','https://page.line.me/qsx3766b'],['北九州市立総合農事センター ドッグラン','北九州市小倉南区・横代東町',33.8335,130.8955,'公園・ドッグラン','https://k-nouji.com/play'],['Petemo（ペテモ）小倉南店','北九州市小倉南区・下曽根新町',33.8330,130.9350,'公園・ドッグラン','https://www.aeonpet.com/shop/kokuraminami/'],['Dog Cafe BeBe（ドッグカフェ ベベ）','遠賀郡遠賀町・松の本',33.8460,130.6700,'食事・ドッグラン','https://dogcafe-bebe.net/'],['おおとう桜街道ドッグラン','田川郡大任町・今任原',33.6150,130.8550,'公園・ドッグラン','https://www.qsr.mlit.go.jp/n-michi/michi_no_eki/kobetu/ootousakurakaidou/ootousakurakaidou'],['ワンライフ直方（Wan Life 直方）','直方市・頓野',33.7500,130.7300,'公園・ドッグラン','https://wanlife-nogata.com/'],['筑後広域公園ドッグラン','筑後市・津島',33.2000,130.5000,'公園・ドッグラン','https://www.ajpark.jp/facilities/dogrun'],['リバーサイドパークドッグラン','久留米市・宮ノ陣',33.3300,130.5300,'公園・ドッグラン','https://kurumekoen.org/river/river_riyo/'],['うえらんから糸島','糸島市・志摩小金丸',33.5750,130.1100,'公園・ドッグラン','https://ueramkarap-itoshima.com/dogrun/'],['ファームリゾート糸島','糸島市・志摩小金丸',33.5750,130.1100,'食事・ドッグラン','https://www.farmresort-itoshima.com/dog-run'],];
-const selected=[];const tripList=document.getElementById("trip-list"),routeButton=document.getElementById("open-route");let origin=null;function renderTrip(){tripList.textContent=selected.length?selected.map((p,i)=>(i+1)+"．"+p[0]).join("　"):"まだ場所が選ばれていません。";routeButton.disabled=!selected.length}places.filter(p=>typeof p[5]==="string" && p[5].startsWith("http")).forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:"#fff",weight:2,fillColor:p[4]==="食事"?"#f06a3a":(p[4]||"").includes("ドッグラン")?"#159a9c":"#7357d9",fillOpacity:.95}).addTo(map);m.bindPopup("<strong>"+p[0]+"</strong><br>"+p[1]+"<br>分類："+(p[4]||"宿泊")+(p[5]?"<br><a href=\""+p[5]+"\" target=\"_blank\" rel=\"noopener\">公式サイトを見る →</a>":"<br><a href=\"fukuoka-fukkou-pet-stay.html\">詳細を見る →</a>")+(p[6]?"<br><a href=\""+p[6]+"\" target=\"_blank\" rel=\"noopener\">公式Instagramを見る →</a>":"")+"<br><button id=\"add-trip\">この場所をルートに追加</button>");m.on("popupopen",()=>{const x=document.getElementById("add-trip");if(x)x.onclick=()=>{if(!selected.includes(p)){selected.push(p);renderTrip();x.textContent="追加済み"}}})});document.getElementById("clear-trip").onclick=()=>{selected.length=0;origin=null;renderTrip()};document.getElementById("use-location").onclick=()=>navigator.geolocation&&navigator.geolocation.getCurrentPosition(pos=>{origin=[pos.coords.latitude,pos.coords.longitude];alert("現在地を出発地に設定しました。")});routeButton.onclick=()=>{const stops=selected.map(p=>p[2]+","+p[3]);window.open(origin?"https://www.google.com/maps/dir/"+origin.join(",")+"/"+stops.join("/"):"https://www.google.com/maps/dir/"+stops.join("/"),"_blank")};</script></body></html>
-<script>(()=>{const mapEl=document.getElementById('map');if(!mapEl)return;const box=document.createElement('div');box.className='fukuoka-filters';box.style='display:flex;flex-wrap:wrap;gap:8px;margin:14px 0';const cats=[['all','すべて'],['食事','ペットと食事'],['行く','ペットと行ける場所'],['宿泊','ペットと泊まる'],['預ける','ペットを預ける'],['病院','動物病院']];cats.forEach(([key,label],i)=>{const b=document.createElement('button');b.textContent=label;b.dataset.cat=key;if(i===0)b.classList.add('active');b.onclick=()=>{box.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');map.eachLayer(layer=>{if(!layer.getPopup||!layer.getPopup())return;const text=layer.getPopup().getContent();const show=key==='all'||(key==='食事'&&text.includes('分類：食事'))||(key==='行く'&&text.includes('ドッグラン'))||(key==='宿泊'&&(!text.includes('分類：食事')&&!text.includes('ドッグラン'))) ;if(show){if(!map.hasLayer(layer))layer.addTo(map)}else if(map.hasLayer(layer))map.removeLayer(layer)})};box.appendChild(b)});mapEl.parentNode.insertBefore(box,mapEl);const s=document.createElement('style');s.textContent='.fukuoka-filters button.active{background:#234d43;color:#fff}.fukuoka-filters button{border:1px solid #234d43;background:#fffdf9;color:#234d43;border-radius:99px;padding:9px 14px;font-weight:900;cursor:pointer}';document.head.appendChild(s)})();</script>
-<script>(()=>{const fix=()=>{if(typeof map==='undefined')return;const buttons=[...document.querySelectorAll('.fukuoka-filters button')];if(!buttons.length)return;buttons.forEach(b=>b.onclick=()=>{buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active');const key=b.dataset.cat;Object.values(map._layers||{}).filter(x=>x.getPopup&&x.getPopup()).forEach(layer=>{const text=String(layer.getPopup().getContent());const isFood=text.includes('分類：食事');const isHospital=text.includes('分類：病院');const isPlace=text.includes('ドッグラン')||text.includes('公園');const isEvent=text.includes('分類：イベント');const isBoarding=text.includes('分類：預ける');const isStay=!isFood&&!isHospital&&!isPlace&&!isEvent&&!isBoarding;const show=key==='all'||(key==='食事'&&isFood)||(key==='病院'&&isHospital)||(key==='行く'&&isPlace)||(key==='宿泊'&&isStay)||(key==='預ける'&&isBoarding)||(key==='イベント'&&isEvent);if(show){if(!map.hasLayer(layer))layer.addTo(map)}else if(map.hasLayer(layer))map.removeLayer(layer)})})};setTimeout(fix,300)})();</script>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>福岡ペット施設MAP｜九州ペットナビ</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:34px 18px}.brand,a{color:#234d43;font-weight:900;text-decoration:none}h1{font-size:clamp(30px,6vw,52px);line-height:1.2}.lead{color:#718078}button{border:1px solid #234d43;background:#fffdf9;color:#234d43;border-radius:99px;padding:9px 14px;font-weight:900;cursor:pointer}.note{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin-top:18px;font-size:13px}#map{height:65vh;min-height:430px;border-radius:16px;border:1px solid #dddcd5}</style><script src="assets/map-source-links.js"></script><script src="assets/map-links.js"></script></head><body><main class="wrap"><a class="brand" href="index.html">九州ペットナビ</a><p>MAP / FUKUOKA PET NAVI</p><h1>福岡のペット施設を<br>地図から探す。</h1><p class="lead">宿泊・飲食・動物病院・ドッグランなど、福岡県のペット関連施設を地図から探せます。</p><div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0"><button id="use-location">現在地を出発地にする</button><button id="open-route" disabled>Googleマップでルートを見る</button><button id="clear-trip">選択をクリア</button></div><div id="trip-list" style="background:#fffdf9;padding:12px 16px;border-radius:10px;margin-bottom:14px">まだ場所が選ばれていません。</div><div id="map" aria-label="福岡県のペット関連施設地図"></div><div class="note">施設ピンは公式地図や施設リスティング等をもとに確認しています。一部は周辺の目安位置のため、ルート検索は施設名と番地住所でGoogleマップに渡し、検索結果が複数ある場合は目的の施設を選んでください。ペット同伴条件・営業状況は各施設の公式情報をご確認ください。</div><p><a href="fukuoka-fukkou-pet-stay.html">← 福岡の宿泊施設一覧へ</a>　<a href="index.html">トップへ戻る</a></p></main><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>const map=L.map('map').setView([33.5904,130.4017],10);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);const places=[['Stay Hakata','〒812-0018 福岡市博多区住吉3-9-22',33.5854359,130.4107649,'#stay-hakata'],['ALFACIO RESORT STAY ITOSHIMA','〒819-1642 糸島市二丈鹿家1792-1',33.4852449,130.0467708,'#alfacio-itoshima'],['風の 八女福島','〒834-0031 八女市本町西京町204',33.2089137,130.5553577,'#kaze-yame-fukushima'],['割烹旅館 まさご屋','〒811-0325 福岡市東区勝馬257-50',33.6870129,130.2945374,'#masagoya'],['イヌヤド','〒812-0017 福岡市博多区美野島3-4-14',33.5771138,130.4208657,'#inuyado'],['ritomaru rooms hakata hakozaki','〒812-0053 福岡市東区箱崎1-6-7',33.6177971,130.4264622,'#ritomaru-hakozaki'],['御宿 はなわらび','〒811-3502 宗像市江口518-1',33.8523,130.5139],['グランドーム福岡ふくつ','〒811-3304 福津市津屋崎4-45-1',33.7883147,130.460579],['ふくせんか','〒839-1405 うきは市浮羽町古川1099-8',33.3584478,130.8068426],['グランピング五感','〒811-1235 那珂川市成竹1051-1',33.4688327,130.414203],['THE TRAILERHOUSE VILLAGE 大牟田 SPA','〒836-0895 大牟田市新勝立町6丁目37',33.0134608,130.4687081],['ほどあいの宿 六峰舘','〒838-1514 朝倉市杷木久喜宮1840',33.3508806,130.7808694],['東横INN北九州空港','〒800-0306 北九州市小倉南区空港北町2-4',33.8350005,131.0305144],['そらすな','〒824-0014 行橋市長井136-1',33.7227282,131.0225034],['seven x seven 糸島','〒819-0202 福岡市西区西浦266番地',33.6424131,130.2022162],['LONG VACATION RESORT','〒811-0321 福岡市東区西戸崎5丁目24-1',33.6492779,130.3462014],['のこのしまアイランドパーク Villa防人','〒819-0012 福岡市西区能古1624-85（Googleマップの施設ピン）',33.6361612,130.303444],['くつろぎの森 グリーンピア八女','〒834-1204 八女市黒木町木屋10905',33.1840981,130.6801638],['1co・ITOSHIMA（ワンコイトシマ）','〒819-1643 糸島市福吉2丁目13-6',33.5039043,130.0809169],['ホテルリブマックス小倉駅前','〒802-0002 北九州市小倉北区京町2-3-2',33.8867268,130.8809282],['ホテルリブマックス博多中洲','〒810-0801 福岡市博多区中洲5-4-21',33.5941442,130.4035064],['ホテルリブマックス博多駅前','〒812-0011 福岡市博多区博多駅前2-7-9',33.590259,130.4144724],['ホテルリブマックス福岡天神','〒810-0005 福岡市中央区清川1-12-17',33.5816371,130.408505],['ホテルリブマックス福岡天神WEST','〒810-0041 福岡市中央区大名2-11-23',33.5901334,130.3911432],['ホテルリブマックス博多駅南','〒812-0016 福岡市博多区博多駅南3-7-32',33.5824951,130.4246238],['THE PARTY 今泉','〒810-0021 福岡市中央区今泉1-18-28 アペゼ今泉3F',33.5855598,130.3977404,'食事'],['HIBARI HILLS','〒810-0011 福岡市中央区高砂1-18-5',33.5800896,130.4064519,'食事'],['Manly（マンリー）','〒810-0021 福岡市中央区今泉1-18-55 天神南ロイヤルハイツ1F',33.5848065,130.3989908,'食事','https://manlyfukuoka.owst.jp/'],['吉塚ペットクリニック','〒812-0041 福岡市博多区吉塚5丁目2-3',33.602,130.424,'病院','https://yoshizuka-petclinic.com/'],['Beach cafe SUNSET','〒819-0202 福岡市西区西浦284',33.6419868,130.2016479,'食事'],['THE BEACH（ザ ビーチ）','〒814-0001 福岡市早良区百道浜2-902-1 マリゾン内',33.5948333,130.3510928,'食事'],['DOGSALON & CAFE ARALE','〒807-0122 遠賀郡芦屋町高浜9-3',33.890352,130.670502,'食事'],['王様のたまご 門司港本店','〒801-0852 北九州市門司区港町9-4 バルク館1F',33.946227,130.961793,'食事'],['made in HACHI（CAFE BAR 8移転後）','〒802-0822 北九州市小倉南区横代東町2-1-13-1',33.8370747,130.9043272,'食事'],['ドッグカフェTARO＆HANA（たろはな）','直方市上頓野4596-4',33.77309,130.768716,'食事'],['ふらってぃーのドッグカフェ','〒820-0065 飯塚市中353',33.6659423,130.6859521,'食事'],['ドッグラン カフェ レオちんのあんよ','〒820-0046 飯塚市大日寺675-3',33.6390169,130.6449485,'食事'],['西部運動公園','〒819-0037 福岡市西区飯盛385（ドッグラン）',33.5443302,130.3170059,'公園・ドッグラン','https://seibu-sports-park.com/facility/dogrun/'],['海の中道海浜公園・ドッグラン','〒811-0321 福岡市東区西戸崎18-25（園内ドッグラン）',33.6687599,130.373091,'公園・ドッグラン','https://uminaka-park.jp/guide/open-hour/'],['P2 PET WORLD トリアス久山店','〒811-2502 糟屋郡久山町大字山田1004-1',33.6529944,130.4933741,'公園・ドッグラン','https://p2-pet.com/company/content/','https://www.instagram.com/p2_and_pp_official/'],['アニマルスターフィールド','〒811-3307 福津市渡462-7',33.8076655,130.4719008,'公園・ドッグラン','https://www.yurinomori-m.com/animal_star_field','https://www.instagram.com/animalstarfield/'],['DOG LIFE こたびより','〒811-3311 福津市宮司浜4-5-2',33.7797474,130.4697592,'食事・ドッグラン','https://www.cotabiyori.com/','https://www.instagram.com/chikuwa.taniguchi/'],['グリーンハート筑紫野','〒818-0054 筑紫野市杉塚5-13-6',33.5043646,130.5022849,'トリミング・ドッグラン','https://greenheart.jp/','https://www.instagram.com/greenheart7090/'],['HUWAN（ヒューワン）','〒803-0861 北九州市小倉北区篠崎5-26-7',33.8602373,130.8596928,'公園・ドッグラン','','https://page.line.me/qsx3766b'],['北九州市立総合農事センター ドッグラン','〒802-0822 北九州市小倉南区横代東町1-6-1（本館・利用手続き。ドッグランは駐車場横）',33.8348292,130.8995563,'公園・ドッグラン','https://k-nouji.com/play'],['Petemo（ペテモ）小倉南店','〒800-0221 北九州市小倉南区下曽根新町10-1 サニーサイドモール小倉2階',33.8320578,130.9335332,'公園・ドッグラン','https://www.aeonpet.com/shop/kokuraminami/'],['Dog Cafe BeBe（ドッグカフェ ベベ）','〒811-4305 遠賀郡遠賀町松の本1-4-15',33.8542109,130.6695511,'食事・ドッグラン','https://dogcafe-bebe.net/'],['おおとう桜街道ドッグラン','〒824-0511 田川郡大任町大字今任原1339（道の駅構内）',33.627249,130.8463696,'公園・ドッグラン','https://www.qsr.mlit.go.jp/n-michi/michi_no_eki/kobetu/ootousakurakaidou/ootousakurakaidou'],['ワンライフ直方（Wan Life 直方）','〒822-0002 直方市頓野343-5（ナビ入力343-8）',33.7508887,130.7619176,'公園・ドッグラン','https://wanlife-nogata.com/'],['筑後広域公園ドッグラン','〒833-0015 筑後市津島831-1（公園内）',33.1789417,130.4990635,'公園・ドッグラン','https://www.ajpark.jp/facilities/dogrun'],['リバーサイドパークドッグラン','久留米市東櫛原町字こくう蔵2840-1地先（新宝満川地区）',33.3381547,130.5317496,'公園・ドッグラン','https://kurumekoen.org/river/river_riyo/'],['うえらんから糸島','〒819-1323 糸島市志摩小金丸1946-6',33.590448,130.1522408,'公園・ドッグラン','https://ueramkarap-itoshima.com/dogrun/'],['ファームリゾート糸島','〒819-1323 糸島市志摩小金丸1738',33.5887903,130.1472009,'食事・ドッグラン','https://www.farmresort-itoshima.com/dog-run'],];const selected=[];const tripList=document.getElementById("trip-list"),routeButton=document.getElementById("open-route");let origin=null;function renderTrip(){tripList.textContent=selected.length?selected.map((p,i)=>(i+1)+"．"+p[0]).join("　"):"まだ場所が選ばれていません。";routeButton.disabled=!selected.length}places.filter(p=>FacilityLinks.has("fukuoka",p[0])).forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:"#fff",weight:2,fillColor:p[4]==="食事"?"#f06a3a":(p[4]||"").includes("ドッグラン")?"#159a9c":"#7357d9",fillOpacity:.95}).addTo(map);m.bindPopup("<strong>"+p[0]+"</strong><br>"+p[1]+"<br>分類："+(p[4]||"宿泊")+(p[0]==="西部運動公園"?"<br>ドッグラン一時閉鎖予定：2026年10月17日（土）16:00～10月18日（日）13:00（消毒・整備）。利用前に施設公式のお知らせをご確認ください。":"")+(p[5]?"<br><a href=\""+p[5]+"\" target=\"_blank\" rel=\"noopener\">"+(p[5].includes("page.line.me")?"公式LINEを見る →":"公式サイトを見る →")+"</a>":"<br><a href=\"fukuoka-fukkou-pet-stay.html\">詳細を見る →</a>")+(p[6]?"<br><a href=\""+p[6]+"\" target=\"_blank\" rel=\"noopener\">"+(/line\.me\//i.test(p[6])?"LINE公式アカウントを見る →":"公式Instagramを見る →")+"</a>":"")+"<br><button id=\"add-trip\">この場所をルートに追加</button>");m.on("popupopen",()=>{const x=document.getElementById("add-trip");if(x)x.onclick=()=>{if(!selected.includes(p)){selected.push(p);renderTrip();x.textContent="追加済み"}}})});document.getElementById("clear-trip").onclick=()=>{selected.length=0;origin=null;renderTrip()};document.getElementById("use-location").onclick=()=>navigator.geolocation&&navigator.geolocation.getCurrentPosition(pos=>{origin=[pos.coords.latitude,pos.coords.longitude];alert("現在地を出発地に設定しました。")});routeButton.onclick=()=>{const stops=selected.map(p=>p[0]+" "+p[1]);const params=new URLSearchParams();params.set("api","1");params.set("travelmode","driving");if(origin){params.set("origin",origin.join(","));params.set("destination",stops[stops.length-1]);if(stops.length>1)params.set("waypoints",stops.slice(0,-1).join("|"))}else if(stops.length===1){params.set("destination",stops[0])}else{params.set("origin",stops[0]);params.set("destination",stops[stops.length-1]);if(stops.length>2)params.set("waypoints",stops.slice(1,-1).join("|"))}window.open("https://www.google.com/maps/dir/?"+params.toString(),"_blank","noopener")};</script></body></html>
+<script>(()=>{const mapEl=document.getElementById('map');if(!mapEl)return;const box=document.createElement('div');box.className='fukuoka-filters';box.style='display:flex;flex-wrap:wrap;gap:8px;margin:14px 0';const cats=[['all','すべて'],['食事','ペットと食事'],['行く','ペットと行ける場所'],['宿泊','ペットと泊まる'],['預ける','ペットを預ける'],['病院','動物病院'],['イベント','イベント']];cats.forEach(([key,label],i)=>{const b=document.createElement('button');b.textContent=label;b.dataset.cat=key;if(i===0)b.classList.add('active');b.onclick=()=>{box.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');map.eachLayer(layer=>{if(!layer.getPopup||!layer.getPopup())return;const text=layer.getPopup().getContent();const show=key==='all'||(key==='食事'&&text.includes('分類：食事'))||(key==='行く'&&text.includes('ドッグラン'))||(key==='宿泊'&&(!text.includes('分類：食事')&&!text.includes('ドッグラン'))) ;if(show){if(!map.hasLayer(layer))layer.addTo(map)}else if(map.hasLayer(layer))map.removeLayer(layer)})};box.appendChild(b)});mapEl.parentNode.insertBefore(box,mapEl);const s=document.createElement('style');s.textContent='.fukuoka-filters button.active{background:#234d43;color:#fff}.fukuoka-filters button{border:1px solid #234d43;background:#fffdf9;color:#234d43;border-radius:99px;padding:9px 14px;font-weight:900;cursor:pointer}';document.head.appendChild(s)})();</script>
+<script>(()=>{const layers=()=>{const saved=window.fukuokaMarkerLayers||(window.fukuokaMarkerLayers=new Set());Object.values(map._layers||{}).filter(x=>x.getPopup?.()).forEach(x=>saved.add(x));return [...saved]};const fix=()=>{if(typeof map==='undefined')return;const buttons=[...document.querySelectorAll('.fukuoka-filters button')];if(!buttons.length)return;layers();buttons.forEach(b=>b.onclick=()=>{map.closePopup();buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active');const key=b.dataset.cat;layers().forEach(layer=>{const popup=layer.getPopup?.();if(!popup)return;const text=String(popup.getContent?.()||'');const isFood=text.includes('分類：食事');const isHospital=text.includes('分類：病院');const isPlace=text.includes('ドッグラン')||text.includes('分類：公園');const isEvent=text.includes('分類：イベント');const isStay=!isFood&&!isHospital&&!isPlace&&!isEvent;const show=key==='all'||(key==='食事'&&isFood)||(key==='病院'&&isHospital)||(key==='行く'&&isPlace)||(key==='宿泊'&&isStay)||(key==='イベント'&&isEvent);if(show){if(!map.hasLayer(layer))layer.addTo(map)}else if(map.hasLayer(layer))map.removeLayer(layer)})})};fix();setTimeout(fix,300)})();</script>
 <script>(()=>{const fixTiles=()=>{if(typeof map==='undefined'||typeof L==='undefined')return;map.eachLayer(layer=>{if(layer instanceof L.TileLayer)map.removeLayer(layer)});L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'&copy; Esri'}).addTo(map)};setTimeout(fixTiles,200)})();</script>
 <script>(()=>{const recolor=()=>{if(typeof map==='undefined')return;map.eachLayer(layer=>{if(!layer.getPopup||!layer.getPopup()||!layer.setStyle)return;const t=String(layer.getPopup().getContent());const color=t.includes('分類：食事')?'#e85d75':(t.includes('ドッグラン')||t.includes('公園'))?'#159a9c':'#7357d9';layer.setStyle({fillColor:color})})};setTimeout(recolor,350)})();</script>
 <script>(()=>{const style=document.createElement('style');style.textContent='.fukuoka-filters button[data-cat="食事"]::before,.fukuoka-filters button[data-cat="行く"]::before,.fukuoka-filters button[data-cat="宿泊"]::before,.fukuoka-filters button[data-cat="預ける"]::before,.fukuoka-filters button[data-cat="病院"]::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}.fukuoka-filters button[data-cat="食事"]::before{background:#e85d75}.fukuoka-filters button[data-cat="行く"]::before{background:#159a9c}.fukuoka-filters button[data-cat="宿泊"]::before{background:#7357d9}.fukuoka-filters button[data-cat="預ける"]::before{background:#c052b8}.fukuoka-filters button[data-cat="病院"]::before{background:#e5484d}';document.head.appendChild(style);const recolor=()=>{if(typeof map==='undefined')return;map.eachLayer(layer=>{if(!layer.getPopup||!layer.getPopup()||!layer.setStyle)return;const t=String(layer.getPopup().getContent());const color=t.includes('分類：食事')?'#e85d75':(t.includes('ドッグラン')||t.includes('公園'))?'#159a9c':t.includes('預ける')?'#c052b8':t.includes('病院')?'#e5484d':'#7357d9';layer.setStyle({fillColor:color})})};setTimeout(recolor,600)})();</script>
-<script>(()=>{const apply=()=>{if(typeof map==='undefined')return;const active=document.querySelector('.fukuoka-filters button.active')?.dataset.cat||'all';const colors={食事:'#e85d75',行く:'#159a9c',宿泊:'#7357d9',預ける:'#c052b8',病院:'#e5484d'};map.eachLayer(layer=>{if(!layer.getPopup||!layer.getPopup()||!layer.setStyle)return;const t=String(layer.getPopup().getContent());const color=active==='all'?(t.includes('分類：食事')?'#e85d75':t.includes('分類：病院')?'#e5484d':(t.includes('ドッグラン')||t.includes('公園'))?'#159a9c':'#7357d9'):colors[active]||'#7357d9';layer.setStyle({fillColor:color})})};setTimeout(()=>{document.querySelectorAll('.fukuoka-filters button').forEach(b=>b.addEventListener('click',()=>setTimeout(apply,20)));apply()},700)})();
+<script>(()=>{const apply=()=>{if(typeof map==='undefined')return;const active=document.querySelector('.fukuoka-filters button.active')?.dataset.cat||'all';const colors={食事:'#e85d75',行く:'#159a9c',宿泊:'#7357d9',預ける:'#c052b8',病院:'#e5484d'};map.eachLayer(layer=>{if(!layer.getPopup||!layer.getPopup()||!layer.setStyle)return;const t=String(layer.getPopup().getContent());const color=active==='all'?(t.includes('分類：食事')?'#e85d75':(t.includes('ドッグラン')||t.includes('公園'))?'#159a9c':'#7357d9'):colors[active]||'#7357d9';layer.setStyle({fillColor:color})})};setTimeout(()=>{document.querySelectorAll('.fukuoka-filters button').forEach(b=>b.addEventListener('click',()=>setTimeout(apply,20)));apply()},700)})();</script>
+<script>
+const hospitals=[['動物医療センター春日','〒816-0804 春日市原町1-92',33.5257995,130.4674517,'fukuoka-vets-animal-medical-kasuga.html'],['ちはやペットクリニック','〒813-0043 福岡市東区名島3-2-3',33.64337004661371,130.42963981493625,'fukuoka-vets-chihaya.html'],['福岡動物医療センター','〒812-0895 福岡市博多区竹下2-9-22',33.57237101,130.42906611,'fukuoka-vets-fukuoka-animal-medical.html'],['ひよどり動物病院','〒810-0029 福岡市中央区平尾浄水町7-7 ガーデンヒルズ浄水201',33.5731636,130.3914187,'fukuoka-vets-hiyodori.html'],['みなとおおほり動物病院','〒810-0074 福岡市中央区大手門2丁目9-29 エクセラン大手門101',33.591032,130.386506,'fukuoka-vets-minato-ohori.html'],['かなどう動物病院','〒815-0004 福岡市南区高木2丁目2-2',33.56010361328552,130.43767887979254,'fukuoka-vets-kanadou.html'],['まつばらペットクリニック','〒815-0075 福岡市南区長丘5-26-11',33.5559813,130.3876408,'fukuoka-vets-matsubara.html'],['しみず動物クリニック','〒815-0032 福岡市南区塩原3丁目1-7',33.56551210000001,130.4281768,'fukuoka-vets-shimizu.html'],['たかみや通り動物クリニック','〒815-0083 福岡市南区高宮2丁目1-33 ロマネスク高宮102',33.5700297,130.4104854,'fukuoka-vets-takamiya.html'],['のぞえ動物病院','〒812-0063 福岡市東区原田1-27-3',33.617977380726416,130.43587531584492,'fukuoka-vets-nozoe.html'],['わかみや動物医療センター','〒813-0036 福岡市東区若宮4丁目2-39',33.642465046659574,130.44174333313435,'fukuoka-vets-wakamiya.html'],['アン動物病院','〒814-0033 福岡市早良区有田5丁目7-18',33.557799,130.334827,'fukuoka-vets-ann.html'],['山本動物病院','福岡市早良区飯倉5-21-27',33.5605022,130.3532695,'fukuoka-vets-yamamoto.html'],['宇賀ペットクリニック','〒819-0378 福岡市西区徳永北8-1 プランドール102',33.5760982,130.2579634,'fukuoka-vets-uga.html'],['うりゅう動物病院','〒819-0379 福岡市西区北原1-6-18',33.578375,130.2581246,'fukuoka-vets-uryu.html'],['今林動物ケアクリニック','〒808-0035 北九州市若松区白山1-8-9',33.90,130.81,'fukuoka-vets-imabayashi.html'],['医生ケ丘動物病院','〒808-0131 北九州市若松区塩屋3丁目34-10',33.893769813437366,130.70780375733153,'fukuoka-vets-iseigaoka.html'],['森どうぶつ病院','〒807-0874 北九州市八幡西区大浦1丁目13番2号',33.87382320354293,130.71284997975698,'fukuoka-vets-mori.html'],['たなかペットクリニック','〒803-0836 北九州市小倉北区中井1丁目27-5',33.893544,130.849729,'fukuoka-vets-tanaka.html'],['かんもん動物病院','〒801-0825 北九州市門司区黒川西1-4-7',33.93,130.97,'fukuoka-vets-kanmon.html'],['つかさ動物病院','〒830-0070 久留米市大善寺南1丁目1-6',33.2710866,130.4751985,'fukuoka-vets-tsukasa.html'],['浜野動物病院','〒820-0045 飯塚市花瀬14',33.6411967,130.6620734,'fukuoka-vets-hamano.html'],['おやま動物病院','〒820-0065 飯塚市中444-1',33.6651365,130.6828951,'fukuoka-vets-oyama.html'],['坂田犬猫病院（犬猫医療センター）','〒838-0068 朝倉市甘木2002-1',33.4256988,130.6515271,'fukuoka-vets-sakata.html']];
+const imabayashiHospital=hospitals.find(p=>p[0]==='今林動物ケアクリニック');if(imabayashiHospital){imabayashiHospital[2]=33.90343;imabayashiHospital[3]=130.80513}const kanmonHospital=hospitals.find(p=>p[0]==='かんもん動物病院');if(kanmonHospital){kanmonHospital[2]=33.923571;kanmonHospital[3]=130.979229}
+hospitals.forEach(p=>{const m=L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',weight:2,fillColor:'#e5484d',fillOpacity:.95}).addTo(map);m.bindPopup('<strong>'+p[0]+'</strong><br>'+p[1]+'<br>分類：病院<br><a href="'+p[4]+'">病院の詳細を見る →</a>')});
 </script>
-<script src="fukuoka-food-verified.js"></script>
-<script src="fukuoka-places-verified.js"></script>
-<script src="fukuoka-hospitals-verified.js"></script>
-<script src="fukuoka-stays-verified.js"></script>
-<script src="fukuoka-boarding-verified.js"></script>
-</body></html>
-
-<script>(()=>{const e={name:'わんだふるあさくら2026',area:'福岡県朝倉市杷木志波',venue:'原鶴温泉分水路グラウンド',lat:33.3543633,lng:130.7816121,end:'2026-10-12',official:'https://www.wonderful-dogfes.com/asakura',query:'わんだふるあさくら 原鶴温泉分水路グラウンド 朝倉市 杷木志波'};const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo'}).format(new Date());if(today>e.end||typeof map==='undefined'||typeof L==='undefined')return;const box=document.querySelector('.fukuoka-filters');if(!box)return;let b=box.querySelector('[data-cat="イベント"]');if(!b){b=document.createElement('button');b.type='button';b.dataset.cat='イベント';b.textContent='イベント';box.appendChild(b)}const marker=L.circleMarker([e.lat,e.lng],{radius:10,color:'#fff',weight:2,fillColor:'#d9a441',fillOpacity:.98}).bindPopup('<strong>'+e.name+'</strong><br>'+e.area+'<br>'+e.venue+'<br>開催日：2026年10月10日〜12日<br>分類：イベント<br><a href="'+e.official+'" target="_blank" rel="noopener">公式開催情報 →</a><br><a href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(e.query)+'" target="_blank" rel="noopener">Googleマップで会場を確認 →</a>');const apply=key=>{map.eachLayer(layer=>{if(!layer.getPopup||!layer.getPopup())return;const text=String(layer.getPopup().getContent());const isEvent=text.includes('分類：イベント');const food=text.includes('分類：食事'),hospital=text.includes('分類：病院'),place=text.includes('ドッグラン')||text.includes('公園'),boarding=text.includes('分類：預ける'),stay=!food&&!hospital&&!place&&!boarding&&!isEvent;const show=key==='all'||(key==='イベント'&&isEvent)||(key==='食事'&&food)||(key==='病院'&&hospital)||(key==='行く'&&place)||(key==='預ける'&&boarding)||(key==='宿泊'&&stay);if(show){if(!map.hasLayer(layer))layer.addTo(map)}else if(map.hasLayer(layer))map.removeLayer(layer)})};if(box.querySelector('[data-cat="all"]')?.classList.contains('active'))marker.addTo(map);box.addEventListener('click',ev=>{const btn=ev.target.closest('button');if(!btn)return;if(btn!==b)return;ev.preventDefault();ev.stopImmediatePropagation();box.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');apply('イベント');if(!map.hasLayer(marker))marker.addTo(map);map.setView([e.lat,e.lng],13)},true);const all=box.querySelector('[data-cat="all"]');if(all)all.addEventListener('click',()=>setTimeout(()=>{if(!map.hasLayer(marker))marker.addTo(map)},0),true);const s=document.createElement('style');s.textContent='.fukuoka-filters button[data-cat="イベント"]{color:#8a6518;border-color:#d9b35f}.fukuoka-filters button[data-cat="イベント"]:before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;background:#d9a441}.fukuoka-filters button[data-cat="イベント"].active{background:#d9a441;color:#fff}';document.head.appendChild(s)})();</script>
-
-<script>(()=>{const recolorEvents=()=>{if(typeof map==='undefined')return;map.eachLayer(layer=>{if(!layer.getPopup||!layer.getPopup()||!layer.setStyle)return;if(String(layer.getPopup().getContent()).includes('分類：イベント'))layer.setStyle({fillColor:'#d9a441'})})};document.addEventListener('click',event=>{if(event.target.closest('.fukuoka-filters button'))setTimeout(recolorEvents,100)},true);setTimeout(recolorEvents,900)})();</script>
+<script>
+/* Always filter the current marker set. Markers are rebuilt after page load, so a
+   snapshot of the original layers leaves later food markers visible. */
+(() => {
+  const installCategoryFilter = () => {
+    if (typeof map === 'undefined') return;
+    const markerLayers = window.fukuokaMarkerLayers || (window.fukuokaMarkerLayers = new Set());
+    Object.values(map._layers || {}).filter(layer => layer.getPopup?.()).forEach(layer => markerLayers.add(layer));
+    const buttons = [...document.querySelectorAll('.fukuoka-filters button')];
+    if (!buttons.length) return;
+    buttons.forEach(button => {
+      button.onclick = () => {
+        map.closePopup();
+        buttons.forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        const key = button.dataset.cat;
+        Object.values(map._layers || {}).filter(layer => layer.getPopup?.()).forEach(layer => markerLayers.add(layer));
+        markerLayers.forEach(layer => {
+          const popup = layer.getPopup?.();
+          if (!popup) return;
+          const text = String(popup.getContent?.() || '');
+          const isFood = text.includes('分類：食事');
+          const isHospital = text.includes('分類：病院');
+          const isPlace = text.includes('ドッグラン') || text.includes('分類：公園');
+          const isEvent = text.includes('分類：イベント');
+          const isStay = !isFood && !isHospital && !isPlace && !isEvent;
+          const show = key === 'all' ||
+            (key === '食事' && isFood) ||
+            (key === '病院' && isHospital) ||
+            (key === '行く' && isPlace) ||
+            (key === '宿泊' && isStay) ||
+            (key === 'イベント' && isEvent);
+          if (show && !map.hasLayer(layer)) layer.addTo(map);
+          if (!show && map.hasLayer(layer)) map.removeLayer(layer);
+        });
+      };
+    });
+  };
+  installCategoryFilter();
+  setTimeout(() => {
+    window.fukuokaMarkerLayers = new Set(Object.values(map._layers || {}).filter(layer => layer.getPopup?.()));
+    installCategoryFilter();
+    document.querySelector('.fukuoka-filters button.active')?.click();
+  }, 1400);
+})();
+</script>
+<style>
+.fukuoka-filters button[data-cat="食事"]::before{background:#e85d75!important}
+.fukuoka-filters button[data-cat="行く"]::before{background:#159a9c!important}
+.fukuoka-filters button[data-cat="宿泊"]::before{background:#6f52d9!important}
+.fukuoka-filters button[data-cat="預ける"]::before{background:#b84fc4!important}
+.fukuoka-filters button[data-cat="病院"]::before{background:#e5484d!important}
+.fukuoka-filters button[data-cat="イベント"]::before{background:#d9a441!important}
+</style>
+<script>
+(() => {
+  const categoryColor = (html) => {
+    const text = String(html || '');
+    if (text.includes('分類：イベント')) return '#d9a441';
+    if (text.includes('分類：病院')) return '#e5484d';
+    if (text.includes('分類：食事')) return '#e85d75';
+    if (text.includes('分類：預ける') || text.includes('ペットホテル')) return '#b84fc4';
+    if (text.includes('ドッグラン') || text.includes('分類：公園')) return '#159a9c';
+    return '#6f52d9';
+  };
+  const applySharedPinColors = () => {
+    if (typeof map === 'undefined') return;
+    Object.values(map._layers || {}).forEach(layer => {
+      const popup = layer.getPopup?.();
+      if (!popup || !layer.setStyle) return;
+      layer.setStyle({fillColor:categoryColor(popup.getContent?.())});
+    });
+  };
+  document.querySelectorAll('.fukuoka-filters button').forEach(button => {
+    button.addEventListener('click', () => setTimeout(applySharedPinColors, 30));
+  });
+  applySharedPinColors();
+  setTimeout(applySharedPinColors, 400);
+  setTimeout(applySharedPinColors, 1000);
+})();
+</script>
+<script>
+(() => {
+  document.title = '福岡ペット施設MAP｜九州ペットナビ';
+  const eyebrow = document.querySelector('main.wrap > p');
+  const heading = document.querySelector('main.wrap > h1');
+  const lead = document.querySelector('main.wrap > .lead');
+  const mapEl = document.getElementById('map');
+  if (eyebrow) eyebrow.textContent = 'MAP / FUKUOKA PET NAVI';
+  if (heading) heading.innerHTML = '福岡のペット施設を<br>地図から探す。';
+  if (lead) lead.textContent = 'ペットと食事・お出かけ・宿泊・動物病院など、福岡版へ掲載した施設をカテゴリ別に表示しています。';
+  if (mapEl) mapEl.setAttribute('aria-label', '福岡県のペット施設地図');
+  const style = document.createElement('style');
+  style.textContent = `
+    .leaflet-popup-content{min-width:260px;color:#24312d;line-height:1.55}
+    .leaflet-popup-content strong{display:block;color:#234d43;font-size:20px;line-height:1.35;margin-bottom:4px}
+    .map-area{font-size:14px;color:#4d5c57}.map-category{font-size:12px;color:#718078;font-weight:800}
+    .map-detail{display:block;margin-top:7px;font-size:13px;color:#4d5c57}
+    .map-feature{display:block;margin-top:8px;padding:8px 10px;border-left:4px solid #e5484d;background:#fff2ee;color:#7e302d;font-size:13px;line-height:1.55}
+    .map-feature b{font-weight:900}
+    .map-detail-link{display:inline-block;margin-top:9px;color:#087da3!important;font-weight:900}
+    .map-add-plan{margin-top:10px;background:#f7f4ee}
+  `;
+  document.head.appendChild(style);
+})();
+</script>
+<style>
+.fukuoka-filters button[data-cat="食事"]::before{background:#e85d75!important}
+.fukuoka-filters button[data-cat="行く"]::before{background:#159a9c!important}
+.fukuoka-filters button[data-cat="宿泊"]::before{background:#6f52d9!important}
+.fukuoka-filters button[data-cat="預ける"]::before{background:#b84fc4!important}
+.fukuoka-filters button[data-cat="病院"]::before{background:#e5484d!important}
+@media(max-width:700px){
+  .leaflet-popup-content-wrapper{max-height:58vh;overflow:hidden}
+  .leaflet-popup-content{min-width:0!important;width:min(74vw,300px)!important;max-height:calc(58vh - 24px);overflow-y:auto;-webkit-overflow-scrolling:touch;margin:14px 38px 14px 14px!important;padding-right:2px}
+  .leaflet-popup-close-button{top:6px!important;right:6px!important;width:32px!important;height:32px!important;line-height:29px!important;border-radius:50%;background:#fff!important;color:#3f4b47!important;font-size:25px!important;font-weight:400!important;z-index:1001;box-shadow:0 2px 10px rgba(0,0,0,.16)}
+}
+</style>
+<script>
+(() => {
+  const box = document.querySelector('.fukuoka-filters');
+  if (!box || box.querySelector('[data-cat="イベント"]')) return;
+  const b = document.createElement('button');
+  b.dataset.cat = 'イベント';
+  b.textContent = 'イベント';
+  b.style.setProperty('--dot', '#d9a441');
+  b.onclick = () => {
+    box.querySelectorAll('button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    Object.values(map._layers || {}).forEach(layer => {
+      if (!layer.getPopup || !layer.getPopup()) return;
+      const text = String(layer.getPopup().getContent());
+      const show = text.includes('分類：イベント');
+      if (show) { if (!map.hasLayer(layer)) layer.addTo(map); }
+      else if (map.hasLayer(layer)) map.removeLayer(layer);
+    });
+  };
+  box.appendChild(b);
+  const s = document.createElement('style');
+  s.textContent = '.fukuoka-filters button[data-cat="イベント"]::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;background:#d9a441}';
+  document.head.appendChild(s);
+})();
+</script>
+<script>
+(() => {
+  if (typeof hospitals === 'undefined') return;
+  const mapEl = document.getElementById('map');
+  if (!mapEl || document.querySelector('.fukuoka-hospital-list')) return;
+  const section = document.createElement('section');
+  section.className = 'fukuoka-hospital-list';
+  section.innerHTML = '<h2>福岡の動物病院</h2><p>病院名・地域・詳細ページを確認できます。病院ピン69件は施設位置を照合済みです。所在地・診療時間・休診日は詳細ページと各病院の公式情報をご確認ください。<br><a href="fukuoka-city-vets.html">福岡市公式名簿の全病院（区・住所・電話から検索）を見る →</a></p><div class="hospital-cards"></div>';
+  mapEl.parentNode.insertBefore(section, mapEl.nextSibling);
+  section.querySelector('.hospital-cards').innerHTML = hospitals.filter(p => FacilityLinks.has("fukuoka", p[0])).map(p => '<article class="hospital-card"><strong>' + p[0] + '</strong><small>' + p[1] + '　｜　動物病院</small><a href="' + p[4] + '">病院の詳細を見る →</a>' + FacilityLinks.html('fukuoka', p[0]) + '</article>').join('');
+})();
+</script>
+<script>
+(() => {
+  const mapEl = document.getElementById('map');
+  if (!mapEl) return;
+  const section = document.createElement('section');
+  section.className = 'fukuoka-food-list';
+  section.innerHTML = '<h2>福岡のペット同伴飲食店</h2><p>掲載店の地域・カテゴリ・同伴条件を確認できます。来店前に公式情報をご確認ください。</p><div class="food-cards"></div>';
+  mapEl.parentNode.insertBefore(section, mapEl.nextSibling);
+  const style = document.createElement('style');
+  style.textContent = '.fukuoka-food-list{margin-top:22px;padding:20px;background:#fffdf9;border:1px solid #dddcd5;border-radius:16px}.fukuoka-food-list h2{margin:0 0 6px}.fukuoka-food-list p{color:#718078}.food-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.food-card{padding:14px;border:1px solid #e5e1d9;border-radius:12px;background:#fff}.food-card strong{display:block;color:#234d43}.food-card small{display:block;color:#718078;margin-top:4px}.food-card a{display:inline-block;margin-top:8px}';
+  document.head.appendChild(style);
+  const render = () => {
+    const cards = new Map();
+    Object.values(map._layers || {}).forEach(layer => {
+      const popup = layer.getPopup?.();
+      if (!popup) return;
+      const html = String(popup.getContent?.() || '');
+      if (!html.includes('分類：食事')) return;
+      const name = (html.match(/<strong>(.*?)<\/strong>/) || [,''])[1];
+      if (!name || cards.has(name) || !FacilityLinks.has('fukuoka', name)) return;
+      const area = (html.match(/<br>([^<]+)<br>分類：/) || [,'福岡県内'])[1];
+      const href = (html.match(/href="(https?:[^" ]+)"/) || [,''])[1];
+      const detail = (typeof FOOD_DETAILS !== 'undefined' && FOOD_DETAILS[name]) || 'ペット同伴条件・営業状況は来店前に公式情報をご確認ください。';
+      cards.set(name, '<article class="food-card"><strong>' + name + '</strong><small>' + area + '　｜　ペットと食事</small><span>' + detail + '</span>' + FacilityLinks.html('fukuoka', name) + '</article>');
+    });
+    section.querySelector('.food-cards').innerHTML = [...cards.values()].join('');
+  };
+  setTimeout(render, 900);
+  setTimeout(render, 1800);
+})();
+</script>
+<script>
+(() => {
+  if (typeof map === 'undefined' || typeof places === 'undefined') return;
+  const shown = new Set(Object.values(map._layers || {}).map(layer => {
+    const html = String(layer.getPopup?.()?.getContent?.() || '');
+    return (html.match(/<strong>(.*?)<\/strong>/) || [, ''])[1].trim();
+  }).filter(Boolean));
+  places.filter(p => p[4] === '食事' && !shown.has(p[0]) && FacilityLinks.has('fukuoka', p[0])).forEach(p => {
+    const m = L.circleMarker([p[2], p[3]], {radius: 9, color: '#fff', weight: 2, fillColor: '#e85d75', fillOpacity: .95}).addTo(map);
+    m.bindPopup('<strong>' + p[0] + '</strong><br>' + p[1] + '<br>分類：食事<br>※ペット同伴条件は来店前に公式情報をご確認ください。');
+  });
+})();
+</script>
+<script>
+(() => {
+  if (typeof map === 'undefined') return;
+  const additions = [
+    ['cafe Lanai（カフェ ラナイ）','〒811-3219 福津市西福間4-11-20',33.77053882,130.47144515,'食事'],
+    ['DogRun&Cafe EuAl*La（ユアーラ）','築上郡上毛町・緒方473',33.5778566326,131.141666866,'食事'],
+    ['カフェドボッコ（cafe de BoCCo）','〒811-3219 福津市西福間4-15-36',33.7699076,130.4715675,'食事'],
+    ['Current（カレント）','〒819-1303 糸島市志摩野北2290',33.608574,130.161862,'食事'],
+    ['くるみcafe','八女市・岩崎277-11',33.2174556808,130.545034415,'食事'],
+    ['cafe Arrivederci（カフェ アリベデルチ）','〒810-0074 福岡市中央区大手門3-9-18',33.591213,130.380188,'食事'],
+    ['ドッグカフェ＆サロン Lily Kitchen','久留米市・本町161 第17上野ビル2F北側',33.30893754098684,130.50498532119067,'食事'],
+    ['cafe sofu-twins（そ〜ふ〜ついんず）','〒819-0015 福岡市西区愛宕3-5-21',33.58364015,130.33846563,'食事'],
+    ['カフェダイニング オハナ（Cafe Dining Ohana）','大牟田市・中島町1-2',33.03699646642271,130.4447075897218,'食事'],
+    ['Tràccia（トラッチャ）','糸島市志摩桜井5221',33.6257757,130.1839291,'ドッグラン・カフェ'],
+    ['Canary Cafe（キャナリーカフェ）','〒819-0015 福岡市西区愛宕2-15-25',33.583802,130.333419,'食事'],
+    ['LeChienCafe（ルシアンカフェ）','〒812-0017 福岡市博多区美野島3-14-19 しず花ビル',33.57731694265858,130.41644707561707,'食事'],
+    ['Dining Kitchen Aoyama（ダイニングキッチン青山）','福岡市南区・桧原2-35-18',33.5395241,130.3951313,'食事'],
+    ['おにぎりカフェ＆BAR 一粒万倍','北九州市小倉北区・下到津4-10-9',33.8758521,130.855111,'食事'],
+    ['egg cafe（エッグカフェ）小倉南店','北九州市小倉南区・横代北町3-16-20',33.833036436699075,130.89553261434497,'食事'],
+    ['Farm Resort 糸島（ファームリゾート糸島）','糸島市・志摩小金丸1738',33.5887903,130.1472009,'ドッグラン・カフェ'],
+    ['Twenty Miles','福岡市中央区・大濠2-3-2',33.5867594,130.3732814,'食事'],
+    ['YOCASTAND（Twenty Miles／福岡プリンスホテル ももち浜）','福岡市早良区・百道浜2-3-23',33.5934361,130.3504407,'食事'],
+    ['nico cafe（ニコカフェ）','福岡市南区・井尻3-13-16',33.5512812,130.4461938,'食事'],
+    ['SEASIDE BULLS CAFE（シーサイドブルズカフェ）','福岡市西区・生の松原1-19-5',33.5824666,130.3044531,'食事'],
+    ['ドッグキャンパーレスト小笠木','〒811-1112 福岡県福岡市早良区小笠木967-3',33.4915605,130.3669645,'食事'],
+    ['GRANDMIRAGE WHOLE NOTE CAFE（グランドミラージュ ホールノートカフェ）','〒810-0021 福岡市中央区今泉1-17-16-1 1階',33.5862404,130.398739,'食事'],
+    ['BeachHouseStyleCafe sunflower（ビーチハウススタイルカフェ サンフラワー）','〒819-0165 福岡市西区今津4420-1',33.6187472,130.2314361,'食事'],
+    ['Happy •Wan Land（森のレストラン・宿泊）','〒839-1213 福岡県久留米市田主丸町益生田2287-7',33.3215698,130.6882269,'食事'],
+    ['Dog Willer（ドッグウィラー）','〒839-1213 久留米市田主丸町益生田610-7',33.32546120025332,130.6655245614103,'ドッグラン・カフェ'],
+    ['ドッグカフェ CUTE PAWS／ドッグ❤ランド','宗像市上八837-1',33.8762119,130.53014,'ドッグラン・カフェ'],
+    ['ちりきら☆ROOM','福岡市早良区高取2-3-23-112',33.58112093,130.35062285,'食事'],
+    ['PET’s THE WORLD','〒830-0003 福岡県久留米市東櫛原町1460-16 池尻ビル1F',33.320738036467,130.52448216586,'食事'],
+    ['わんわんる～む シュシュ','〒809-0011 福岡県中間市岩瀬1-8-1 東海倶楽部201',33.828061,130.714064,'食事'],
+    ['The Party 今泉','〒810-0021 福岡県福岡市中央区今泉1-18-28 アペゼ今泉3F',33.585569,130.397749,'食事'],
+    ['with dog coffee','〒819-1623 福岡県糸島市二丈石崎361',33.5204475,130.16091348,'食事・ドッグラン']
+  ];
+  const existingNames = new Set(Object.values(map._layers || {}).map(layer => {
+    const html = String(layer.getPopup?.()?.getContent?.() || '');
+    return (html.match(/<strong>(.*?)<\/strong>/) || [, ''])[1].trim();
+  }).filter(Boolean));
+  const placeNames = new Set(places.map(p => p[0]));
+  additions.forEach(p => {
+    // 出典リンクのない候補を places に先行登録すると、後段の共通描画が
+    // 出典なしのままピンを復活させるため、確認リンクのある候補だけ追加する。
+    if (!FacilityLinks.has('fukuoka', p[0])) return;
+    if (!placeNames.has(p[0])) {
+      places.push(p);
+      placeNames.add(p[0]);
+    }
+    if (existingNames.has(p[0])) return;
+    const m=L.circleMarker([p[2],p[3]],{radius:8,color:'#fff',weight:2,fillColor:'#e85d75',fillOpacity:.95});
+  m.bindPopup(`<strong>${p[0]}</strong><br>${p[1]}<br>分類：${p[4]}<br>${p[0] === 'Tràccia（トラッチャ）' ? '営業時間10:00–18:00・不定休。初回は狂犬病・混合ワクチン証明の原本またはコピーが必要（写真不可）。' : p[0] === 'Canary Cafe（キャナリーカフェ）' ? '犬同伴可（店舗公式）。周囲のお客様への配慮をお願いしています。営業日は店舗公式案内をご確認ください。' : p[0] === 'LeChienCafe（ルシアンカフェ）' ? 'ペット同伴可・11:00–18:00（不定休）。2階は犬専用席、席予約は公式LINEから。公式地図で正確な場所をご確認ください。' : p[0] === 'Dining Kitchen Aoyama（ダイニングキッチン青山）' ? 'ペット同伴は事前予約制の個室。個室料金は食事のみ1時間1,000円（3時間目から1時間500円）。公式案内の営業時間は11:00–22:00。犬種条件は要問い合わせ。' : p[0] === 'おにぎりカフェ＆BAR 一粒万倍' ? '店内ペット同伴可。原則小型犬（約10kgまで）、専用スペース利用・リード必須。中型犬・大型犬等は事前相談。営業時間は公式サイトに記載がないため、公式SNSでご確認ください。' : p[0] === 'egg cafe（エッグカフェ）小倉南店' ? 'ペット同伴はテラス席のみ（公式案内）。店内は不可。営業時間9:00–17:30（L.O.16:45）、第一・三火曜と年末年始休。' : p[0] === 'Farm Resort 糸島（ファームリゾート糸島）' ? 'テラス席のみペット同伴可。約900坪のドッグラン（大型・中型犬800円、小型犬600円）。初回は1年以内のワクチン・狂犬病予防接種証明が必要。公式アクセス案内：夏季（7〜9月）11:00–21:00、冬季11:00–18:00、火曜定休。季節・営業変更は来店前に公式確認。' : p[0] === 'Twenty Miles' ? '犬同伴可（店舗公式）。所在地：福岡市中央区大濠2-3-2。公式ページに営業時間の記載がないため、営業日時・同伴条件の詳細は来店前に公式情報をご確認ください。' : p[0] === 'YOCASTAND（Twenty Miles／福岡プリンスホテル ももち浜）' ? '愛犬同伴はテラス席のみ（ホテル公式）。営業時間：金〜月 7:00–16:00、火〜木 8:00–16:00。金〜月はCHILL FRENZY運営、火〜木はホテル直営。季節により営業期間・時間が変わる場合があります。' : p[0] === 'nico cafe（ニコカフェ）' ? '犬同伴はテラス席のみ（店舗公式）。大型犬も同伴可。マナーパンツ・リード・カフェマット必須（カフェマット貸出あり）。営業時間11:00–15:00／17:00–21:00、無休。大型犬はテラス階段の利用可否にご注意ください。' : p[0] === 'SEASIDE BULLS CAFE（シーサイドブルズカフェ）' ? '愛犬同伴で来店可（店舗公式）。犬用ワンプレートあり。店内・テラスの同伴区分と営業時間は公式ページ未記載のため、来店前に店舗へご確認ください。' : p[0] === 'ドッグキャンパーレスト小笠木' ? '店内犬同伴可・ドッグラン併設（早良商工会掲載）。犬種条件・営業時間・利用ルールは来店前に公式SNS等でご確認ください。' : p[0] === 'GRANDMIRAGE WHOLE NOTE CAFE（グランドミラージュ ホールノートカフェ）' ? 'ペット同伴可（店舗公式予約情報）。同伴できる席・犬種条件は要問い合わせ。営業時間：月〜木・日・祝 12:00〜翌0:00、金・土・祝前日 12:00〜翌1:00。定休日なし。' : p[0] === 'BeachHouseStyleCafe sunflower（ビーチハウススタイルカフェ サンフラワー）' ? 'ペット同伴は屋根付きテラス席のみ（店舗ブログ・3卓）。店内不可。犬種条件・最新営業時間は来店前に公式ブログ等でご確認ください。' : p[0] === 'Happy •Wan Land（森のレストラン・宿泊）' ? '愛犬と泊まれる貸別荘・コテージ、森のレストラン、ドッグランの複合施設。レストランは店内の一部・テラスで犬同伴可。犬種条件・営業日は公式Instagram等で要確認。' : p[0] === 'Dog Willer（ドッグウィラー）' ? '中型・大型犬向けの天然芝ドッグラン併設カフェ（店舗公式）。小型犬のみの利用は不可。店舗公式アクセス地図のピン位置を使用。営業時間9:30–17:00（夏季7:00–13:00）、木・金曜定休。指定犬種は貸切限定。' : p[0] === 'ドッグカフェ CUTE PAWS／ドッグ❤ランド' ? '愛犬同伴カフェとドッグラン。小型犬、中・大型犬、貸切エリアに分かれ、ラン利用はカフェで無料登録。店舗公式掲載の営業時間は10:00–17:00（カフェ16:00まで）、不定休。最新営業日を公式Instagramで確認。' : '※ペット同伴条件は来店前に公式情報をご確認ください。'}`);
+    m.addTo(map);
+    existingNames.add(p[0]);
+  });
+})();
+</script>
+<script src="fukuoka-bebe-map-fix.js"></script><script src="map-common-enhancements.js"></script><script src="fukuoka-popup-template.js"></script><script src="fukuoka-food-details.js"></script><script src="fukuoka-hospital-details.js"></script><script src="fukuoka-events.js"></script>
+<script>
+(() => {
+  const cleanDuplicateSections = () => {
+    document.querySelectorAll('.fukuoka-hospital-list').forEach((section, index) => {
+      if (index > 0) section.remove();
+    });
+    document.querySelectorAll('.fukuoka-food-list').forEach((section, index) => {
+      if (index > 0) section.remove();
+    });
+    const removeDuplicateHeading = (label) => {
+      const headings = [...document.querySelectorAll('h2')].filter(h => h.textContent.trim() === label);
+      headings.slice(1).forEach(h => {
+        const section = h.closest('section') || h.parentElement;
+        if (section) section.remove();
+      });
+    };
+    removeDuplicateHeading('福岡の動物病院');
+    removeDuplicateHeading('福岡のペット同伴飲食店');
+  };
+  cleanDuplicateSections();
+  // 複数の拡張スクリプトが非同期で一覧を追加しても、常に1つだけ残す。
+  setInterval(cleanDuplicateSections, 500);
+})();
+</script>
+<script>
+/* Restore Fukuoka map pins that were hidden by the shared-link filter:
+   original entries with an explicit source URL, plus three address/coordinate-
+   verified additions. Do not revive unverified food candidates. */
+(() => {
+  if (typeof map === 'undefined' || typeof places === 'undefined' || typeof hospitals === 'undefined') return;
+  const registry = window.fukuokaMarkerLayers || (window.fukuokaMarkerLayers = new Set());
+  const names = new Set();
+  Object.values(map._layers || {}).forEach(layer => {
+    const html = String(layer.getPopup?.()?.getContent?.() || '');
+    const name = (html.match(/<strong>(.*?)<\/strong>/) || [, ''])[1].trim();
+    if (name) { names.add(name); registry.add(layer); }
+  });
+  const verifiedFoodNames = new Set(['パタゴニアの南', 'ドッグキャンパーレスト青柳', 'ドッグキャンパーレスト小笠木', 'ながかわ']);
+  const add = (p) => {
+    if (names.has(p[0]) || !Number.isFinite(p[2]) || !Number.isFinite(p[3])) return;
+    const rawCategory = String(p[4] || '宿泊');
+    const category = rawCategory.startsWith('#') ? '宿泊' : rawCategory;
+    const color = category.includes('ドッグラン') ? '#159a9c' : category.includes('食事') ? '#e85d75' : '#7357d9';
+    const marker = L.circleMarker([p[2], p[3]], {radius:9, color:'#fff', weight:2, fillColor:color, fillOpacity:.95}).addTo(map);
+    const link = p[5] && /^https?:\/\//.test(p[5]) ? '<br><a href="' + p[5] + '" target="_blank" rel="noopener">公式サイトを見る →</a>' : '<br><a href="fukuoka-fukkou-pet-stay.html">詳細を見る →</a>';
+    marker.bindPopup('<strong>' + p[0] + '</strong><br>' + p[1] + '<br>分類：' + category + link);
+    names.add(p[0]);
+    registry.add(marker);
+  };
+  places.filter(p => (verifiedFoodNames.has(p[0]) || (typeof p[5] === 'string' && p[5].startsWith('http')))).forEach(add);
+})();
+</script>
+<script>
+/* Fukuoka clinics newly checked against official hospital/municipal records. */
+(() => {
+  if (typeof map === 'undefined' || typeof hospitals === 'undefined') return;
+  const additions = [
+    ['コジマ動物病院','〒838-0058 朝倉市馬田328-1',33.405887,130.6491408,'fukuoka-vets-kojima.html'],
+    ['池田動物診療所','〒838-0824 朝倉郡筑前町原地蔵1897-1',33.413354,130.618318,'fukuoka-vets-ikeda.html'],
+    ['たかお動物病院','〒839-1306 うきは市吉井町新治358-7',33.3486596,130.7520097,'fukuoka-vets-takao.html'],
+    ['ところ動物病院','〒839-1406 うきは市浮羽町高見1436-1',33.3472466,130.8096134,'fukuoka-vets-tokoro.html'],
+    ['土師獣医科病院','〒820-0083 飯塚市秋松313-1',33.6188182,130.6794195,'fukuoka-vets-haji.html'],
+    ['かやの森動物病院','〒820-0011 飯塚市柏の森1-38',33.6441274,130.7071709,'fukuoka-vets-kayanomori.html'],
+    ['もりまつ動物病院','〒820-0081 飯塚市枝国256-2',33.6337482,130.6758638,'fukuoka-vets-morimatsu.html'],
+    ['飯塚パル動物病院','〒820-0068 飯塚市片島2丁目13-22',33.6513797,130.6828258,'fukuoka-vets-iizuka-pal.html'],
+    ['ハロー動物病院','飯塚市下三緒143-1',33.6326251,130.7059307,'fukuoka-vets-hello.html'],
+    ['田辺愛犬病院','飯塚市菰田7-10',33.6285319,130.6948911,'fukuoka-vets-tanabe.html'],
+    ['松本動物病院','飯塚市柏の森99-8',33.638349,130.707288,'fukuoka-vets-matsumoto.html'],
+    ['飯塚犬猫病院','〒820-0068 飯塚市片島1-8-84',33.6454635,130.6774204,'fukuoka-vets-iizuka-inuneko.html'],
+    ['やひろ犬猫病院','〒820-0074 飯塚市楽市238-2',33.6140535,130.6799107,'fukuoka-vets-yahiro.html'],
+    ['陽だまり動物病院','〒820-0602 嘉穂郡桂川町大字九郎丸689-6',33.5852413,130.6680317,'fukuoka-vets-hidamari.html'],
+    ['かほまち愛犬病院','〒820-0303 嘉麻市中益756-1',33.5414467,130.7453943,'fukuoka-vets-kahomachi.html'],
+    ['アニマルクリニック夜須','〒838-0211 朝倉郡筑前町下高場618',33.4495972,130.6132989,'fukuoka-vets-yasu.html']
+    , ['アイリス動物病院','〒813-0035 福岡市東区松崎4丁目1-36',33.6414185,130.4408351,'fukuoka-vets-iris.html']
+    , ['青葉動物病院','〒813-0025 福岡市東区青葉1丁目1-20',33.6376068,130.4614092,'fukuoka-vets-aoba.html']
+    , ['稲員犬猫香椎病院','〒813-0003 福岡市東区香住ケ丘2-4-4',33.667794,130.442301,'fukuoka-vets-inakazu.html']
+    , ['香椎ペットクリニック','〒813-0011 福岡市東区香椎4丁目15-30',33.6513101,130.4515348,'fukuoka-vets-kashii.html']
+    , ['かわかみ動物病院','〒813-0001 福岡市東区唐原3丁目17-21',33.679383,130.4365215,'fukuoka-vets-kawakami.html']
+    , ['みどりが丘動物病院','〒813-0021 福岡市東区名子3丁目7-20',33.6426241,130.4746729,'fukuoka-vets-midorigaoka.html']
+    , ['とみながペットクリニック','〒813-0041 福岡市東区水谷2丁目2-29',33.6471832,130.4417298,'fukuoka-vets-tominaga.html']
+    , ['治どうぶつ病院','〒813-0016 福岡市東区香椎浜3丁目12-1（イオン香椎浜SC内）',33.6570988,130.4298255,'fukuoka-vets-osamu.html']
+    , ['福岡東動物病院','〒813-0013 福岡市東区香椎駅前3丁目4-25',33.6620905,130.4421973,'fukuoka-vets-fukuokahigashi.html']
+    , ['加藤獣医科医院','〒813-0033 福岡市東区多々良1丁目45-21',33.6299037,130.4572772,'fukuoka-vets-kato.html']
+    , ['筥松ミルキーどうぶつ病院','〒812-0053 福岡市東区箱崎1丁目41-13 桔梗館1F',33.6166226,130.4215059,'fukuoka-vets-hakomatsu-milky.html']
+    , ['吉塚ペットクリニック','〒812-0041 福岡市博多区吉塚5丁目2-3',33.605062,130.427838,'fukuoka-vets-yoshizuka.html']
+    , ['博多北ハート動物病院','福岡市博多区中呉服町1-26 博多インテリジェントビル1階',33.5982848,130.4097022,'fukuoka-vets-hakata-kita-heart.html']
+    , ['博多住吉動物病院','〒812-0018 福岡市博多区住吉2丁目4-7 レジデンス博多',33.587896,130.412666,'fukuoka-vets-hakata-sumiyoshi.html']
+    , ['ととろ動物病院','〒813-0032 福岡市東区土井1丁目21-11',33.6361146,130.4634287,'fukuoka-vets-totoro.html']
+    , ['照葉ペットクリニック','〒813-0017 福岡市東区香椎照葉6丁目6-6 アイランドアイ内',33.6676504,130.415417,'fukuoka-vets-teriha.html']
+    , ['福岡中央動物病院','〒810-0035 福岡市中央区梅光園2丁目15-14',33.571124,130.377502,'fukuoka-vets-fukuoka-chuo.html']
+    , ['警固ペットクリニック','〒810-0023 福岡市中央区警固2丁目2-15 秋本ビル1F',33.5834546,130.3919816,'fukuoka-vets-kego.html']
+    , ['パーク動物医療センター','〒810-0064 福岡市中央区地行4-18-9',33.591338,130.364075,'fukuoka-vets-park.html']
+    , ['エフ・筑紫通りペットクリニック','〒812-0892 福岡市博多区東那珂3丁目1-4',33.5733098,130.4377793,'fukuoka-vets-fpet.html']
+    , ['バーツ動物病院','〒812-0894 福岡市博多区諸岡4-3-1',33.5588894,130.4496018,'fukuoka-vets-verts.html']
+    , ['ノアアニマルクリニック','〒814-0171 福岡市早良区野芥3-27-27',33.5401176,130.3429084,'fukuoka-vets-noa.html']
+    , ['児玉どうぶつ病院','〒811-1346 福岡市南区老司1-5-2',33.5363627,130.4282434,'fukuoka-vets-kodama.html']
+    , ['博多犬猫医療センター','〒812-0044 福岡市博多区千代1-16-14',33.601905,130.4147868,'fukuoka-vets-hakata-dcm.html']
+    , ['オークどうぶつ病院 けやき','〒810-0042 福岡市中央区赤坂3-4-31',33.5828596,130.3838915,'fukuoka-vets-oak-keyaki.html']
+    , ['めとき動物病院','〒812-0014 福岡市博多区比恵町7-20-1F',33.5861309,130.4300532,'fukuoka-vets-metoki.html']
+    , ['オアシス動物病院','〒812-0888 福岡市博多区板付7丁目10-37',33.5556568,130.4537376,'fukuoka-vets-oasis.html']
+    , ['海動物病院福岡東医院','〒812-0055 福岡市東区東浜1-3-1',33.6150835,130.4145051,'fukuoka-vets-kai-fukuoka-higashi.html']
+    , ['白金アニマルクリニック','〒810-0012 福岡市中央区白金2丁目15-14 BERG白金1F',33.5768785,130.4066176,'fukuoka-vets-shirogane.html']
+  ];
+  const cards = document.querySelector('.fukuoka-hospital-list .hospital-cards');
+  const registry = window.fukuokaMarkerLayers || (window.fukuokaMarkerLayers = new Set());
+  additions.forEach(p => {
+    if (hospitals.some(existing => existing[0] === p[0])) return;
+    hospitals.push(p);
+    const marker = L.circleMarker([p[2],p[3]],{radius:9,color:'#fff',weight:2,fillColor:'#e5484d',fillOpacity:.95}).addTo(map);
+    marker.bindPopup('<strong>'+p[0]+'</strong><br>'+p[1]+'<br>分類：病院<br><a href="'+p[4]+'">病院の詳細を見る →</a>');
+    registry.add(marker);
+    if (cards && FacilityLinks.has('fukuoka',p[0])) cards.insertAdjacentHTML('beforeend','<article class="hospital-card"><strong>'+p[0]+'</strong><small>'+p[1]+'　｜　動物病院</small><a href="'+p[4]+'">病院の詳細を見る →</a>'+FacilityLinks.html('fukuoka',p[0])+'</article>');
+  });
+})();
+</script>
