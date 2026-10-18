@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>大分ペット施設MAP（確認用）｜熊本ペットナビ</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f5f2eb;color:#24312d;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif}.wrap{max-width:1100px;margin:auto;padding:24px 18px 50px}.brand{color:#234d43;font-weight:900;text-decoration:none}.hero{margin:16px 0;background:#fffdf9;border:1px solid #e5e1d9;border-radius:18px;padding:24px}.draft{display:inline-block;background:#fff0cf;color:#765719;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:900}.hero h1{font-size:clamp(32px,6vw,54px);line-height:1.15;margin:12px 0}.lead{color:#718078;line-height:1.8}.filters{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.filters button{display:inline-flex;align-items:center;gap:7px;border:1px solid #234d43;background:#fffdf9;color:#234d43;border-radius:999px;padding:10px 14px;font-weight:900}.filters button:before{content:"";width:10px;height:10px;border-radius:50%;background:var(--dot)}.filters .active{background:#234d43;color:#fff}.filters .pending{opacity:.55;border-style:dashed}.filters .pending:after{content:"準備中";font-size:9px;background:#ebe9e3;color:#68736d;border-radius:999px;padding:2px 5px}.plan{background:#fffdf9;border:1px solid #e5e1d9;border-radius:12px;padding:14px 16px;font-weight:800;margin-bottom:12px}.frame{width:100%;height:880px;border:0;border-radius:16px;background:#fff}.note{background:#fff9e8;border-left:4px solid #d9b35f;padding:14px 16px;margin-top:16px;font-size:13px}@media(max-width:700px){.wrap{padding:16px 12px 38px}.hero{padding:19px}.hero h1{font-size:34px}.filters{gap:7px}.filters button{padding:8px 10px;font-size:12px}.frame{height:760px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="brand" href="index.html">熊本ペットナビ</a>
+    <section class="hero"><span class="draft">非公開・テンプレート確認中</span><h1>大分のペット施設を<br>地図から探す。</h1><p class="lead">熊本・福岡と同じ分類を適用した確認用MAPです。現在は食事スポット44件を当て込んでいます。</p></section>
+    <div class="filters" aria-label="大分MAPの分類"><button class="active" style="--dot:#234d43">すべて</button><button style="--dot:#e85d75">ペットと食事</button><button class="pending" disabled style="--dot:#159a9c">ペットと行ける場所</button><button class="pending" disabled style="--dot:#6f52d9">ペットと泊まる</button><button class="pending" disabled style="--dot:#b84fc4">ペットを預ける</button><button class="pending" disabled style="--dot:#e5484d">動物病院</button><button class="pending" disabled style="--dot:#d9a441">イベント</button></div>
+    <div class="plan">自分の予定を作る：まだ場所が選ばれていません。</div>
+    <iframe class="frame" src="oita-pet-food-map.html" title="大分のペット同伴食事スポットMAP" onload="prepareMap(this)"></iframe>
+    <p class="note">食事以外のカテゴリーはデータの確認後に追加します。このページはまだ復興MAPの公開導線には繋いでいません。</p>
+  </main>
+  <script>
+    function prepareMap(frame){try{const doc=frame.contentDocument;doc.querySelector('.hero')?.remove();const old=doc.querySelector('.filters');if(old)old.style.display='none';doc.querySelector('.wrap').style.padding='0';doc.querySelector('.panel').style.margin='0';doc.querySelectorAll('.card').forEach(card=>card.style.display='none');const list=doc.querySelector('.panel:last-of-type');if(list)list.style.display='none'}catch(e){}}
+    const mapFrame=document.querySelector('.frame');mapFrame.addEventListener('load',()=>prepareMap(mapFrame));if(mapFrame.contentDocument?.readyState==='complete')prepareMap(mapFrame);
+    document.querySelectorAll('.filters button:not(.pending)').forEach(button=>button.onclick=()=>{document.querySelectorAll('.filters button').forEach(item=>item.classList.remove('active'));button.classList.add('active')});
+  </script>
+</body>
+</html>

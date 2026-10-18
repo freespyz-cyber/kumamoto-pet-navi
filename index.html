@@ -356,6 +356,9 @@
 .hero-art:before,.hero-art:after{display:none!important;content:none!important}
 .hero-photo{position:relative!important;display:block!important;width:100%!important;height:100%!important;min-width:100%!important;min-height:100%!important;object-fit:cover!important;object-position:76% 50%!important}
 .hero-art-label{position:absolute!important;left:14px!important;top:14px!important;z-index:2!important}
+.mascot-intro{display:flex;align-items:center;gap:14px;max-width:520px;margin-top:18px;padding:12px 18px 12px 10px;border:1px solid rgba(35,77,67,.14);border-radius:20px;background:rgba(255,253,249,.9);color:#234d43;font-size:15px;line-height:1.55;font-weight:800}
+.mascot-intro img{display:block;width:128px;height:128px;object-fit:contain;flex:0 0 128px}
+.mascot-intro small{display:block;margin-top:2px;color:#75827b;font-size:11px;font-weight:600}
 @media(max-width:760px){
  .hero{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:24px!important;height:auto!important;min-height:0!important;overflow:visible!important;padding:42px 18px 40px!important}
  .hero>div:first-child{order:1!important;width:100%!important;max-width:none!important;min-width:0!important}
@@ -367,7 +370,7 @@
 @media(max-width:760px){
  body{padding-bottom:76px}
  header .nav nav{display:none!important}
- .mobile-map-dock{position:fixed;display:grid;grid-template-columns:1fr 1fr 1fr;left:10px;right:10px;bottom:max(8px,env(safe-area-inset-bottom));z-index:10000;padding:6px;background:rgba(255,253,249,.96);border:1px solid #d7d9d3;border-radius:18px;box-shadow:0 10px 34px rgba(24,45,37,.25);backdrop-filter:blur(12px)}
+ .mobile-map-dock{position:fixed;display:grid;grid-template-columns:repeat(4,1fr);left:10px;right:10px;bottom:max(8px,env(safe-area-inset-bottom));z-index:10000;padding:6px;background:rgba(255,253,249,.96);border:1px solid #d7d9d3;border-radius:18px;box-shadow:0 10px 34px rgba(24,45,37,.25);backdrop-filter:blur(12px)}
  .mobile-map-dock a{display:flex;min-width:0;min-height:52px;align-items:center;justify-content:center;text-align:center;padding:6px 3px;border-radius:12px;color:#234d43;font-size:11px;line-height:1.25;font-weight:900}
  .mobile-map-dock a:nth-child(1){background:#e5efe8}.mobile-map-dock a:nth-child(2){background:#fff0e7;color:#8a3f2d}.mobile-map-dock a:nth-child(3){background:#234d43;color:#fff}
 }
@@ -392,13 +395,16 @@
       <div class="eyebrow">PET LIFE IN KYUSHU</div>
       <h1>ペットと行ける<br><em>場所</em>を探そう。</h1>
       <p class="lead">「ペット可」だけでは分からない、店内OK・テラスのみ・オムツ必須などのリアルな条件まで。まずは熊本から、九州でペットと過ごす場所を見つけるナビです。</p>
-      <form class="search" onsubmit="return searchDemo(event)"><input id="q" placeholder="例：阿蘇 犬連れランチ／熊本市 ドッグラン"><button>検索</button></form>
+      <div style="margin:18px 0 6px;font-size:15px;font-weight:900;color:#234d43">県からペット施設MAPを選ぶ</div>
       <div class="map-shortcuts" aria-label="公開中の県MAPへ直接入る">
-        <a class="map-shortcut" href="pet-facility-map.html"><span><strong>熊本県のMAPを開く</strong><small>食事・宿泊・病院・イベント</small></span><b>→</b></a>
-        <a class="map-shortcut fukuoka" href="fukuoka-pet-stay-map.html"><span><strong>福岡県のMAPを開く</strong><small>食事・宿泊・病院・イベント</small></span><b>→</b></a>
+        <a class="map-shortcut" href="pet-facility-map.html"><span><strong>熊本県のMAPを開く</strong><small>ペットと食事・行ける場所・キャンプ場・泊まる・預ける・動物病院・イベント</small></span><b>→</b></a>
+        <a class="map-shortcut fukuoka" href="fukuoka-pet-stay-map.html"><span><strong>福岡県のMAPを開く</strong><small>ペットと食事・行ける場所・泊まる・預ける・動物病院・イベント</small></span><b>→</b></a>
+        <a class="map-shortcut" href="oita-pet-map.html"><span><strong>大分県のMAPを開く</strong><small>ペットと食事・行ける場所・泊まる・預ける・動物病院</small></span><b>→</b></a>
       </div>
-      <a class="map-hub-link" href="pet-map-hub.html"><span>九州復興割 ペット施設MAP</span><span>全県の公開状況を見る →</span></a>
+      <form class="search" onsubmit="return searchDemo(event)"><input id="q" placeholder="例：阿蘇 犬連れランチ／熊本市 ドッグラン"><button>検索</button></form>
+      <a class="map-hub-link" href="pet-map-hub.html"><span>九州ペット施設MAP</span><span>全県の公開状況を見る →</span></a>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;font-size:12px;font-weight:800;color:#234d43;"><span style="background:#dfe9e1;padding:6px 10px;border-radius:999px;">✓ 公式情報を確認</span><span style="background:#f3e7d4;padding:6px 10px;border-radius:999px;">✓ 条件まで掲載</span><span style="background:#f0deda;padding:6px 10px;border-radius:999px;">✓ 情報提供受付中</span></div>
+      <div class="mascot-intro"><img src="./assets/kumamoto-pet-navi-chihuahua-mascot.png" alt="九州ペットナビのチワワのマスコット"><span>九州ペットナビの案内役です。<small>ペットと楽しむ九州の情報をお届けします</small></span></div>
     </div>
 <div class="hero-art" aria-label="人とロングコートチワワが熊本の公園を歩くイメージ"><img class="hero-photo" src="./assets/hero-person-chihuahua-published-20260825.png" alt="熊本の公園を歩く人とロングコートチワワ"><span class="hero-art-label">ASO · AMAKUSA · KUMAMOTO</span></div>
   </div>
@@ -432,7 +438,7 @@
     <section id="submit" class="section" style="padding-top:20px;"><div class="feature-box" style="text-align:center; min-height:auto;"><h3>熊本のペット情報を教えてください</h3><p>おすすめのお店、行って分かった条件、イベント情報を募集中です。</p><a href="submit.html">掲載・投稿について →</a></div></section>
   </main>
   <footer><strong>熊本ペットナビ</strong>熊本で、ペットと暮らす。知りたい・探したいが見つかる。<br><a href="new-listings.html" style="color:inherit;margin:0 8px;">新着掲載</a><a href="sitemap.html" style="color:inherit;margin:0 8px;">サイトマップ</a><a href="about.html" style="color:inherit;margin:0 8px;">運営方針</a><a href="submit.html" style="color:inherit;margin:0 8px;">掲載・情報提供</a><a href="trusted-pet-shops.html" style="color:inherit;margin:0 8px;">確認済み情報</a></footer>
-  <nav class="mobile-map-dock" aria-label="MAPへすぐ入る"><a href="pet-facility-map.html">熊本<br>MAP</a><a href="fukuoka-pet-stay-map.html">福岡<br>MAP</a><a href="pet-map-hub.html">九州復興<br>MAP</a></nav>
+  <nav class="mobile-map-dock" aria-label="MAPへすぐ入る"><a href="pet-facility-map.html">熊本<br>MAP</a><a href="fukuoka-pet-stay-map.html">福岡<br>MAP</a><a href="pet-map-hub.html">県別<br>MAP</a><a href="oita-pet-map.html">大分<br>MAP</a></nav>
   <script>function searchDemo(e){e.preventDefault();const q=document.getElementById('q').value.trim();location.href='search.html'+(q?'?q='+encodeURIComponent(q):'');return false;}</script>
 </body>
 </html>

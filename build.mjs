@@ -6,9 +6,12 @@ const dist = join(root, "dist");
 await rm(dist, { recursive: true, force: true });
 await mkdir(join(dist, "server"), { recursive: true });
 
-const entries = ["404.html", "assets"];
+const entries = ["404.html", "assets", "robots.txt"];
 for (const entry of entries) {
-  await cp(join(root, entry), join(dist, entry), { recursive: true });
+  await cp(join(root, entry), join(dist, entry), {
+    recursive: true,
+    filter: (source) => source !== join(root, "assets", "oita-geocode-review.json"),
+  });
 }
 const files = (await import("node:fs/promises")).readdir(root);
   for (const entry of await files) {

@@ -17,13 +17,13 @@ window.oitaHospitals = [
     "わたなべ動物病院",
     "oita",
     "https://hospital.anicom-med.co.jp/watanabe/",
-    ""
+    "大分市錦町3-7-22"
   ],
   [
     "すえつぐ動物病院",
     "beppu",
     "https://suetsugu-ah.jp/",
-    ""
+    "別府市松原町1-8"
   ],
   [
     "隼人どうぶつ病院",
@@ -47,13 +47,13 @@ window.oitaHospitals = [
     "ファミリア動物病院",
     "beppu",
     "https://mpanimal.com/",
-    ""
+    "別府市中須賀東町10"
   ],
   [
     "COMS動物病院",
     "oita",
     "https://coms-animalhospital.com/",
-    "大分市仲西町1-3-16"
+    "大分市仲西町1-3-11"
   ],
   [
     "藤田犬猫病院",
@@ -63,9 +63,9 @@ window.oitaHospitals = [
   ],
   [
     "えとう動物病院",
-    "unknown",
+    "beppu",
     "https://eto-ah97.com/",
-    ""
+    "別府市南的ヶ浜町1-27"
   ],
   [
     "AMC末松どうぶつ病院",
@@ -87,17 +87,15 @@ window.oitaHospitals = [
   ],
   [
     "かみかぜ動物病院",
-    "unknown",
+    "usa",
     "https://kamikaze-ichibanki.com/",
-    "",
-    "サイトが初期ページのため詳細確認待ち"
+    "宇佐市辛島"
   ],
   [
-    "大分動物病院",
-    "unknown",
+    "おおいた動物病院 北部医療センター",
+    "takada",
     "https://oita.vet/",
-    "",
-    "現行サイトの名称・所在地の照合待ち"
+    "豊後高田市新町2017-1"
   ],
   [
     "あいのわペットクリニック",
@@ -111,26 +109,25 @@ window.oitaHospitals = [
     "アイランド動物病院",
     "oita",
     "https://www7b.biglobe.ne.jp/~island-animal/",
-    ""
+    "大分市横田2-18-43"
   ],
   [
     "かく動物病院",
-    "unknown",
+    "oita",
     "https://kaku-animal.jp/",
-    ""
+    "大分市賀来南1丁目17-28"
   ],
   [
     "ハートフル動物病院",
     "nakatsu",
     "https://heartful-pet.jp/",
-    ""
+    "中津市相原3748-1"
   ],
   [
     "ルシア動物病院",
-    "unknown",
+    "oita",
     "https://oitacard.co.jp/p-post1807/",
-    "",
-    "所在地確認待ち",
+    "大分市田原",
     "紹介ページ"
   ],
   [
@@ -149,7 +146,7 @@ window.oitaHospitals = [
     "Beco（ベコ）犬猫クリニック",
     "nakatsu",
     "https://beco-vet.com/",
-    ""
+    "中津市福島1090-1"
   ],
   [
     "ココロアニマルクリニック",
@@ -159,9 +156,9 @@ window.oitaHospitals = [
   ],
   [
     "うすき動物病院",
-    "unknown",
+    "usuki",
     "https://usuki-ah.com/",
-    ""
+    "臼杵市大字市浜1198-2"
   ],
   [
     "よしたけ動物病院",
@@ -185,10 +182,10 @@ window.oitaHospitals = [
   ],
   [
     "ひぐち動物病院・動物整形外科病院",
-    "unknown",
+    "hita",
     "https://dvm-higuchi.jimdofree.com/",
-    "",
-    "所在地確認待ち。提供画像には夜間・早朝の時間外診療なしの記載"
+    "日田市元町",
+    "提供画像には夜間・早朝の時間外診療なしの記載"
   ],
   [
     "みなはるペットクリニック",
@@ -220,7 +217,7 @@ window.oitaHospitals = [
     "ひたむき動物病院",
     "hita",
     "https://wonder-cloud.jp/hospitals/hitamuki-ah_hita/reservations",
-    "",
+    "日田市中央",
     "",
     "予約案内"
   ],
@@ -238,22 +235,22 @@ window.oitaHospitals = [
   ],
   [
     "ふじわら動物クリニック",
-    "unknown",
+    "kunisaki",
     "https://fujiwara-animal-clinic.amebaownd.com/",
-    ""
+    "国東市国東町田深910"
   ],
   [
     "いいだ動物病院",
     "hita",
     "https://iida-ah.com/",
-    ""
+    "日田市上城内町1466-1"
   ],
   [
-    "海動物病院",
-    "unknown",
-    "https://kai-clinic.jp/",
-    "",
-    "グループ案内のため大分県内の対象院を確認中"
+    "海動物病院 大分往診所",
+    "oita",
+    "https://www.kai-clinic.jp/clinic/oita-oita/",
+    "大分市宮崎829-6",
+    "公式案内の医院タイプは往診所。住所・電話・診療時間は公式ページおよびGoogleマップの施設情報で確認。診療科目は予防診療・簡易診療で、予約・訪問の対象や方法は事前に公式窓口へ確認してください。救急診療先とは案内しません。"
   ],
   [
     "なた海岸動物病院",
@@ -265,4 +262,3 @@ window.oitaHospitals = [
   id:400+i,name,region,url,address,sourceLabel,categories:['hospital'],hold:region==='unknown',
   note:[address,detail,'診療時間・診療対象・予約条件は受診前に病院へ確認してください。'].filter(Boolean).join('。')
 }));
-

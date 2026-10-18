@@ -9,14 +9,14 @@ const oitaRegionData = {
   takada: {name:'豊後高田',lat:33.66,lng:131.53}
 };
 const rows = [
- ['別府 丘と海のドッグリゾート','beppu','', '公式URL・現行条件の確認待ち'],
- ['わんこの宿 ゆるり','beppu','https://wanko-yururi.com/','犬種・頭数・料金は要確認'],
- ['湯富里の宿 一壺天','yufu','https://ikkoten.com/','ペット対応客室・条件は要確認'],
- ['湯布院らんぷの宿','yufu','https://www.yufuinlamp.com/','ペット対応客室の予約条件を確認'],
- ['湯布院ガーデンホテル','yufu','https://yufuin-gardenhotel.jp/','犬種・頭数・宿泊料金を確認'],
+ ['別府 丘と海のドッグリゾート','beppu','https://beppu-dogresort.com/dogs','別府市堀田町11-69。公式確認：小型犬3頭または中型犬2頭まで。狂犬病・5種以上混合ワクチン証明の登録が必要。犬の宿泊料は頭数により別途。共有部・屋内ドッグラン・愛犬同伴可能な客室あり。'],
+ ['わんこの宿 ゆるり','beppu','https://www.wanko-yururi.com/smart/','2026年10月1日から運営会社がリブマックスへ変更。公式案内では既存予約は引継ぎ、今後の予約方法・サービス内容は順次案内。新運営会社の問い合わせ先：03-3505-0777／beppu-reservation@livemax.jp。犬同伴条件・予約方法は予約前に公式最新情報で確認。'],
+ ['湯富里の宿 一壺天','yufu','https://www.ikkoten.com/stay/pet.html','公式確認：ペット対応客室は室数限定で要事前申告。専用個室で食事同伴可、ドッグランあり。公式客室案内では宿泊料1頭5,500円、予防接種・トイレしつけ等の条件あり。空室・最新条件は予約時に確認。'],
+ ['湯布院らんぷの宿','yufu','https://www.yufuinlamp.com/map','由布市湯布院町川上3639-1、電話0977-76-8611。公式アクセスページ確認。公式案内でペット同伴可能な客室あり。対象客室・犬種・頭数・料金は予約サイトで要確認。'],
+ ['湯布院ガーデンホテル','yufu','https://www.yufuin-gardenhotel.jp/faq/','公式確認：小型・中型犬は客室、大型犬はコテージのみ。宿泊料は小型・中型1頭2,220円、大型1頭3,300円、4頭目以降無料。ケージに入る頭数、室内飼育・しつけ・留守番等の条件あり。接種証明（1年以内）持参が必要で、狂犬病未接種犬はドッグラン利用不可。料金・条件は予約前に公式で再確認。'],
  ['レジーナリゾート由布院 くぬぎの杜','yufu','https://www.regina-resorts.com/yufuin/','圍とは別施設として整理'],
  ['レジーナリゾート由布院 圍-Kakoi-','yufu','https://www.regina-resorts.com/yufuin/','くぬぎの杜とは別施設として整理'],
- ['グランヴェルデリゾート','beppu','https://www.grandverderesort.com/','グランピング・キャンプで条件が異なるため要確認'],
+ ['グランヴェルデリゾート','beppu','https://www.grandverderesort.com/img/glamping/dogbreed.pdf','公式犬種一覧あり。中型・大型犬は宿泊不可。掲載外の小型犬は体長45cm未満・体重10kg未満を目安に事前問い合わせが必要。グランピング／キャンプで条件が異なるため予約前に確認。'],
  ['べっぷ好楽','beppu','https://koraku.net/pet/','ペット対応客室を指定して確認'],
  ['癒しの宿 鷹勝','yufu','https://yado-takasho.jp/room/takamori/','ペット対応の離れを確認。本館と区別'],
  ['榎屋旅館','yufu','https://www.yufuin-enokiya.jp/pet/','ペット利用規約・客室条件を確認'],
@@ -33,15 +33,26 @@ const rows = [
  ['TERRA湯布院','yufu','https://www.terra-yufuin.com/faq.html','ガーデン客室のペット条件を確認'],
  ['SAKURA別邸','kokonoe','https://sakurabettei.jp/','ペット対応ヴィラを指定して確認'],
  ['梅園の里','kunisaki','https://baien-no-sato.ks-rondo.net/index.html','ペット対応ロッジを確認'],
- ['由布院グランピング 天の庭','yufu','https://tennoniwa.jp/free/faq','ドッグラン付き客室・マナー用品を確認'],
- ['Rakuten STAY VILLA 由布院温泉','yufu','https://stay.rakuten.co.jp/villa/yufuin-onsen/','ペット対応棟を指定。一般棟と区別'],
- ['DOG & ONSEN HOTEL HONJIN','hita','https://hongin.jp/','宿泊規約・料金を確認'],
- ['ウェナヴィレッジくじゅう','kokonoe','https://www.oita-kuju-glamping.com/pet/','ペット対応コテージを指定して確認'],
- ['くにさき 森と海のドッグリゾート','kunisaki','https://kunisaki-dogresort.com/dogs/index.html','頭数制限・持参書類を確認'],
+ ['由布院グランピング 天の庭','yufu','https://tennoniwa.jp/free/faq','公式確認：犬同伴は専用ドッグラン付き客室1棟のみ。他の客室は同伴不可。屋内ではマナーウェア着用、移動時はリード必須。ワクチン証明は不要。粗相時の特殊清掃費など最新条件を予約前に確認。公式住所は由布市湯布院町川上186-1。'],
+ ['Rakuten STAY VILLA 由布院温泉','yufu','https://stay.rakuten.co.jp/villa/yufuin-onsen/','公式情報確認：全20室のうちペット同伴可能なのは一部客室。A01・D01〜D04はペットOK、犬は小・中・大型合計2頭まで。予約時に必ず「ペット可」表示の客室を選択。ペット用品・専用ドッグラン付き客室あり。住所は由布市湯布院町川北899-35。'],
+ ['DOG & ONSEN HOTEL HONJIN','hita','https://hongin.jp/','公式確認：犬同伴の宿。小型犬から大型犬まで可、サイズ・頭数制限は公式FAQ上なし。犬の宿泊料金は2026年10月に改定告知があるため現行額を予約ページで確認。公式住所は日田市天瀬町湯山1138。ドッグランはなし。'],
+ ['ウェナヴィレッジくじゅう','kokonoe','https://wenavillage-kuju.com/pet/','公式確認：犬同伴専用棟はドッグスイート・ドッグプレミアム各1棟限定。専用ドッグランは各280㎡・890㎡。大型犬も利用可能。犬同伴棟を指定して予約。住所は九重町田野1685-3。'],
+ ['くにさき 森と海のドッグリゾート','kunisaki','https://kunisaki-dogresort.com/dogs/','公式確認：2026年8月開業。屋外3か所（約500坪・100坪・400坪）と屋内ドッグラン。犬同伴専用宿で1室3頭まで（客室タイプにより制限あり）。狂犬病・5種以上混合ワクチン証明が必要。住所は国東市国東町小原3204-1。'],
  ['シーサイド大沢','kunisaki','https://seaside-oosawa.com/pet.html','大型犬・小動物等は予約前の問い合わせを確認'],
  ['民宿ひろしげ','hita','https://minsyuku-hiroshige.com/pet.html','ペット対応客室・種類別料金を確認'],
- ['筋湯温泉 大黒屋','kokonoe','https://daikokuya-takumi.jp/','掲載保留：公式のペット宿泊条件が未確認'],
- ['SPACE-VESSEL基地','yufu','https://spacevessel.jp/space-vessel.html','ふたご座の小型犬対応条件を確認']
+ ['筋湯温泉 大黒屋','kokonoe','https://daikokuya-takumi.jp/','掲載除外記録：ユーザー提供の予約サイト画面で「ペット不可」と確認。愛犬同伴施設としては表示しない。',true,true],
+ ['SPACE-VESSEL基地','yufu','https://spacevessel.jp/space-vessel.html','ふたご座の小型犬対応条件を確認'],
+ ['うめキャンプ村・そらのほとり','saiki','https://www.natureresort.jp/ume-stay','公式案内確認：ペット可オートサイトとペット可スペシャルサイト（No.33）あり。通常のフリーサイト等と区別し、ペット可区画を予約してください。基本料金に1匹分を含み、合計3匹まで追加可。施設個別の地図位置は未照合のためピンなし。'],
+ ['リバーパーク犬飼','bungo','https://rinukai.com/about/','公式確認：犬同伴可のログハウスは「かますか」「あゆ」のみ。ドッグランサイトは愛犬同伴専用で3サイト運営（掲載時点の案内）。一般サイト・他棟と区別し、公式条件を確認して予約。'],
+ ['るるパーク わんコテージ','kitsuki','https://www.oita-agri-park.or.jp/stay/','公式案内確認：2026年10月31日開始予定の犬同伴コテージ。小型～中型犬2匹まで、犬のみ。狂犬病・混合ワクチン接種証明（1年以内）提示と基本的なしつけが必要。当面電話予約のみ。ペット可はこのコテージに限り、キャンプサイト全体をペット可とは扱いません。園内施設の個別位置は未照合のためピンなし。'],
+ ['ボイボイキャンプ場','taketa','https://boiboicamp.com/terms-of-use/','公式確認：全面フリーのオートキャンプ場。犬はリード着用で同伴可、場内ドッグランあり。ペット施設利用料550円。公式ルール・営業状況を利用前に確認。公式Googleマップ位置を照合済み。'],
+ ['RECAMP別府志高湖','beppu','https://www.recamp.co.jp/recamp%E5%88%A5%E5%BA%9C%E5%BF%97%E9%AB%98%E6%B9%96','大分県・別府市の観光公式情報で通年営業、テントサイト90、ペット同伴可を確認。施設運営会社公式の住所（別府市東山4380-1）とMapFanの施設個別位置を照合。利用ルール・予約条件は予約前に最新情報を確認。'],
+ ['キャンプ＆農園 玖珠の杜','hita','https://kusunomori.com/price/','大分県観光公式ページでペット同伴可を確認。施設公式料金ページではペット料金300円／匹、マナー順守を案内。公式住所（玖珠町大字太田4098-16）と公式Googleマップ埋め込み位置を照合。最新の予約・利用条件を公式で確認。'],
+ ['くじゅう花公園 グランピングパーク花と星','taketa','https://hanatohoshi.com/glamping/','公式確認：ペット同伴は棟数限定のペットプランまたはオートキャンプ。グランピングは小型犬10kgまで、室内はケージ必須、2匹目以降のケージは持参。ペット同伴規約を要確認。公式所在地と公式Googleマップ埋め込み位置を照合。'],
+ ['グランシア別府鉄輪','beppu','https://www.granxia-beppu.com/dogpage/','公式確認：犬同伴可能な専用客室は全5室（対象客室を指定して予約）。公式案内では犬種・頭数制限なし、チェックイン時に狂犬病予防接種証明が必要。他の動物は不可。住所と公式Googleマップ埋め込み位置を照合。'],
+ ['界 由布院','yufu','https://hoshinoresorts.com/ja/hotels/kaiyufuin/','公式確認：愛犬同伴は1日1室限定の専用離れプラン。大型犬は1室2頭まで。ドッグラン付きの愛犬ルームを指定して予約。公式住所は由布市湯布院町川上398。'],
+ ['季の郷 山の湯','kokonoe','https://yamanoyu-k.jp/pet/','公式確認：犬専用フロアと屋上100㎡ドッグランあり。ペット同伴客室は一部・室数限定で要問い合わせ。中型犬まで、1頭3,300円。狂犬病・混合ワクチン接種、トイレ・無駄吠え等の条件あり。公式住所は九重町町田2098-1。施設は一覧に掲載、個別座標は公式埋め込み地図の地点IDと住所を確認中のためピンなし。'],
+ ['ヴィラ・フロレスタ','takada','https://villafloresta.com/room/','公式確認：ペット同宿可能なコテージは5棟。犬は体重35kgまでで大型犬可。予約時にペット同伴を申告し、ペット不可の和室には入れないこと。施設公式の住所は豊後高田市西真玉6337-41。個別座標は公式地図の施設地点を特定できるまでピンなし。']
 ];
-const stays=rows.map(([name,region,url,note],i)=>({id:i+1,name,region,url,note,categories:['stay'],hold:i===0||i===31}));
+const stays=rows.map(([name,region,url,note,hold=false,excluded=false],i)=>({id:i+1,name,region,url,note,categories:['stay'],hold,excluded}));
 window.oitaRegions=oitaRegionData; window.oitaStays=stays;
