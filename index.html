@@ -377,13 +377,17 @@
 </style>
 <style id="migration-and-photo-cards">
 .photo-card{overflow:hidden;padding:0!important}.photo-card img{width:100%;height:100%;display:block;object-fit:cover;object-position:center}
-.migration-banner{box-sizing:border-box;max-width:1180px;margin:14px auto;padding:15px 20px;border:1px solid #e4c57b;border-left:6px solid #d69d35;border-radius:14px;background:#fff8e8;color:#234d43;font-weight:800;line-height:1.6}
-.migration-banner a{display:inline-block;margin-left:8px;color:#176b58;text-decoration:underline;text-underline-offset:3px}
-@media(max-width:640px){.migration-banner{margin:10px 14px;padding:13px 15px}.migration-banner a{margin-left:0}}
+.migration-banner{box-sizing:border-box;max-width:1280px;margin:16px auto;padding:24px 30px;display:flex;align-items:center;justify-content:space-between;gap:24px;border:3px solid #a92721;border-radius:18px;background:#c83d35;color:#fff;font-weight:900;line-height:1.45;box-shadow:0 8px 22px rgba(119,28,23,.28)}
+.migration-copy{display:grid;gap:5px}
+.migration-label{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#ffe3dc}
+.migration-copy strong{font-size:clamp(22px,2.5vw,32px);letter-spacing:.01em}
+.migration-copy span:last-child{font-size:16px;color:#fff4f1}
+.migration-banner a{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:58px;padding:12px 22px;border:2px solid #fff;border-radius:999px;background:#fff;color:#a92721;text-decoration:none;font-size:18px;font-weight:900;box-shadow:0 4px 12px rgba(88,19,16,.2)}
+@media(max-width:640px){.migration-banner{margin:0;padding:20px 18px 22px;display:flex;flex-direction:column;align-items:stretch;gap:14px;border-width:0 0 3px;border-radius:0;box-shadow:0 5px 14px rgba(119,28,23,.2)}.migration-copy{gap:6px}.migration-label{font-size:12px}.migration-copy strong{font-size:22px;line-height:1.4}.migration-copy span:last-child{font-size:15px}.migration-banner a{width:100%;min-height:56px;padding:13px 16px;font-size:18px}}
 </style>
 </head>
 <body>
-  <aside class="migration-banner" role="status">熊本ペットナビは「九州ペットナビ」にリニューアルしました。最新の掲載情報はこちらからご覧ください。 <a href="https://www.kyushu-pet-navi.com/">九州ペットナビを見る →</a></aside>
+  <aside class="migration-banner" role="region" aria-label="サイトリニューアルのお知らせ"><div class="migration-copy"><span class="migration-label">サイトリニューアルのお知らせ</span><strong>熊本ペットナビは「九州ペットナビ」にリニューアルしました！</strong><span>九州全域のペット情報・施設MAPはこちら</span></div><a href="https://www.kyushu-pet-navi.com/">九州ペットナビを見る <span aria-hidden="true">→</span></a></aside>
   <div class="topbar">熊本のペット暮らしを、もっと楽しく、もっと身近に。</div>
   <header>
     <div class="nav">
