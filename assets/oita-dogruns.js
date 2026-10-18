@@ -15,7 +15,20 @@ const dogrunRows = [
  ['ドッグカフェ KURU・SAN','beppu',['food'],'https://www.instagram.com/dogcafe_kuru.san/','画像記載：別府市火売6組3。別府市営ドッグラン近くのカフェ。ドッグラン併設とは扱いません。'],
  ['春夏秋冬','saiki',['run','boarding'],'https://dogrun-harunatsuakihuyu0811.jimdosite.com/','公式確認：佐伯市宇目大平1944番地1。ドッグラン・老犬介護・ペットホテル。予約・利用条件は要確認。'],
  ['わんわん花みち園','unknown',['run'],'https://wanwanhanamichien.studio.site/','掲載除外記録：ユーザー提供のInstagram画面で「閉園」と表示されているため、ドッグラン・施設一覧に表示しない。',true,true],
- ['くじゅう花公園','taketa',['run'],'https://kuju-flower-park.com/faq/','公式FAQでペット同伴入園可を確認。リード必須、排泄物持ち帰り・尿は水で流す、園内ショップ入店不可。ドッグラン併設とは案内せず、園内ルールと季節営業を公式サイトで確認。']
+ ['くじゅう花公園','taketa',['run','food'],'https://kuju-flower-park.com/park-info/','公式施設案内で無料ドッグラン、公式FAQでペット同伴入園可を確認。リード必須、排泄物持ち帰り・尿は水で流す、園内ショップ入店不可。飲食店はテラス席で同伴できる場合あり。営業期間・利用条件は公式サイトで確認。'],
+ ['花とカフェ goodblue','kokonoe',['run','food'],'https://good-blue.com/','九重町田野1672-18。施設公式サイトおよび隣接する「くじゅう野の花の郷」公式ページ、大分県観光公式で犬同伴カフェとドッグラン併設を確認。営業時間・営業日・利用条件は変更の可能性があるため訪問前に公式情報を確認。施設個別の地図位置は未照合のためピンなし。'],
+ ['ペットホテル LUMA','oita',['boarding'],'https://luma-pet.com/','大分市東津留1丁目1-21。施設公式情報で犬・猫の預かり、獣医師・動物看護師による健康確認、専用室での滞在を確認。持病・投薬対応は事前相談。尾石動物病院併設で同一住所の施設位置を照合済み。'],
+ ['ドックカールトン 森町店','oita',['boarding'],'https://www.dockcarlton.jp/','大分市大字森401-1。公式サイトでペットホテル、専用ドッグラン、散歩付きの預かりを確認。所在地は公式住所で確認済み、施設個別の地図地点は未照合のためピンなし。予約・受渡し時間は公式案内を確認。'],
+ ['ドックカールトン 大分中央店','oita',['boarding'],'https://www.dockcarlton.jp/','大分市三芳623-5。公式サイトでペットホテルを案内。所在地は公式住所で確認済み、施設個別の地図地点は未照合のためピンなし。予約・受渡し時間は公式案内を確認。'],
+ ['LOOP ONE（ペットホテル）','usa',['boarding'],'https://www.loopone.jp/grooming_hotel','宇佐市辛島49-2。公式サイトで犬のペットホテルと一時預かり、サイズ別料金、年中無休を確認。所在地は公式住所で確認済み、施設個別の地図地点は未照合のためピンなし。'],
+ ['ブリックWAN（ペットホテル）','oita',['boarding'],'https://brickwan.com/hotel/','大分市野津原890-6。公式サイトで犬・猫のホテル、個室、冷暖房、散歩、サイズ別料金を確認。所在地は公式住所で確認済み、施設個別の地図地点は未照合のためピンなし。'],
+ ['Pet Hotel 1（ペットホテルワン）','beppu',['boarding'],'https://ph-1.jp/hotel/','別府市小倉町62-8。公式発表による住所表記変更（令和7年1月11日）で、旧住所「鶴見1413-6（小倉5組1）」からの表記変更と確認。場所・建物・サービスに変更なし。施設名付き公式Googleマップの位置をピンに使用。'],
+ ['ONE’S COOL（ワンズクール）','beppu',['boarding'],'https://www.onescool.com/doghotel','別府市石垣西5丁目1-35。公式サイトでドッグホテル・一時預かり、完全個室、予約条件を確認。保管業登録（大分県第310054号、有効期限令和13年3月21日）を掲載。施設個別の地図地点は未照合のためピンなし。'],
+ ['ペットホテル ワンラブ ゆめタウン別府店','beppu',['boarding'],'https://www.pet-onelove.com/iphones/hotel/page231.php','別府市楠町382-7 ゆめタウン別府2階。運営会社公式ページで宿泊・買物中の一時預かり、営業時間10:00〜21:00、年中無休を確認。施設個別の地図位置は未照合のためピンなし。'],
+ ['ペットと泊まれる宿 Ugo（宿泊者向け預かり）','beppu',['boarding'],'https://www.ugo.land/dog-hotel','別府市明礬5-2。施設公式案内で宿泊者向けの預かりサービスを確認。宿泊中は無料、チェックイン前後は有料・要事前予約。宿泊者以外の一般預かりとは案内しない。施設個別の地図位置は未照合のためピンなし。']
 ];
-const dogruns=dogrunRows.map(([name,region,categories,url,note,hold=false,excluded=false],i)=>({id:100+i,name,region,categories,url,note,hold,excluded}));
+// Keep IDs stable when rows are reordered or new candidates are inserted; the
+// location overlay is keyed by these IDs.
+const dogrunIds={'別府市ドッグラン':100,'リバーパーク犬飼':101,'森のドッグラン 枝瑠風（エルフ）':102,'森カフェ ワン・LOVE':103,'CAFE HAL（カフェハル）':104,'rionu（リオーヌ）':105,'アニコム ウェルネス ドッグラン':106,'湯布院ドッグラン グリーンフィールド':107,'ドッグラン＆カフェ blue mountain':108,'別府湾サービスエリア':109,'おおがファーム':110,'SORAcafe':111,'ドッグカフェ KURU・SAN':112,'春夏秋冬':113,'わんわん花みち園':114,'くじゅう花公園':115,'花とカフェ goodblue':116,'ペットホテル LUMA':117,'ドックカールトン 森町店':118,'ドックカールトン 大分中央店':119,'LOOP ONE（ペットホテル）':120,'ブリックWAN（ペットホテル）':121,'Pet Hotel 1（ペットホテルワン）':122,'ONE’S COOL（ワンズクール）':123,'ペットホテル ワンラブ ゆめタウン別府店':124,'ペットと泊まれる宿 Ugo（宿泊者向け預かり）':125};
+const dogruns=dogrunRows.map(([name,region,categories,url,note,hold=false,excluded=false],i)=>({id:dogrunIds[name]??1000+i,name,region,categories,url,note,hold,excluded}));
 window.oitaDogruns=dogruns;

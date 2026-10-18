@@ -1,7 +1,103 @@
 // Oita-only location overlay. Facility records and their official links remain
 // the source of truth; coordinates are keyed by stable facility IDs.
-// 'review' locations are visible only as candidates and must be checked before release.
+// Verified map locations are keyed by stable facility IDs; statuses identify the source of each facility-level point.
 window.oitaLocations = {
+  58: {
+    lat: 33.424827,
+    lng: 131.17807,
+    address: '中津市本耶馬渓町西谷1448',
+    locationStatus: 'official-map',
+    locationSource: 'https://nishitanispa.com/アクセス/',
+    locationNote: '施設公式アクセスページの施設名付きGoogleマップ地点を使用し、公式住所と照合。施設全体の位置で、犬同伴可サイトの区画そのものではありません。'
+  },
+  59: {
+    lat: 33.0425770055726,
+    lng: 131.3796534514777,
+    address: '竹田市直入町長湯1790',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://panda-camp.com/nagayu-kirari/',
+    locationNote: '施設名付きGoogleマップ地点を確認し、運営者公式ページ記載の住所と照合。施設全体の位置で、個別キャンプサイトの位置ではありません。'
+  },
+  60: {
+    lat: 33.06664746901458,
+    lng: 131.36894711317095,
+    address: '竹田市直入町大字長湯3101',
+    locationStatus: 'official-map',
+    locationSource: 'https://grandpark-nagayu.jp/access',
+    locationNote: '施設公式アクセスページの施設名付きGoogleマップ埋め込み地点を使用し、同ページ記載住所と照合。キャンプ場全体の位置です。'
+  },
+  57: {
+    lat: 33.05022448884273,
+    lng: 131.9357922260182,
+    address: '佐伯市上浦大字津井',
+    locationStatus: 'official-map',
+    locationSource: 'https://cottage-kamiura.jp/pet/',
+    locationNote: '施設公式のペット案内ページに埋め込まれた施設名付きGoogleマップ地点を使用。佐伯市観光公式の施設所在地と照合。施設全体の位置で、各コテージ・ペット可客室の位置ではありません。'
+  },
+  47: {
+    lat: 33.28917286500215,
+    lng: 131.05268971489156,
+    address: '玖珠郡玖珠町戸畑9619-1',
+    locationStatus: 'official-map',
+    locationSource: 'https://paradiso8.jp/',
+    locationNote: '施設公式アクセス欄のGoogleマップ埋め込みにある施設名付き地点と、公式住所「玖珠郡玖珠町戸畑9619-1」を照合。施設全体の位置で、ペット可のキャンプ区画位置を示すものではありません。'
+  },
+  48: {
+    lat: 33.4933313376,
+    lng: 131.580254316,
+    address: '杵築市大田波多方4448-1',
+    locationStatus: 'official-map',
+    locationSource: 'https://o-sinkou.jimdofree.com/アクセス-駐車場/',
+    locationNote: '横岳自然公園公式アクセスページのGoogleマップ埋め込み地点と管理事務所の公式住所を照合。施設全体の位置で、北側のペット可サイト区画そのものではありません。'
+  },
+  51: {
+    lat: 33.1848699,
+    lng: 130.9038622,
+    address: '日田市前津江町大野64-1',
+    locationStatus: 'official-map',
+    locationSource: 'https://www.snowpeak.co.jp/locations/okuhita/index.html',
+    locationNote: 'スノーピーク公式アクセスページの施設名付きGoogleマップ埋め込み地点と公式住所を照合。'
+  },
+  34: {
+    lat: 32.80382529,
+    lng: 131.61044824,
+    address: '佐伯市宇目大字南田原2513-3',
+    locationStatus: 'mapion-verified',
+    locationSource: 'https://www.mapion.co.jp/phonebook/M04002/44205/ILSP0000119024_ipclm/',
+    locationNote: 'Mapionの施設名付き地図位置（32.80382529, 131.61044824）を使用。施設名・所在地はうめキャンプ村公式および大分県観光公式の住所「佐伯市宇目大字南田原2513-3」と照合。施設全体の位置で、ペット可サイト区画そのものではありません。'
+  },
+  49: {
+    lat: 33.2545787,
+    lng: 131.1501563,
+    address: '玖珠郡玖珠町大隈1794-2',
+    locationStatus: 'yahoo-map-verified',
+    locationSource: 'https://map.yahoo.co.jp/v3/place/C6d5qGO1dxY',
+    locationNote: '施設名付きYahoo!マップの地点を確認し、施設公式の住所「玖珠郡玖珠町大隈1794-2」と照合。キャンプ場全体の位置で、犬同伴可能な柵付き区画の位置ではありません。'
+  },
+  52: {
+    lat: 33.446363,
+    lng: 131.3527367,
+    address: '宇佐市安心院町下毛828-1',
+    locationStatus: 'yahoo-map-verified',
+    locationSource: 'https://map.yahoo.co.jp/v3/place/0ftT7BivqDY',
+    locationNote: '施設名付きYahoo!マップの地点を確認し、施設公式と宇佐市公式の住所「宇佐市安心院町下毛828-1」と照合。施設全体の位置で、犬同伴可能な2棟や各棟の専用ドッグラン位置ではありません。'
+  },
+  54: {
+    lat: 32.8103737,
+    lng: 131.9675797,
+    address: '佐伯市蒲江大字竹野浦河内2156-171',
+    locationStatus: 'yahoo-map-verified',
+    locationSource: 'https://map.yahoo.co.jp/v3/place/MOGBK74VndY',
+    locationNote: '施設名付きYahoo!マップの地点を確認し、佐伯市観光ナビの公式住所「佐伯市蒲江大字竹野浦河内2156-171」と照合。施設全体の位置で、屋外のペット可区画そのものではありません。'
+  },
+  45: {
+    lat: 33.13902108086417,
+    lng: 131.2530159151913,
+    address: '玖珠郡九重町田野1712-440',
+    locationStatus: 'official-map',
+    locationSource: 'https://9base.jp/access/',
+    locationNote: '施設公式アクセスページに埋め込まれた施設名「9.BASE」のGoogleマップ位置を確認。公式住所（玖珠郡九重町田野1712-440）と照合。'
+  },
   115: {
     lat: 33.048254,
     lng: 131.243794,
@@ -186,7 +282,7 @@ window.oitaLocations = {
     locationSource: 'https://nagano-ah.com/',
     locationNote: 'Googleマップで施設名と所在地「日出町3880-7」が一致する地点を確認。'
   },
-  109: {
+  110: {
     lat: 33.356096,
     lng: 131.5961178,
     address: '速見郡日出町大神6025-1',
@@ -234,7 +330,7 @@ window.oitaLocations = {
     locationSource: 'https://tennoniwa.jp/about',
     locationNote: '施設公式店舗情報ページのGoogleマップ指定座標。公式住所「由布市湯布院町川上186-1」と照合。'
   },
-  102: {
+  103: {
     lat: 33.2323795,
     lng: 131.6711571,
     address: '大分市葛木',
@@ -242,7 +338,7 @@ window.oitaLocations = {
     locationSource: 'https://www.google.com/maps/place/森のドッグラン+ワン・LOVE/@33.2323795,131.6711571',
     locationNote: 'Googleマップで施設名「森のドッグラン ワン・LOVE」と所在地「大分市葛木」を照合。'
   },
-  105: {
+  106: {
     lat: 33.17044407112692,
     lng: 131.53863361570697,
     address: '大分市大字廻栖野3231番地47',
@@ -319,7 +415,7 @@ window.oitaLocations = {
     locationSource: 'https://www.regina-resorts.com/yufuin/main/access/',
     locationNote: '公式アクセスページのGoogleマップ表示中心から取得。施設の入口位置との一致は要照合です。'
   },
-  110: {
+  111: {
     lat: 33.5162236,
     lng: 131.3435751,
     address: '宇佐市別府',
@@ -327,13 +423,21 @@ window.oitaLocations = {
     locationSource: 'https://www.google.com/maps/place/SORAcafe/@33.5162236,131.3435751',
     locationNote: 'Googleマップで店名「SORAcafe」と所在地「宇佐市別府」を照合。'
   },
-  111: {
+  112: {
     lat: 33.3128425,
     lng: 131.4707066,
     address: '別府市火売',
     locationStatus: 'google-maps-verified',
     locationSource: 'https://www.google.com/maps/place/DOG+CAFE+KURUSAN/@33.3128425,131.4707066',
     locationNote: 'Googleマップで店名「DOG CAFE KURUSAN」と所在地「別府市火売」を照合。'
+  },
+  117: {
+    lat: 33.2411452,
+    lng: 131.6288368,
+    address: '大分市東津留1丁目1-21',
+    locationStatus: 'google-maps-verified',
+    locationSource: 'https://luma-pet.com/about/',
+    locationNote: 'LUMA公式ABOUTで尾石動物病院併設と公式住所を確認。尾石動物病院の施設個別位置（Googleマップ確認済み）と住所が一致するため、同一敷地のピンを使用。'
   },
   201: {
     lat: 33.0462192,
@@ -663,5 +767,29 @@ window.oitaLocations = {
     locationStatus: 'google-maps-verified',
     locationSource: 'https://www.google.com/maps/place/Charlie%27s+Lanai%EF%BC%88%E3%83%81%E3%83%A3%E3%83%BC%E3%83%AA%E3%83%BC%E3%82%BA+%E3%83%A9%E3%83%8A%E3%82%A4%EF%BC%89/@33.3167213,131.4550233,17z/',
     locationNote: 'Googleマップで店名「Charlies Lanai」と地域「別府市」を検索。表示住所が公式Instagramの所在地と一致。検索語に番地は使用していません。'
+  },
+  122: {
+    lat: 33.31078950312905,
+    lng: 131.45826514463673,
+    address: '別府市小倉町62-8',
+    locationStatus: 'official-map',
+    locationSource: 'https://ph-1.jp/archive/1368.html',
+    locationNote: 'Pet Hotel 1公式の住所表記変更告知に掲載された施設名付きGoogleマップ位置を使用。令和7年1月11日から新住所「別府市小倉町62-8」に変更し、場所・建物は変更なしと公式発表。旧住所は「鶴見1413-6（小倉5組1）」。'
+  },
+  53: {
+    lat: 33.3514569089,
+    lng: 131.282240391,
+    address: '宇佐市院内町羽馬礼15',
+    locationStatus: 'official-map',
+    locationSource: 'https://yokalowparkcampsite.jimdofree.com/よかろうパークまでの道のり/',
+    locationNote: '施設公式アクセスページに埋め込まれたGoogleマップの施設位置（地図リンク座標）と公式住所を照合。ペット同伴可のサイト範囲は別途公式案内で確認。'
+  },
+  55: {
+    lat: 33.3541837,
+    lng: 131.4117005,
+    address: '宇佐市安心院町南畑2-1755-1',
+    locationStatus: 'official-map',
+    locationSource: 'https://africansafari.co.jp/access/',
+    locationNote: '施設公式アクセスページに埋め込まれた施設名付きGoogleマップ位置と公式住所を照合。キャンプ場は動物公園内の区画で、動物公園全域と同一の利用範囲ではありません。'
   }
 };

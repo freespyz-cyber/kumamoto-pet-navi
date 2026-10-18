@@ -95,4 +95,10 @@
       button.textContent = initialLabel;
     });
   });
+  const page = typeof location === 'undefined' || !location.pathname ? '' : location.pathname.split('/').pop();
+  if (['pet-facility-map.html', 'fukuoka-pet-stay-map.html', 'oita-pet-map.html', 'okinawa-pet-map.html'].includes(page)) {
+    const layout = document.createElement('script');
+    layout.src = 'assets/prefecture-map-ui.js';
+    document.head.appendChild(layout);
+  }
 })();

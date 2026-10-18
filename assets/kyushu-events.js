@@ -9,6 +9,7 @@
     {name:'2026動物愛護フェスティバルふくおか',area:'福岡県福岡市中央区',venue:'県営天神中央公園 西中洲エリア',start:'2026-11-07',end:'2026-11-07',time:'10:45～15:00。ペット同伴条件は公式案内をご確認ください。',url:'https://www.pref.fukuoka.lg.jp/contents/hoeiseipetr9.html'},
     {name:'第6回 OITA DOGGO LAND',area:'大分県大分市',venue:'平和市民公園 催し広場',start:'2026-11-21',end:'2026-11-22',time:'入場無料。開催時間・参加条件は公式案内をご確認ください。',url:'https://oitabuhiland.com/'}
   ];
+  window.kyushuEvents = events;
   const escape = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const formatDate = (value) => {
     const [year, month, day] = value.split('-').map(Number);
